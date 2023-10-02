@@ -1,0 +1,850 @@
+---
+title: " "
+date: '`r format(Sys.Date(),"Última actualización: %B, %d, %Y")`'
+---
+
+
+
+```{css,echo=FALSE}
+
+
+.scroll-200{
+            max-height: 200px; 
+            overflow-y: auto; 
+            background-color: #f1f1f1;
+            }
+```
+
+
+
+```{css,echo=FALSE}
+
+/*----------LOGO above TOC---------*/
+
+#TOC::before {
+  content: "";
+  display: block;
+  height: 100px;
+  margin: 2em 20px 40px 20px;
+  background-image: url("inputs/LOGO_2SN_recortado.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+```
+
+
+
+```{r global-options, include=FALSE}
+knitr::opts_chunk$set(eval=T,echo=F, warning=FALSE, message=FALSE,class.output="scroll-200",fig.align = "center")
+```
+
+
+```{r include=FALSE}
+ paquetes <- c("stringr", "tidyverse", "kableExtra","ggplot2","ggthemes",
+               "patchwork","dplyr","reshape","here","r4ss","zoo","ss3diags")
+ lapply(paquetes, require, character.only = TRUE)
+```
+
+```{r}
+dir.base<-here("Escenarios_SS3","S1")
+# Identificar el directorio donde está el archivo ejecutable y copiarlo
+exe_path <- here("Ejecutables_SS3","3.30.20_release")
+file.copy(paste0(exe_path,"/ss_osx"),dir.base)
+
+```
+
+```{r eval=F}
+#### Ejecutar el modelo ----
+# Entramos en el directorio desde la terminal
+system(paste0("cd ",dir.base,"/"))
+
+# Permitimos que el ordenador pueda abrir el ejecutable (terminal)
+system(paste0("chmod 755 ",dir.base,"/ss_osx"))
+
+#### Ejecutar el modelo SS3 usando la función run_SS_models ----
+#?run_SS_models
+
+r4ss::run(dir=dir.base, exe="ss_osx", skipfinished=FALSE)
+```
+
+
+
+```{r}
+## Leer las salidas
+# Leemos la salida del modelo SS3  con la función `SS_output()`
+
+replist <- SS_output(dir=dir.base,verbose=TRUE,printstats=TRUE)
+
+```
+
+# Análisis de residuos {.tabset .tabset-fade }
+
+7. Diagnóstico residual con función `SSplotRuntest()`
+
+Grafica los residuos y límites 3xsigma para índices, tallas y edades y genera una tabla de prueba de diagnóstico.
+
+Estas Figuras corresponden a un test de ajustes de los índices y composiciones de tallas. 
+
+El sombreado verde indica que no hay evidencia (p = 0,05) y el sombreado rojo evidencia (p < 0,05) para rechazar la hipótesis de una serie temporal de residuos distribuida aleatoriamente, respectivamente.
+
+El área sombreada (verde/roja) abarca tres desviaciones estándar residuales a ambos lados de cero.
+
+Los puntos rojos fuera del sombreado violan el “límite de tres sigma” para esa serie.
+
+
+
+`subplots`='cpue' opcional para datos de índice,
+          'len' para datos de composición por tallas,
+          'size' para datos de composición por tallas  generalizados,
+          'age' para datos de composición por edades o
+          'con' para datos condicionales de edad por tallas
+          
+          
+          
+## Residuos de índices
+  
+```{r}
+plotdir=paste0(dir.base, "/plots_residuos")
+dir.create(path=plotdir, showWarnings = TRUE, recursive = TRUE)
+
+r4ss::sspar(mfrow = c(1,3))
+SSplotRunstest(replist, 
+               subplots = "cpue", 
+               add = TRUE,
+               legendcex = 0.8, 
+               verbose = F,
+               plotdir = plotdir)
+
+```
+
+
+
+
+## Residuos de tallas
+
+```{r}
+r4ss::sspar(mfrow = c(1,2))
+SSplotRunstest(replist, 
+               subplots = "len", 
+               add = TRUE,
+               legendcex = 0.8, 
+               verbose = F,
+               plotdir = plotdir)
+```
+
+ 8. Función para Tabla de diagnóstico `SSrunstest()`
+
+Tenga en cuenta que si no desea plotear los residuos, utilice la función `ss3diags::SSrunstest()`.
+
+```{r}
+test_indices<-SSrunstest(replist,quants = "cpue",verbose=F)
+test_len<-SSrunstest(replist,quants = "len",verbose=F)
+#test_age<-SSrunstest(replist,quants = "age",verbose=F)
+
+rbind(test_indices,test_len)
+
+```
+
+ 9. Boxplot residuales con loess `SSplotJABBAres()`
+
+Ejecuta el gráfico de prueba y el gráfico de residuos conjuntos para ajustes a los índices, donde las líneas verticales con puntos muestran los residuos y las líneas negras sólidas muestran loess más suave en todos los residuos. 
+
+Los boxplot indican la mediana y cuantiles en los casos en que los residuos de los índices múltiples estén disponibles para un año determinado.
+
+Los errores cuadráticos medios (RMSE) se incluyen en la esquina superior derecha de cada gráfico.
+
+Esta función genera plots de residuales para todos los índices como boxplot (codificado por colores por flota) con un loess que muestra  tendencias sistemáticas a lo largo del tiempo. 
+ 
+Esta función es del paquete JABBA.
+
+## Boxplot residuos índices 
+```{r}
+SSplotJABBAres(replist, 
+               subplots = "cpue", 
+               add = TRUE,
+               legendcex = 0.8,  
+               verbose = F,
+               plotdir = plotdir)
+```
+
+
+## Boxplot residuos tallas
+```{r}
+SSplotJABBAres(replist, 
+               subplots = "len", 
+               add = TRUE, 
+               verbose = F,
+               legendcex = 0.8,
+               plotdir = plotdir)
+```
+
+
+## Boxplot residuos edad
+```{r eval=F}
+SSplotJABBAres(replist, 
+               subplots = "age", 
+               add = TRUE, 
+               verbose = F,
+               legendcex = 0.8,
+               plotdir = plotdir)
+```
+
+
+# Perfil de verosimilitud {.tabset .tabset-fade }
+
+```{r}
+library(here)
+library(r4ss)
+library(ss3diags)
+library(doParallel) # facilita la ejecución paralela en R
+detectCores()
+registerDoParallel(8)
+
+```
+
+```{r}
+#'*Directorio base*
+
+dir.base<-here("Escenarios_SS3","S1")
+```
+
+```{r}
+#'*Crear un nuevo directorio para el `Perfil_Verosimilitud`*
+
+dirname.R0.profile <- here("Perfil_Verosimilitud")
+dir.create(path=dirname.R0.profile, showWarnings = TRUE, recursive = TRUE)
+```
+
+```{r}
+#'*Crear un subdirectorio llamado `plots_Verosimilitud`*
+
+plotdir=paste0(dirname.R0.profile, "/plots_Verosimilitud_S1")
+dir.create(path=plotdir, showWarnings = TRUE, recursive = TRUE)
+```
+
+```{r}
+#'*Crear un subdirectorio llamado `S1`*
+
+reference.dir <- paste0(dirname.R0.profile,'/S1') 
+dir.create(path=reference.dir, showWarnings = TRUE, recursive = TRUE)
+```
+
+```{r}
+#'*Copiar el resultado del modelo base completo en este directorio*
+
+file.copy(Sys.glob(paste(dir.base, "*.*", sep="/"),
+                   dirmark = FALSE),
+                    reference.dir)
+```
+
+# Ejecutar SS3
+```{r eval=FALSE}
+
+# Identificar el directorio donde está el archivo ejecutable y copiarlo
+exe_path <- here("Ejecutables_SS3","3.30.20_release")
+file.copy(paste0(exe_path,"/ss_osx"),reference.dir)
+#### Ejecutar el modelo ----
+# Entramos en el directorio desde la terminal
+system(paste0("cd ",reference.dir,"/"))
+# Permitimos que el ordenador pueda abrir el ejecutable (terminal)
+system(paste0("chmod 755 ",reference.dir,"/ss_osx"))
+
+r4ss::run(dir=reference.dir, exe="ss_osx", skipfinished=FALSE)
+```
+
+
+```{r}
+#'* 6. Leer la salida del modelo base `SS_output()`*
+
+Base <- SS_output(dir=reference.dir)
+
+```
+
+
+
+```{r}
+#'* 7. Copiar los archivos necesarios de `S1` al directorio `Perfil_Verosimilitud` con la función `copy_SS_inputs()` *
+# 
+# copy_SS_inputs(dir.old = reference.dir, 
+#                dir.new =  dirname.R0.profile,
+#                copy_exe = TRUE,
+#                verbose = FALSE)
+
+```
+
+
+
+```{r}
+#'* 8. Leer los archivos del modelo `SS_read()` *
+
+inputs <- r4ss::SS_read(dir = reference.dir,ss_new = FALSE, verbose = FALSE)
+
+```
+
+
+```{r}
+#'* 9. Editar el archivo `control.ss` la fase de estimación recdev *
+
+inputs$ctl$recdev_phase <- 1
+
+```
+
+
+
+```{r}
+#'* 10. Editar el archivo starter para leer los valores de inicio *
+
+inputs$start$init_values_src <- 0
+
+```
+
+
+```{r}
+#'* 11. Vector de valores para el perfil *
+R0.vec <- seq(7,9,0.2)  
+Nprof.R0 <- length(R0.vec)
+```
+
+
+
+```{r}
+#'* 12. Cambiar el nombre del archivo control en el archivo `starter.ss`*
+inputs$start$ctlfile <- "control_modified.ss" 
+```
+
+
+```{r}
+#'*13. Incluir prior_like para parámetros no estimados *
+inputs$start$prior_like <- 1                                 
+```
+
+```{r}
+#'* 14. Escribir los modelos modificados `SS_write()`*
+r4ss::SS_write(inputs, dir = reference.dir, overwrite = TRUE)
+```
+
+
+```{r eval=F}
+#'* 15. Ejecutar la función `SS_profile()` *
+#?SS_profile()
+# profile <- profile(dir=reference.dir, # directory
+#                       model="ss_osx",#"ss_win",
+#                       masterctlfile="control.ss",
+#                       newctlfile="control_modified.ss",
+#                       string="SR_LN(R0)",
+#                       profilevec=R0.vec)
+
+profile <- profile(
+  dir = reference.dir,
+  oldctlfile = "control.ss",
+  newctlfile = "control_modified.ss",
+  string = "SR_LN(R0)", # subset of parameter label
+  profilevec = R0.vec,
+  exe = "ss_osx"
+)
+```
+
+
+
+```{r}
+#'* 16. Leer los archivos de salida `SSgetoutput()` *
+#'*(con nombres como Report1.sso, Report2.sso, etc.)*
+
+prof.R0.models <- SSgetoutput(dirvec=reference.dir, 
+                              keyvec=1:Nprof.R0, 
+                              getcovar = FALSE) 
+```
+
+
+```{r}
+#'*17. Resumir las salidas con la función `SSsummarize()`*  
+
+prof.R0.summary <- SSsummarize(prof.R0.models)
+
+```
+
+
+
+```{r}
+#'* 18. Identificar los componentes de Verosimilitud *
+
+mainlike_components         <- c('TOTAL',"Survey", 'Length_comp',"Age_comp",'Size_at_age','Recruitment') 
+mainlike_components_labels  <- c('Total likelihood','Index likelihood','Length likelihood',"Age likelihood",'Size_at_age likelihood','Recruitment likelihood') 
+```
+
+
+
+```{r}
+#'* 19. Funciones para generar plots de perfil de verosimilitud*
+
+#'*`SSplotProfile()`*
+#png(file.path(plotdir,"R0_profile_plot.png"),width=7,height=4.5,res=300,units='in')
+par(mar=c(5,4,1,1))
+
+SSplotProfile(prof.R0.summary,           # summary object
+              profile.string = "R0",     # substring of profile parameter
+              profile.label=expression(log(italic(R)[0])), ymax=150,minfraction = 0.001,
+              pheight=4.5, 
+              print=FALSE, 
+              plotdir=plotdir, 
+              components = mainlike_components, 
+              component.labels = mainlike_components_labels,
+              add_cutoff = TRUE,
+              cutoff_prob = 0.95)
+
+Baseval <- round(Base$parameters$Value[grep("R0",Base$parameters$Label)],2)
+Baselab <- paste(Baseval,sep="")
+axis(1,at=Baseval,label=Baselab)
+abline(v = Baseval, lty=2)
+#dev.off()
+
+```
+
+```{r eval=F}
+#'* Comparación de series de tiempo `SSplotComparisons()` *
+labs <- paste("SR_Ln(R0) = ",R0.vec)
+labs[which(round(R0.vec,2)==Baseval)] <- paste("SR_Ln(R0) = ",Baseval,"(Base model)")
+
+SSplotComparisons(prof.R0.summary,
+                  legendlabels=labs,
+                  pheight=4.5,png=TRUE,
+                  plotdir=plotdir,
+                  legendloc='bottomleft')
+
+```
+
+
+```{r}
+#'* R0_profile_plot_Length_like `PinerPlot()`* 
+#png(file.path(plotdir,"R0_profile_plot_Length_like.png"),width=7,height=4.5,res=300,units='in')
+par(mar=c(5,4,1,1))
+PinerPlot(prof.R0.summary, 
+          profile.string = "R0", 
+          component = "Length_like",
+          main = "Changes in length-composition likelihoods by fleet",
+          add_cutoff = TRUE,
+          cutoff_prob = 0.95)
+Baseval <- round(Base$parameters$Value[grep("SR_LN",Base$parameters$Label)],2)
+Baselab <- paste(Baseval,sep="")
+axis(1,at=Baseval,label=Baselab)
+abline(v = Baseval, lty=2)
+#dev.off()
+```
+
+
+```{r}
+#'* R0_profile_plot_Survey_like*
+#png(file.path(plotdir,"R0_profile_plot_Survey_like.png"),width=7,height=4.5,res=300,units='in')
+par(mar=c(5,4,1,1))
+PinerPlot(prof.R0.summary, profile.string = "R0", component = "Surv_like",main = "Changes in Index likelihoods by fleet",
+          add_cutoff = TRUE,
+          cutoff_prob = 0.95, legendloc="topleft")
+Baseval <- round(Base$parameters$Value[grep("SR_LN",Base$parameters$Label)],2)
+Baselab <- paste(Baseval,sep="")
+axis(1,at=Baseval,label=Baselab)
+abline(v = Baseval, lty=2)
+#dev.off()
+```
+
+# Retrospectivo {.tabset .tabset-fade }
+
+
+
+```{r}
+#'*Directorio base*
+
+dir.base<-here("Escenarios_SS3","S1")
+
+```
+
+```{r}
+#'*Crear un nuevo directorio para el `Restrospectivo`*
+
+dirname.R0.profile <- here("Retrospectivo")
+dir.create(path=dirname.R0.profile, showWarnings = TRUE, recursive = TRUE)
+```
+
+```{r}
+#'*Crear un subdirectorio llamado `plots_Retrospectivo`*
+
+plotdir=paste0(dirname.R0.profile, "/plots_Retrospectivo_S1")
+dir.create(path=plotdir, showWarnings = TRUE, recursive = TRUE)
+```
+
+```{r}
+#'*Crear un subdirectorio llamado `S1`*
+
+reference.dir <- paste0(dirname.R0.profile,'/S1') 
+dir.create(path=reference.dir, showWarnings = TRUE, recursive = TRUE)
+```
+
+```{r}
+#'*Copiar el resultado del modelo base completo en este directorio*
+
+file.copy(Sys.glob(paste(dir.base, "*.*", sep="/"),
+                   dirmark = FALSE),
+                    reference.dir)
+```
+
+# Ejecutar SS3
+```{r eval=FALSE}
+
+# Identificar el directorio donde está el archivo ejecutable y copiarlo
+exe_path <- here("Ejecutables_SS3","3.30.20_release")
+file.copy(paste0(exe_path,"/ss_osx"),reference.dir)
+#### Ejecutar el modelo ----
+# Entramos en el directorio desde la terminal
+system(paste0("cd ",reference.dir,"/"))
+# Permitimos que el ordenador pueda abrir el ejecutable (terminal)
+system(paste0("chmod 755 ",reference.dir,"/ss_osx"))
+
+r4ss::run(dir=reference.dir, exe="ss_osx", skipfinished=FALSE)
+```
+
+
+
+```{r}
+#'* 6. Leer la salida del modelo base `SS_output()`*
+
+Base <- SS_output(dir=reference.dir)
+
+```
+
+
+
+```{r}
+#'* 7. Copiar los archivos necesarios de `S1` al directorio `Perfil_Verosimilitud` con la función `copy_SS_inputs()` *
+# 
+# copy_SS_inputs(dir.old = reference.dir, 
+#                dir.new =  dirname.R0.profile,
+#                copy_exe = TRUE,
+#                verbose = FALSE)
+
+```
+
+```{r}
+#'* 8. Leer los archivos del modelo `SS_read()` *
+
+inputs <- r4ss::SS_read(dir = reference.dir,ss_new = FALSE, verbose = FALSE)
+
+```                    
+                    
+
+```{r}
+#'* 9. Editar el archivo starter para que muestre una línea de visualización por cada iteración *
+inputs$start$run_display_detail <- 1
+```
+
+```{r}
+#'*10. Escribir los modelos modificados *
+r4ss::SS_write(inputs, dir = reference.dir, overwrite = TRUE)
+```
+
+```{r}
+#'* 11. Identificar el período retrospectivo *
+start.retro <- 0    # último año del modelo
+end.retro   <- 5    # número de años para el retrospectivo 
+```
+
+
+```{r eval=F}
+#'*12. Ejecutar la función `SS_doRetro()` *
+#?SS_doRetro()
+retro(dir=reference.dir,
+      exe = "ss_osx",
+      years=start.retro:-end.retro)
+```
+
+```{r}
+#'*13. Leer los archivos de salida `SSgetoutput()`* 
+retroModels<-SSgetoutput(dirvec=file.path(dirname.Retrospective, "Retrospectives", paste("retro",start.retro:-end.retro,sep="")))
+```
+
+## Resumen
+
+```{r}
+#'* 14. Resumir las salidas con la función `SSsummarize()`*  
+retroSummary <- SSsummarize(retroModels)
+```
+
+## Figura 1
+
+```{r}
+#'* 15. Funciones para generar plots de Retrospectivo `SSplotRetro()`*
+
+## forecast =FALSE 
+#png(file.path(plotdir,"Retrospectivo.png"),width=7,height=4.5,res=300,units='in')
+sspar(mfrow=c(1,2),plot.cex=0.8)
+rb = SSplotRetro(retroSummary,
+                 add=T,
+                 forecast = F,
+                 legend = F,
+                 verbose=F)
+
+rf = SSplotRetro(retroSummary,
+                 add=T,
+                 subplots="F", 
+                 ylim=c(0,0.4),
+                 forecast = F,
+                 legendloc="topleft",
+                 legendcex = 0.8,
+                 verbose=F)
+#dev.off()
+```
+
+## Figura 2
+
+```{r}
+#'*forecast=TRUE *
+#png(file.path(plotdir,"Retrospectivo2.png"),width=7,height=4.5,res=300,units='in')
+sspar(mfrow = c(2, 1), plot.cex = 0.8)
+
+SSplotRetro(retroSummary, 
+            add = T, 
+            forecast = T, 
+            legend = F, 
+            verbose = F, 
+            xmin = 1970)
+
+SSplotRetro(retroSummary, 
+            add = T, 
+            subplots = "F", 
+            ylim = c(0, 0.5), 
+            forecast = T,
+            legendloc = "topleft", 
+            legendcex = 0.8, 
+            verbose = F, 
+            xmin = 1970)
+
+#dev.off()
+```
+
+
+## Tabla de Rho
+```{r}
+#'*16. Función para Tabla de Rho `SShcbias()` *
+SShcbias(retroSummary,quant="SSB",verbose=F)
+
+SShcbias(retroSummary,quant="F",verbose=F)
+
+```
+
+
+# Hindcast  {.tabset .tabset-fade }
+
+
+
+```{r}
+# 1. Identificar el directorio donde se encuentra el modelo base 
+dirname.model.run <- here("modelos_SS3","simple")
+```
+
+
+```{r}
+# 2. Crear un nuevo directorio para el `Hindcast`  
+dirname.Hindcast <- here("Ejercicios","7.Hindcast") 
+dir.create(path=dirname.Hindcast, showWarnings = TRUE, recursive = TRUE)
+```
+
+
+```{r}
+# 3. Crear un subdirectorio llamado `plots_Hindcast`
+plotdir=paste0(dirname.Hindcast,"/plots_Hindcast")
+dir.create(path=plotdir, showWarnings = TRUE, recursive = TRUE)
+```
+
+
+```{r}
+# 4. Crear un subdirectorio llamado `simple`
+reference.dir <- paste0(dirname.Hindcast,'/simple') 
+dir.create(path=reference.dir, showWarnings = TRUE, recursive = TRUE)
+
+```
+
+
+```{r}
+# 5. Copiar el resultado del modelo base completo en este directorio 
+file.copy(Sys.glob(paste(dirname.model.run, "*.*", sep="/"),
+                   dirmark = FALSE),
+          reference.dir)
+```
+
+
+```{r}
+# Ejecutar SS3
+
+r4ss::run_SS_models(dirvec = reference.dir, 
+                    model = "ss_win.exe" ,
+                    skipfinished = FALSE)
+```
+
+
+
+```{r}
+# 6. Leer la salida del modelo base 
+Base <- SS_output(dir=reference.dir,covar=T)
+```
+
+
+
+```{r}
+# 7. Copiar los archivos necesarios de "simple" al directorio `Hindcast`
+copy_SS_inputs(dir.old = reference.dir, 
+               dir.new =  dirname.Hindcast,
+               copy_exe = TRUE,
+               verbose = FALSE)
+```
+
+
+
+```{r}
+# 8. Leer los archivos del modelo 
+inputs <- r4ss::SS_read(dir = dirname.Hindcast)
+```
+
+
+ 
+```{r}
+# 9. Editar el archivo starter para que muestre una línea de visualización por cada iteración
+inputs$start$run_display_detail <- 1
+```
+
+
+
+
+```{r}
+# 10. Escribir los modelos modificados 
+r4ss::SS_write(inputs, dir = dirname.Hindcast, overwrite = TRUE)
+```
+
+
+
+```{r}
+# 11. Identificar el período Hindcast 
+start.retro <- 0    # último año del modelo
+end.retro   <- 5    # número de años para el Hindcast 
+```
+
+
+
+
+```{r eval=T}
+# 12. Ejecutar la función `SS_doRetro()` 
+#?SS_doRetro()
+SS_doRetro(masterdir=dirname.Hindcast,
+           oldsubdir="", 
+           newsubdir="Hindcast",
+           years=start.retro:-end.retro)
+```
+
+
+```{r}
+# 13. Leer los archivos de salida `SSgetoutput()` 
+retroModels<-SSgetoutput(dirvec=file.path(dirname.Hindcast, "Hindcast", paste("retro",start.retro:-end.retro,sep="")))
+```
+
+
+```{r}
+# 14. Resumir las salidas con la función `SSsummarize()`  
+retroSummary <- SSsummarize(retroModels)
+```
+
+
+
+
+## Hindcast Índices
+```{r}
+# 15. Funciones para generar plots de Hindcast `SSplotHCxval()`
+#png(file.path(plotdir,"Hindcast_ind.png"),width=9,height=4.5,res=300,units='in')
+sspar(mfrow = c(1, 2), plot.cex = 0.8)
+hci = SSplotHCxval(retroSummary, add = T, verbose = F, ylimAdj = 1.3, legendcex = 0.7)
+#dev.off()
+```
+
+
+
+## Hindcast Composiciones de tallas
+
+```{r}
+retroC.len = SSretroComps(retroModels)
+```
+
+```{r}
+#png(file.path(plotdir,"Hindcast_len.png"),width=9,height=4.5,res=300,units='in')
+sspar(mfrow = c(1, 2), plot.cex = 0.8)
+hcl = SSplotHCxval(retroC.len, 
+                   subplots = "len", 
+                   add = T, 
+                   verbose = F, 
+                   ylimAdj = 1.3,
+                   legendcex = 0.7, 
+                   indexselect = c(1, 2))
+#dev.off()
+```
+
+
+```{r}
+#png(file.path(plotdir,"Hindcast_age.png"),width=9,height=4.5,res=300,units='in')
+sspar(mfrow = c(1, 2), plot.cex = 0.8)
+hcl = SSplotHCxval(retroC.age, 
+                   subplots = "age", 
+                   add = T, 
+                   verbose = F, 
+                   ylimAdj = 1.3,
+                   legendcex = 0.7, 
+                   indexselect = c(1, 2))
+#dev.off()
+```
+
+
+## MASE
+
+```{r}
+# 16. Función para Tabla de MASE `SSmase()` 
+MAE.base.adj = 0.1
+mase1 = SSmase(retroC.len, 
+               quant = "len", 
+               MAE.base.adj = 0.1, 
+               indexselect = c(1:2))
+```
+
+
+
+```{r}
+MAE.base.adj = 0.15
+SSmase(retroC.len, 
+       quant = "len", 
+       MAE.base.adj = 0.15, 
+       indexselect = c(1:2))
+```
+
+
+```{r}
+mase1$MAE.PR/mase1$MAE.base
+
+mase1$MASE
+
+mase1$MAE.PR/pmax(mase1$MAE.base, 0.1)
+
+mase1$MASE.adj
+
+```
+
+```{r}
+SSmase(retroC.age, 
+       quants = "age")
+```
+
+
+
+
+Una puntuación MASE > 1 indica que los pronósticos promedio del modelo son peores que una caminata aleatoria. 
+
+Por el contrario, una puntuación MASE de 0,5 indica que el  modelo tiene habilidad de predicción.
+
+
+
+
+

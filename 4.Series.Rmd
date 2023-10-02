@@ -1,0 +1,220 @@
+---
+title: "Visualización de Resultados"
+date: '`r format(Sys.Date(),"Última actualización: %B, %d, %Y")`'
+---
+
+
+
+```{css,echo=FALSE}
+
+
+.scroll-200{
+            max-height: 200px; 
+            overflow-y: auto; 
+            background-color: #f1f1f1;
+            }
+```
+
+
+
+```{css,echo=FALSE}
+
+/*----------LOGO above TOC---------*/
+
+#TOC::before {
+  content: "";
+  display: block;
+  height: 100px;
+  margin: 2em 20px 40px 20px;
+  background-image: url("LOGO_2SN_recortado.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+```
+
+
+
+```{r global-options, include=FALSE}
+knitr::opts_chunk$set(eval=T,echo=T, warning=FALSE, message=FALSE,class.output="scroll-200",fig.align = "center")
+```
+
+
+```{r}
+ paquetes <- c("stringr", "tidyverse", "kableExtra","ggplot2","ggthemes",
+               "patchwork","dplyr","reshape","here","r4ss","zoo")
+ lapply(paquetes, require, character.only = TRUE)
+```
+
+```{r}
+#install.packages('r4ss')
+library(r4ss)
+dir.base<-here("Escenarios_SS3","S1")
+# Identificar el directorio donde está el archivo ejecutable y copiarlo
+exe_path <- here("Ejecutables_SS3","3.30.20_release")
+file.copy(paste0(exe_path,"/ss_osx"),dir.base)
+
+```
+
+```{r eval=F}
+#### Ejecutar el modelo ----
+# Entramos en el directorio desde la terminal
+system(paste0("cd ",dir.base,"/"))
+
+# Permitimos que el ordenador pueda abrir el ejecutable (terminal)
+system(paste0("chmod 755 ",dir.base,"/ss_osx"))
+
+#### Ejecutar el modelo SS3 usando la función run_SS_models ----
+#?run_SS_models
+
+r4ss::run(dir=dir.base, exe="ss_osx", skipfinished=FALSE)
+```
+
+
+## Leer las salidas
+
+Leemos la salida del modelo SS3  con la función `SS_output()`
+```{r}
+replist <- SS_output(dir=dir.base,verbose=TRUE,printstats=TRUE)
+
+```
+
+
+
+## Visualización 
+
+Generamos los Plots y html con la función `SS_plots()`
+
+```{r eval=F}
+#?SS_plots
+SS_plots(replist)
+
+```
+
+
+
+También podemos Crear plots individuales de interés, por ejemplo ...
+
+
+```{r eval=F}
+SSplotData(replist, subplot = 1)
+```
+
+
+
+Biología
+```{r}
+sspar(mfrow = c(3, 2), plot.cex = 0.7)
+SSplotBiology(replist, subplot = c(1,5,6,10,11))
+```
+
+
+```{r}
+#sspar(mfrow = c(4, 2), plot.cex = 0.5)
+#SSplotAgeMatrix(replist)
+```
+
+
+
+ Selectividad
+```{r}
+SSplotSelex(replist,subplot =1)
+SSplotSelex(replist,subplot =2)
+```
+
+
+ Series de tiempo
+```{r}
+#?SSplotTimeseries
+sspar(mfrow = c(4, 2), plot.cex = 0.6)
+SSplotTimeseries(replist,subplot =1)
+SSplotTimeseries(replist,subplot =3)
+SSplotTimeseries(replist,subplot =4)
+SSplotTimeseries(replist,subplot =6)
+SSplotTimeseries(replist,subplot =7)
+SSplotTimeseries(replist,subplot =9)
+SSplotTimeseries(replist,subplot =10)
+SSplotTimeseries(replist,subplot =11)
+```
+
+
+ Relación stock-recluta
+```{r}
+sspar(mfrow = c(1, 2), plot.cex = 0.8)
+SSplotSpawnrecruit(replist,subplot =2:3,legend = T)
+```
+
+
+
+```{r eval=F}
+sspar(mfrow = c(2, 2), plot.cex = 0.6)
+SSplotYield(replist)
+```
+
+ Capturas
+```{r}
+SSplotCatch(replist, subplots =c(2,9, 10))
+```
+
+
+
+ Índices
+```{r}
+sspar(mfrow = c(2, 2), plot.cex = 0.6)
+SSplotIndices(replist, subplots = c(9,2,7))
+```
+
+
+ Ajustes y residuos
+```{r}
+
+SSplotComps(replist, subplots = c(21,24))
+```
+
+ Composición de tallas
+```{r}
+SSplotComps(replist, subplots = c(1:1))
+```
+
+ Mortalidad por pesca
+```{r}
+SSplotSummaryF(replist)
+```
+
+ Proporción sexual
+```{r eval=F}
+SSplotSexRatio(replist)
+```
+
+ Curva SRP
+```{r eval=F}
+sspar(mfrow = c(2, 2), plot.cex = 0.6)
+SSplotSPR(replist)
+```
+
+
+ Desvíos de reclutamiento
+```{r}
+SSplotRecdevs(replist)
+```
+
+Parámetros estimados
+```{r eval=F}
+SSplotPars(replist)
+
+SSplotNumbers(replist)
+
+# sspar(mfrow = c(2, 1), plot.cex = 0.6)
+# SSplotCohortCatch(replist)
+
+sspar(mfrow = c(3, 2), plot.cex = 0.6)
+SSplotIndices(replist)
+
+sspar(mfrow = c(1, 1), plot.cex = 0.6)
+SSplotDynamicB0(replist)
+```
+
+
+
+
