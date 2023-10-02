@@ -473,12 +473,35 @@ div.tocify {
 </div>
 
 
+<style type="text/css">
+
+
+.scroll-200{
+            max-height: 300px; 
+            overflow-y: auto; 
+            background-color: #f1f1f1;
+            }
+</style>
+<style type="text/css">
+
+/*----------LOGO above TOC---------*/
+
+#TOC::before {
+  content: "";
+  display: block;
+  height: 300px;
+  margin: 2em 10px 40px 10px;
+  background-image: url("LOGO_MATH_T.svg");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+</style>
 <p>           </p>
 <div id="descripción-general-del-modelo" class="section level1">
 <h1>Descripción general del modelo</h1>
-<p>Utilizaremos el modelo más simple para la implementación de un modelo para el caso de boqueron. Ejecutaremos el modelo y graficaremos los resultados usando el paquete de R <code>r4ss</code>.</p>
-<p>Es un modelo de evaluación estructurado por tallas de 1 sexo para una sola población en 1 área que comienza en 1989 y finaliza en 2021. La máxima edad en el modelo es de 4 años. Incluye 1 pesquería y 3 campañas independiente de la pesquería.</p>
-<p>En la parte superior se especifica información general del modelo: los años del modelo, número de temporadas, número de sexos, edad máxima, número de áreas, número de flotas</p>
+<p>Es un modelo de evaluación estructurado por tallas de 1 sexo para una sola población en 1 área que comienza en 1989 y finaliza en 2021. Los datos ingresan en escala trimestral. La máxima edad en el modelo es de 4 años. Incluye 1 pesquería y 3 campañas independiente de la pesquería.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#&#39;*===============================================================================*</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="co">#&#39;*Especificaciones iniciales*</span></span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="co">#&#39;*===============================================================================*</span></span>
@@ -520,44 +543,24 @@ $Nfleets
 <div id="datos" class="section level1">
 <h1>DATOS</h1>
 <p>   </p>
-<p>En archivo <code>Data.ss</code> es donde se especifican las entradas de datos.</p>
-<p>   </p>
-<p>   </p>
-<ul>
-<li>Se asume que la pesquería no descarta y por lo tanto retiene todo el pescado que captura.</li>
-<li>Se asume selectividad logística basada en tallas para la pesquería y para las campañas.</li>
-<li>La capturabilidad se estima para todas las campañas.</li>
-<li>Para ajustar la calidad de los datos, se especifica una desviación estándar (CV).</li>
-</ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">SSplotData</span>(replist, <span class="dt">subplot =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="0.FormatoArchivos_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>   </p>
-<p>   </p>
-<div id="descripción-de-los-tipos-de-flota" class="section level3">
-<h3>Descripción de los Tipos de flota</h3>
-<p>   </p>
-<p>A continuación, se especifican los tipos de flota. Como tenemos una pesquería y 2 campañas (3 flotas en total), habrá tres líneas.</p>
-<ul>
-<li><p>Se especifica el tipo de flota (<code>fleet_type</code>), donde la pesquería tiene tipo 1 (porque es una flota de captura) y las campañas tienen tipo 3.</p></li>
-<li><p>Se especifican las unidades para cada flota (lo que se denomina <code>catch_units</code> en el encabezado), aunque para las campañas son ignorados.</p></li>
-<li><p>La pesquería tiene <code>catch_units</code> =1, lo que significa que está en unidades de biomasa y no en números.</p></li>
-<li><p>Los nombres de las flotas se especifican al final de cada línea (antes del comentario).</p></li>
-</ul>
-<p>Por ejemplo, en este caso, la pesquería se ha denominado <code>FISHERY</code>, mientras que la primera campaña <code>SURVEY1</code>.</p>
-<p>   </p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#&#39;*_fleet_type: 1=catch fleet; 2=bycatch only fleet; 3=survey; 4=ignore *</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&#39;*_sample_timing: -1 for fishing fleet to use season-long catch-at-age for *</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&#39;*observations, or 1 to use observation month;  (always 1 for surveys)*</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&#39;*_fleet_area:  area the fleet/survey operates in *</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&#39;*_units of catch:  1=bio; 2=num (ignored for surveys; their units read later)*</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&#39;*_catch_mult: 0=no; 1=yes*</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&#39;*_rows are fleets*</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&#39;*_fleet_type fishery_timing area catch_units need_catch_mult fleetname*</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a></span>
-<span id="cb4-10"><a href="#cb4-10"></a> dat1[<span class="dv">15</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="kw">kbl</span>() <span class="op">%&gt;%</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;250px&quot;</span>)</span></code></pre></div>
+<div id="flotas" class="section level3 tabset tabset-fade">
+<h3 class="tabset tabset-fade">Flotas</h3>
+<p>Los datos de captura corresponden a la pesquería de cerco (type=1), y campañas oceanográficas (type=3). La captura de la pesquería ocurre durante todo el año (surveytiming=-1), mientra que la campaña PELAGO ocurre en el mes de abril (surveytiming=0.33), ECOCADIZ en julio (surveytiming=0.58) y ECORECLUTA en octubre (surveytiming=0.83). Las capturas de la pesquería y campañas ingresan en biomasa (units=1) para el área total (area=1).</p>
+<div id="especificaciones" class="section level4">
+<h4>Especificaciones</h4>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#&#39;*_fleet_type: 1=catch fleet; 2=bycatch only fleet; 3=survey; 4=ignore *</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co">#&#39;*_sample_timing: -1 for fishing fleet to use season-long catch-at-age for *</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&#39;*observations, or 1 to use observation month;  (always 1 for surveys)*</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&#39;*_fleet_area:  area the fleet/survey operates in *</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&#39;*_units of catch:  1=bio; 2=num (ignored for surveys; their units read later)*</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&#39;*_catch_mult: 0=no; 1=yes*</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&#39;*_rows are fleets*</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&#39;*_fleet_type fishery_timing area catch_units need_catch_mult fleetname*</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a> dat1[<span class="dv">15</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="kw">kbl</span>() <span class="op">%&gt;%</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;250px&quot;</span>)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:250px; overflow-x: scroll; width:100%; ">
 <table class="kable_wrapper lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <tbody>
@@ -674,14 +677,18 @@ ECORECLUTAS
 </tbody>
 </table>
 </div>
-<p>   </p>
+<p>       </p>
 </div>
-<div id="captura" class="section level3 tabset tabset-fade">
-<h3 class="tabset tabset-fade">Captura</h3>
-<ul>
-<li>La captura proviene de la pesquería de cerco de España y Portugal para la zona 9a de ICES.</li>
-<li>La línea <code>-999 1 1 0 0.01</code> especifica la captura de equilibrio para los años anteriores al inicio del modelo; en este caso, no hay captura de equilibrio porque la columna de captura es 0.</li>
-</ul>
+<div id="figura" class="section level4">
+<h4>Figura</h4>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">SSplotData</span>(replist, <span class="dt">subplot =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="0.FormatoArchivos_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>       </p>
+</div>
+</div>
+<div id="capturas" class="section level3 tabset tabset-fade">
+<h3 class="tabset tabset-fade">Capturas</h3>
+<p>Los datos de captura se ingresan en toneladas por trimestres a partir del año 1989 hasta 2021, asumiendo un coeficiente de variación de 0.1.</p>
 <p>   </p>
 <div id="datos-1" class="section level4">
 <h4>Datos</h4>
@@ -3038,19 +3045,20 @@ catch_se
 </tbody>
 </table>
 </div>
+<p>       </p>
 </div>
-<div id="figura" class="section level4">
+<div id="figura-1" class="section level4">
 <h4>Figura</h4>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">SSplotCatch</span>(replist, <span class="dt">subplots =</span><span class="kw">c</span>(<span class="dv">2</span>))</span></code></pre></div>
 <p><img src="0.FormatoArchivos_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>       </p>
 </div>
 </div>
 <div id="índices-de-abundancia" class="section level3 tabset tabset-fade">
 <h3 class="tabset tabset-fade">Índices de abundancia</h3>
 <p>   </p>
-<div id="especificaciones" class="section level4">
+<div id="especificaciones-1" class="section level4">
 <h4>Especificaciones</h4>
-<p>Luego viene la especificación de los índices de abundancia. Primero está la configuración para todas las flotas.</p>
 <p>   </p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">#&#39;*_CPUE_and_surveyabundance_observations*</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="co">#&#39;*_Units:  0=numbers; 1=biomass; 2=F; &gt;=30 for special types*</span></span>
@@ -3166,13 +3174,6 @@ ECORECLUTAS
 <div id="datos-2" class="section level4">
 <h4>Datos</h4>
 <p>   </p>
-<ul>
-<li><p>Los encabezados de las columnas de esta sección están directamente encima de los números. Tenga en cuenta que aquí se definen todas las flotas (es decir, cada flota necesita una línea), incluida la pesquería, y se enumeran en el mismo orden que cuando se especificaron los tipos de flota.</p></li>
-<li><p>Lo más importante en esta sección es que se especifican las unidades y el tipo de error que se utilizará al leer los índices de abundancia.</p></li>
-<li><p>En este caso, la pesquería y la campaña 1 tienen unidades de biomasa, mientras que la campaña 2 es en números. Se asume un error logarítmico normal para las 3 flotas.</p></li>
-<li><p>Inmediatamente después de su encabezado, se incluyen los datos de índices de abundancia:</p></li>
-<li><p>Al igual que los datos de captura, se necesita una línea para decirle a SS cuándo dejar de leer los índices.</p></li>
-</ul>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">#&#39;*_yr month fleet obs stderr*</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a></span>
 <span id="cb8-3"><a href="#cb8-3"></a>dat1[<span class="dv">22</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
@@ -3893,7 +3894,7 @@ se_log
 </table>
 </div>
 </div>
-<div id="figura-1" class="section level4">
+<div id="figura-2" class="section level4">
 <h4>Figura</h4>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">SSplotIndices</span>(replist,<span class="dt">subplots =</span> <span class="kw">c</span>(<span class="dv">9</span>))</span></code></pre></div>
 <p><img src="0.FormatoArchivos_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -3903,11 +3904,9 @@ se_log
 </div>
 <div id="composición-de-tallas" class="section level3 tabset tabset-fade">
 <h3 class="tabset tabset-fade">Composición de tallas</h3>
-<div id="especificaciones-1" class="section level4">
+<div id="especificaciones-2" class="section level4">
 <h4>Especificaciones</h4>
 <p>   </p>
-<p>La siguiente sección configura los intervalos de talla (<code>length bin</code>) de la población.</p>
-<p>Esto debe especificarse ya sea que se utilicen o no datos de composiciones de tallas (aunque podría generar los intervalos de longitud de la población a partir de los intervalos de datos de composiciones de tallas).</p>
 <p>   </p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">#&#39;*set up population length bin structure (note - irrelevant if not using size *</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="co">#&#39;*data and using empirical wtatage*</span></span>
@@ -3932,9 +3931,7 @@ $maximum_size
 
 $use_lencomp
 [1] 1</code></pre>
-<p>   </p>
-<p>Después de los intervalos de tallas de la población está la especificación para la composición de tallas (asumiendo 1 línea por flota):</p>
-<p>   </p>
+<p>       </p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">#&#39;*_mintailcomp addtocomp combM+F CompressBins CompError ParmSelect minsamplesize*</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a>dat1[<span class="dv">30</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$len_info
@@ -3948,9 +3945,7 @@ FLOTA                   1
 PELAGO                  1
 ECOCADIZ                1
 ECORECLUTAS             1</code></pre>
-<p>   </p>
-<p>La especificación del vector de tallas:</p>
-<p>   </p>
+<p>       </p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a> dat1[<span class="dv">31</span><span class="op">:</span><span class="dv">32</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$N_lbins
 [1] 37
@@ -26648,9 +26643,8 @@ l21.5
 </table>
 </div>
 <p>   </p>
-<p>En este modelo de 2 sexos, los datos de composición de tallas se introducen para las hembras, con 1 número por intervalo de tallas especificado previamente, seguido de los datos de composición de tallas para los machos, también con 1 número por intervalo de tallas.</p>
 </div>
-<div id="figura-2" class="section level4">
+<div id="figura-3" class="section level4">
 <h4>Figura</h4>
 <p><img src="Escenarios_SS3/S1/plots/comp_lendat__aggregated_across_time.png" width="80%" style="display: block; margin: auto;" /></p>
 <p>   </p>
@@ -26660,40 +26654,7 @@ l21.5
 <div id="parámetros" class="section level1">
 <h1>PARÁMETROS</h1>
 <p>   </p>
-<div id="mortalidad-natural-crecimiento-madurez-y-proporción-sexual" class="section level3">
-<h3>Mortalidad natural, crecimiento, madurez y proporción sexual</h3>
-<ul>
-<li>Se asume que todos los parámetros son los mismos a lo largo del tiempo.</li>
-<li>La mortalidad natural se especifica en 0,1.</li>
-<li>Se utiliza una curva de crecimiento de von Bertalanfy con K estimado.</li>
-<li>Se supone que la madurez a la talla es logística.</li>
-</ul>
 <p>   </p>
-</div>
-<div id="relación-stock-recluta" class="section level3">
-<h3>Relación stock-recluta</h3>
-<ul>
-<li>Se asume una relación stock-recluta de beverton-holt, con valores de steepness y R0 estimados.</li>
-</ul>
-<p>   </p>
-</div>
-<div id="reclutamiento" class="section level3">
-<h3>Reclutamiento</h3>
-<ul>
-<li>Se asume desviaciones de reclutamiento y sesgo.</li>
-</ul>
-<p>   </p>
-</div>
-<div id="mortalidad-por-pesca" class="section level3">
-<h3>Mortalidad por pesca</h3>
-<ul>
-<li>Se utiliza un enfoque híbrido, lo que significa que los F son parámetros estimados, pero están restringidos usando la aproximación de Pope.</li>
-</ul>
-<p>   </p>
-<p>   </p>
-</div>
-<div id="archivo-control.ss" class="section level2">
-<h2>Archivo <code>Control.ss</code></h2>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co">#&#39;*===============================================================================*</span></span>
 <span id="cb17-2"><a href="#cb17-2"></a><span class="co">#&#39;*Leer archivo control.ss* ----</span></span>
 <span id="cb17-3"><a href="#cb17-3"></a><span class="co">#&#39;*===============================================================================*</span></span>
@@ -26715,7 +26676,11 @@ l21.5
 <div id="patrón-de-crecimiento-y-reclutamiento" class="section level3">
 <h3>Patrón de crecimiento y reclutamiento</h3>
 <p>   </p>
-<p>Luego están las opciones para el número de patrones de crecimiento y platoons. Estos se establecen en 1 porque asumimos que toda la población tiene el mismo patrón de crecimiento y no hay platoons dentro de los patrones de crecimiento.</p>
+<p>Se asume que toda la población tiene el mismo patrón de crecimiento y no hay platoons dentro de los patrones de crecimiento.</p>
+<ul>
+<li><p>Suponemos que para esta población solo hay 1 patrón de crecimiento, 1 tiempo de asentamiento (settlement) y 1 área, por lo que podemos usar la opción 4.</p></li>
+<li><p>Esta es la más simple, porque no requiere líneas completas de parámetros más adelante en el archivo control.</p></li>
+</ul>
 <p>   </p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co">#&#39;*_N_Growth_Patterns (Growth Patterns, Morphs, Bio Patterns, GP are terms used *</span></span>
 <span id="cb18-2"><a href="#cb18-2"></a><span class="co">#&#39;*interchangeably in SS)*</span></span>
@@ -26727,13 +26692,7 @@ l21.5
 
 $N_platoon
 [1] 1</code></pre>
-<p>   </p>
-<ul>
-<li><p>Luego se especifica la distribución del reclutamiento.</p></li>
-<li><p>Suponemos que para esta población solo hay 1 patrón de crecimiento, 1 tiempo de asentamiento (settlement) y 1 área, por lo que podemos usar la opción 4.</p></li>
-<li><p>Esta es la más simple, porque no requiere líneas completas de parámetros más adelante en el archivo control.</p></li>
-</ul>
-<p>   </p>
+<p>       </p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co">#&#39;*recr_dist_method for parameters:  2=main effects for GP, Area, Settle timing; 3=each Settle entity; 4=none (only when N_GPxNsettlexpop==1)*</span></span>
 <span id="cb20-2"><a href="#cb20-2"></a><span class="co">#&#39;*not yet implemented; Future usage: Spawner-Recruitment: 1=global; 2=by area*</span></span>
 <span id="cb20-3"><a href="#cb20-3"></a><span class="co">#&#39;*number of recruitment settlement assignments* </span></span>
@@ -26761,8 +26720,7 @@ recr_dist_pattern4        1    11    1   0</code></pre>
 <p>   </p>
 <p>Tenga en cuenta que también usamos 1 asignación de asentamiento (settlement) y especificamos que los peces se establecieron en enero a la edad 0.</p>
 <p>Esto podría modificarse si los peces se establecieron a una edad o momento diferente.</p>
-<p>   </p>
-<p>   </p>
+<p>       </p>
 </div>
 <div id="parámetros-variables-en-el-tiempo" class="section level3">
 <h3>Parámetros variables en el tiempo</h3>
@@ -26791,7 +26749,7 @@ time_vary_auto_generation_5
 <div id="parámetros-biológicos" class="section level3 tabset tabset-fade">
 <h3 class="tabset tabset-fade">Parámetros biológicos</h3>
 <p>   </p>
-<div id="especificaciones-2" class="section level4">
+<div id="especificaciones-3" class="section level4">
 <h4>Especificaciones</h4>
 <p>   </p>
 <p>La opción 0 se usa para la mortalidad natural porque solo se asume 1 valor.</p>
@@ -27759,10 +27717,10 @@ FracFemale_GP_1
 <p>       </p>
 </div>
 </div>
-<div id="relación-stock-recluta-1" class="section level3 tabset tabset-fade">
+<div id="relación-stock-recluta" class="section level3 tabset tabset-fade">
 <h3 class="tabset tabset-fade">Relación stock-recluta</h3>
 <p>   </p>
-<div id="especificaciones-3" class="section level4">
+<div id="especificaciones-4" class="section level4">
 <h4>Especificaciones</h4>
 <p>A continuación, se especifican la configuración de la relación stock-recluta y las líneas de parámetros SR. Para configurar las líneas, se especifica una curva SR de Beverton-Holt.</p>
 <p>   </p>
@@ -28121,7 +28079,7 @@ $recdev_adv
 <p>La rampa de ajuste de sesgo tiene esto en cuenta y, por lo general, se “ajusta” observando la rampa de sesgo en los resultados del modelo después de ejecutarlo, volviendo a especificar la rampa de sesgo según sea necesario y volviendo a ejecutar el modelo.</p>
 <p>   </p>
 </div>
-<div id="mortalidad-por-pesca-1" class="section level3 tabset tabset-fade">
+<div id="mortalidad-por-pesca" class="section level3 tabset tabset-fade">
 <h3 class="tabset tabset-fade">Mortalidad por pesca</h3>
 <p>   </p>
 <p><a href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#fishing-mortality-method">Consulte la Guía de usuario de SS3: Sección 8.7 “Fishing Mortality Method”</a>.</p>
@@ -28158,7 +28116,7 @@ $F_iter
 <div id="capturabilidad" class="section level3 tabset tabset-fade">
 <h3 class="tabset tabset-fade">Capturabilidad</h3>
 <p>   </p>
-<div id="especificaciones-4" class="section level4">
+<div id="especificaciones-5" class="section level4">
 <h4>Especificaciones</h4>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="co">#&#39;*_Q_setup for fleets with cpue or survey data*</span></span>
 <span id="cb37-2"><a href="#cb37-2"></a><span class="co">#&#39;*_1:  fleet number*</span></span>
@@ -28507,7 +28465,7 @@ LnQ_base_ECORECLUTAS(4)
 <div id="selectividad" class="section level3 tabset tabset-fade">
 <h3 class="tabset tabset-fade">Selectividad</h3>
 <p>   </p>
-<div id="especificaciones-5" class="section level4">
+<div id="especificaciones-6" class="section level4">
 <h4>Especificaciones</h4>
 <p>En esta sección se especifican las líneas de selectividad a la talla y edad. <a href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#selectivity-and-discard">Consulte la Guía de usuario de SS3: Sección 8.9 “Selectivity and Discard”</a>.</p>
 <p>   </p>
@@ -29642,7 +29600,6 @@ Variance_adjustment_list2         4     2 1.18634
 Variance_adjustment_list3         4     3 1.12536
 Variance_adjustment_list4         4     4 1.15394</code></pre>
 </div>
-</div>
 <div id="ejecutar-modelo" class="section level2">
 <h2>Ejecutar modelo</h2>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="co">#&#39;*Ejecutar el modelo* ----</span></span>
@@ -29654,6 +29611,7 @@ Variance_adjustment_list4         4     4 1.15394</code></pre>
 <span id="cb47-7"><a href="#cb47-7"></a></span>
 <span id="cb47-8"><a href="#cb47-8"></a><span class="co">#&#39;* Ejecutar el modelo SS3 usando la función run_SS_models* ----</span></span>
 <span id="cb47-9"><a href="#cb47-9"></a>r4ss<span class="op">::</span><span class="kw">run</span>(<span class="dt">dir=</span>dir.base, <span class="dt">exe=</span><span class="st">&quot;ss_osx&quot;</span>, <span class="dt">skipfinished=</span><span class="ot">FALSE</span>)</span></code></pre></div>
+<p><img src="Imagen2.jpg" width="80%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 

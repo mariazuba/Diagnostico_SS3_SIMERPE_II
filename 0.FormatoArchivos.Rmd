@@ -10,7 +10,7 @@ knitr::opts_chunk$set(eval=T,echo=T,comment="",collapse=FALSE, warning=FALSE, me
 ```
 
 
-```{css,echo=FALSE,include=FALSE}
+```{css,echo=FALSE}
 
 
 .scroll-200{
@@ -22,7 +22,7 @@ knitr::opts_chunk$set(eval=T,echo=T,comment="",collapse=FALSE, warning=FALSE, me
 
 
 
-```{css,echo=FALSE,include=FALSE}
+```{css,echo=FALSE}
 
 /*----------LOGO above TOC---------*/
 
@@ -30,8 +30,8 @@ knitr::opts_chunk$set(eval=T,echo=T,comment="",collapse=FALSE, warning=FALSE, me
   content: "";
   display: block;
   height: 300px;
-  margin: 2em 20px 40px 20px;
-  background-image: url("LOGO_2SN_recortado.png");
+  margin: 2em 10px 40px 10px;
+  background-image: url("LOGO_MATH_T.svg");
   background-size: contain;
   background-position: center center;
   background-repeat: no-repeat;
@@ -54,6 +54,11 @@ exe_path <- here("Ejecutables_SS3","3.30.20_release")
 file.copy(paste0(exe_path,"/ss_osx"),dir.base)
 ```
 
+
+```{r include=F}
+replist <- SS_output(dir=dir.base,verbose=TRUE,printstats=TRUE)
+```
+
 &nbsp; &nbsp;
 &nbsp; &nbsp;
 &nbsp; &nbsp;
@@ -61,12 +66,8 @@ file.copy(paste0(exe_path,"/ss_osx"),dir.base)
 
 # Descripción general del modelo
 
-Utilizaremos el modelo más simple para la implementación de un modelo para el caso de boqueron. Ejecutaremos el modelo y graficaremos los resultados usando el paquete de R `r4ss`.
 
-Es un modelo de evaluación estructurado por tallas de 1 sexo para una sola población en 1 área que comienza en 1989 y finaliza en 2021. La máxima edad en el modelo es de 4 años. Incluye 1 pesquería y 3 campañas independiente de la pesquería.
-
-
-En la parte superior se especifica información general del modelo: los años del modelo, número de temporadas, número de sexos, edad máxima, número de áreas, número de flotas  
+Es un modelo de evaluación estructurado por tallas de un sexo para una sola población en 1 área que comienza en 1989 y finaliza en 2021. Los datos ingresan en escala trimestral. La máxima edad en el modelo es de 4 años. Incluye cuatro flotas, una corresponde a la pesquería y tres a campañas oceanográficas.
 
 
 ```{r echo=FALSE}
@@ -79,7 +80,7 @@ dat1<-dat
 
 ```
 
-```{r}
+```{r class.output="scroll-200"}
 #'*===============================================================================*
 #'*Especificaciones iniciales*
 #'*===============================================================================*
@@ -93,56 +94,15 @@ dat1[4:14]
 
 # DATOS
 
-
 &nbsp; &nbsp;
 
-En archivo `Data.ss` es donde se especifican las entradas de datos.
+### Flotas {.tabset .tabset-fade }
+
+Los datos de captura corresponden a la pesquería de cerco  (type=1), y campañas oceanográficas (type=3). La captura de la pesquería ocurre durante todo el año (surveytiming=-1), mientra que la campaña PELAGO ocurre en el mes de abril (surveytiming=0.33), ECOCADIZ en julio (surveytiming=0.58) y ECORECLUTA en octubre (surveytiming=0.83). Las capturas de la pesquería y campañas se ingresan en biomasa (units=1) para el área total (area=1).
 
 
-&nbsp; &nbsp;
 
-&nbsp; &nbsp;
-
-- Se asume que la pesquería no descarta y por lo tanto retiene todo el pescado que captura. 
-- Se asume selectividad logística basada en tallas para la pesquería y para las campañas. 
-- La capturabilidad se estima para todas las campañas. 
-- Para ajustar la calidad de los datos, se especifica una desviación estándar (CV). 
-
-
-```{r include=F}
-replist <- SS_output(dir=dir.base,verbose=TRUE,printstats=TRUE)
-```
-
-```{r }
-
-SSplotData(replist, subplot = 1)
-```
-
-&nbsp; &nbsp;
-
-&nbsp; &nbsp;
-
-### Descripción de los Tipos de flota
-
-
-&nbsp; &nbsp;
-
-A continuación, se especifican los tipos de flota.  Como tenemos una pesquería y 2 campañas (3 flotas en total), habrá tres líneas. 
-
-
-- Se especifica el tipo de flota (`fleet_type`), donde la pesquería tiene tipo 1 (porque es una flota de captura) y las campañas tienen tipo 3. 
-
-- Se especifican las unidades para cada flota (lo que se denomina `catch_units` en el encabezado), aunque para las campañas son ignorados. 
-
-- La pesquería tiene `catch_units` =1, lo que significa que está en unidades de biomasa y no en números. 
-
-- Los nombres de las flotas se especifican al final de cada línea (antes del comentario). 
-
-Por ejemplo, en este caso, la pesquería se ha denominado `FISHERY`, mientras que la primera campaña `SURVEY1`.
-
-&nbsp; &nbsp;
-
-
+#### Especificaciones
 ```{r }
 #'*_fleet_type: 1=catch fleet; 2=bycatch only fleet; 3=survey; 4=ignore *
 #'*_sample_timing: -1 for fishing fleet to use season-long catch-at-age for *
@@ -159,18 +119,28 @@ kbl() %>%
   scroll_box(width = "100%",height="250px")
  
 ```
-
-
+&nbsp; &nbsp;
 &nbsp; &nbsp;
 
-### Captura {.tabset .tabset-fade }
+#### Figura 
 
-- La captura proviene de la pesquería de cerco de España y Portugal para la zona 9a de ICES.
-- La línea `-999 1 1 0 0.01` especifica la captura  de equilibrio para los años anteriores al inicio del modelo; en este caso, no hay captura de equilibrio porque la columna de captura es 0.
+
+```{r }
+
+SSplotData(replist, subplot = 1)
+```
+
+&nbsp; &nbsp;
+&nbsp; &nbsp;
+
+### Capturas {.tabset .tabset-fade }
+
+Los datos de captura se ingresan en toneladas por trimestres a partir del año 1989 hasta 2021, asumiendo un coeficiente de variación de 0.1.
 
 &nbsp; &nbsp;
 
 #### Datos
+
 
 ```{r }
 #'*_Catch data: yr, seas, fleet, catch, catch_se*
@@ -183,6 +153,8 @@ kbl() %>%
   scroll_box(width = "100%",height="300px")
 
 ```
+&nbsp; &nbsp;
+&nbsp; &nbsp;
 
 #### Figura 
 
@@ -190,15 +162,14 @@ kbl() %>%
 SSplotCatch(replist, subplots =c(2))
 ```
 
-
+&nbsp; &nbsp;
+&nbsp; &nbsp;
 
 ### Índices de abundancia {.tabset .tabset-fade }
  
 &nbsp; &nbsp;
 
 #### Especificaciones
-
-Luego viene la especificación de los índices de abundancia.  Primero está la configuración para todas las flotas. 
 
 &nbsp; &nbsp;
 
@@ -219,16 +190,6 @@ kbl() %>%
 #### Datos
 &nbsp; &nbsp;
 
-- Los encabezados de las columnas de esta sección están directamente encima de los números. Tenga en cuenta que aquí se definen todas las flotas (es decir, cada flota necesita una línea), incluida la pesquería, y se enumeran en el mismo orden que cuando se especificaron los tipos de flota.
-
-- Lo más importante en esta sección es que se especifican las unidades y el tipo de error que se utilizará al leer los índices de abundancia. 
-
-- En este caso, la pesquería y la campaña 1 tienen unidades de biomasa, mientras que la campaña 2 es en números. Se asume un error logarítmico normal para las 3 flotas.
-
-- Inmediatamente después de su encabezado, se incluyen los datos de índices de abundancia:
-
-- Al igual que los datos de captura, se necesita una línea para decirle a SS cuándo dejar de leer los índices.
-
 ```{r }
 #'*_yr month fleet obs stderr*
 
@@ -245,10 +206,6 @@ kbl() %>%
 SSplotIndices(replist,subplots = c(9))
 ```
 
-
-
-
-
 &nbsp; &nbsp;
 
 &nbsp; &nbsp;
@@ -257,10 +214,6 @@ SSplotIndices(replist,subplots = c(9))
 
 #### Especificaciones
 &nbsp; &nbsp;
-
-La siguiente sección configura los intervalos de talla (`length bin`) de la población. 
-
-Esto debe especificarse ya sea que se utilicen o no datos de composiciones de tallas (aunque podría generar los intervalos de longitud de la población a partir de los intervalos de datos de composiciones de tallas). 
 
 &nbsp; &nbsp;
 
@@ -280,10 +233,6 @@ dat1[25:29]
 
 
 &nbsp; &nbsp;
-
-Después de los intervalos de tallas de la población está la especificación para la composición de tallas (asumiendo 1 línea por flota):
-
-
 &nbsp; &nbsp;
 
 ```{r }
@@ -292,12 +241,7 @@ dat1[30]
 
 ```
 
-
 &nbsp; &nbsp;
-
-La especificación del vector de tallas:
-
-
 &nbsp; &nbsp;
 
 ```{r }
@@ -318,10 +262,8 @@ kbl() %>%
   scroll_box(width = "100%",height="500px")
 ```
 
-
 &nbsp; &nbsp;
 
-En este modelo de 2 sexos, los datos de composición de tallas se introducen para las hembras, con 1 número por intervalo de tallas especificado previamente, seguido de los datos de composición de tallas para los machos, también con 1 número por intervalo de tallas.
 
 #### Figura
 
@@ -339,41 +281,8 @@ knitr::include_graphics(here("Escenarios_SS3","S1","plots","comp_lendat__aggrega
 
 &nbsp; &nbsp;
 
-### Mortalidad natural, crecimiento, madurez y proporción sexual
-
-- Se asume que todos los parámetros son los mismos a lo largo del tiempo. 
-- La mortalidad natural se especifica en 0,1.
-- Se utiliza una curva de crecimiento de von Bertalanfy con K estimado. 
-- Se supone que la madurez a la talla es logística. 
-
-
-
 &nbsp; &nbsp;
 
-### Relación stock-recluta
-
-- Se asume una relación stock-recluta de beverton-holt, con valores de steepness y R0 estimados.
-
-
-&nbsp; &nbsp;
-
-### Reclutamiento
-
-- Se asume desviaciones de reclutamiento y sesgo.
-
-
-&nbsp; &nbsp;
-
-### Mortalidad por pesca
-
-- Se utiliza un enfoque híbrido, lo que significa que los F son parámetros estimados, pero están restringidos usando la aproximación de Pope.
-
-&nbsp; &nbsp;
-
-&nbsp; &nbsp;
-
-
-## Archivo `Control.ss`
 
 ```{r}
 #'*===============================================================================*
@@ -400,10 +309,13 @@ ctl1<-ctl
 
 ### Patrón de crecimiento y reclutamiento
 
-
 &nbsp; &nbsp;
 
-Luego están las opciones para el número de patrones de crecimiento y platoons. Estos se establecen en 1 porque asumimos que toda la población tiene el mismo patrón de crecimiento y no hay platoons dentro de los patrones de crecimiento.
+Se asume que toda la población tiene el mismo patrón de crecimiento y no hay platoons dentro de los patrones de crecimiento.
+
+- Suponemos que para esta población solo hay 1 patrón de crecimiento, 1 tiempo de asentamiento (settlement) y 1 área, por lo que podemos usar la opción 4. 
+
+- Esta es la más simple, porque no requiere líneas completas de parámetros más adelante en el archivo control.
 
 
 &nbsp; &nbsp;
@@ -416,16 +328,7 @@ Luego están las opciones para el número de patrones de crecimiento y platoons.
 ctl1[16:17]
 ```
 
-
 &nbsp; &nbsp;
-
-- Luego se especifica la distribución del reclutamiento. 
-
-- Suponemos que para esta población solo hay 1 patrón de crecimiento, 1 tiempo de asentamiento (settlement) y 1 área, por lo que podemos usar la opción 4. 
-
-- Esta es la más simple, porque no requiere líneas completas de parámetros más adelante en el archivo control.
-
-
 &nbsp; &nbsp;
 
 ```{r }
@@ -450,8 +353,6 @@ Esto podría modificarse si los peces se establecieron a una edad o momento dife
 
 
 &nbsp; &nbsp;
-
-
 &nbsp; &nbsp;
 
 ### Parámetros variables en el tiempo
@@ -792,4 +693,12 @@ system(paste0("chmod 755 ",dir.base,"/ss_osx"))
 
 #'* Ejecutar el modelo SS3 usando la función run_SS_models* ----
 r4ss::run(dir=dir.base, exe="ss_osx", skipfinished=FALSE)
+```
+
+
+
+```{r echo=FALSE,   out.width = "80%" }
+
+knitr::include_graphics(here("Imagen2.jpg"))
+
 ```
