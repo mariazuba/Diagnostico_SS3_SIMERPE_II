@@ -1,0 +1,52 @@
+---
+title: ""
+---
+
+
+```{css,echo=FALSE}
+.scroll-200{
+            max-height: 200px; 
+            overflow-y: auto; 
+            background-color: #f1f1f1;
+            }
+```
+
+
+```{css,echo=FALSE}
+/*----------LOGO above TOC---------*/
+#TOC::before {
+  content: "";
+  display: block;
+  height: 100px;
+  margin: 2em 20px 40px 20px;
+  background-image: url("LOGO_2SN_recortado.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+```
+
+
+
+```{r global-options, include=FALSE}
+knitr::opts_chunk$set(eval=T,echo=T, warning=FALSE, message=FALSE,class.output="scroll-200")
+```
+
+
+# Calculate new tunings for length and age compositions and (re)run models
+
+Hay tres rutinas diferentes disponibles para ajustar (o ponderar) los datos de composición en Stock Synthesis. Los métodos de ajuste McAllister-Ianelli (MI) y Francis son rutinas iterativas de reponderación, mientras que la opción Dirichlet-multinomial (DM) incorpora parámetros de ponderación directamente en el modelo original.
+
+Debido a que el ajuste se usa comúnmente con los modelos de Stock Synthesis, y los usuarios pueden estar interesados en explorar el mismo modelo, pero utilizando diferentes métodos de ajuste, `tune_comps()` puede comenzar desde el mismo modelo y transformarlo en diferentes métodos de ajuste.
+
+Como ejemplo, ilustraremos cómo ejecutar el ajuste de Francis en un modelo de ejemplo de Stock Synthesis integrado en el paquete `r4ss`. Primero, hacemos una copia del modelo para evitar cambiar los archivos del modelo original.
+
+La siguiente llamada a `tune_comps()` ejecuta la ponderación de Francis para 1 iteración y permite la ponderación ascendente. Suponga que un ejecutable llamado "ss o ss.exe" está disponible en la carpeta `mod_path`.
+
+Ahora, supongamos que queremos ejecutar el mismo modelo, pero usando parámetros multinomiales de Dirichlet para ponderar. El modelo se puede copiar a una nueva carpeta, luego se puede usar la función `tune_comps()` para agregar parámetros multinomiales de Dirichlet (1 para cada flota con datos de composición y para cada tipo de datos de composición) y volver a ejecutar el modelo.
+
+Hay muchas opciones en la función `tune_comps()`; consulte la documentación (?tune_comps en la consola R) para obtener más detalles y ejemplos.
+
+
+
+

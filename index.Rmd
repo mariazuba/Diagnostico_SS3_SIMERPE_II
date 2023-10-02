@@ -1,0 +1,42 @@
+---
+title: "Implementación y análisis de desempeño de un modelo integrado de evaluación de stock: estudio de caso de boquerón del golfo de Cádiz utilizando Stock Synthesis"
+---
+
+
+```{css,echo=FALSE}
+
+/*----------LOGO above TOC---------*/
+
+#TOC::before {
+  content: "";
+  display: block;
+  height: 100px;
+  margin: 2em 20px 40px 20px;
+  background-image: url("LOGO_2SN_recortado.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+```
+
+
+&nbsp;&nbsp;
+
+# Contexto
+
+La implementación de modelos integrados de evaluación de stock implica tomar muchas decisiones, que van desde:
+
+- determinar si el modelo se ajusta adecuadamente a los datos,
+- evaluar el éxito de la optimización
+- verificar la consistencia de las estimaciones retrospectivas
+- asegurar que el modelo pueda proporcionar resultados útiles para la toma de decisión.
+
+En el caso de los pequeños pelágicos, que presentan reclutamientos altamente variables de un año a otro y experimentan fluctuaciones rápidas y extremas en su abundancia, es de suma importancia realizar una adecuada especificación del reclutamiento en los modelos y en particular en los modelos integrados.
+
+A sí mismo se debe considerar el comportamiento gregario de estas especies, en el cual puede influir en su capturabilidad y selectividad. Es fundamental evitar la especificación errónea de estos procesos, ya que podrían generar patrones no deseados en los residuos de los ajustes o en los análisis retrospectivos, afectando así los resultados.
+
+
+ Código original extraído desde  https://github.com/jabbamodel/ss3diags
+https://github.com/jabbamodel/ss3diags/blob/master/Cookbook/Likelihood_profile_R0_example.R
+

@@ -1,0 +1,134 @@
+Note 1 Information: settle_month is less than spawn_month, so logical age at settlement calculated to be: 1  for settle_time 1.  Does not match read value of 0 are you sure? 
+Note 2 Information: settle_month is less than spawn_month, so logical age at settlement calculated to be: 1  for settle_time 2.  Does not match read value of 0 are you sure? 
+Warning 1 Adjustment:  recdev_end: 2021 > retro_yr: 2017 reset 
+Warning 2 : parameter init value is greater than parameter max 3.278 > 3 for parm: 7; search for <now check> in echoinput.sso for parm_type
+Warning 3 : parameter init value is less than parameter min 4.5 < 5 for parm: 1; search for <now check> in echoinput.sso for parm_type
+Warning 4 : 1st iteration warning: catch logL > 50% total logL; check configuration; suggest start with larger R0
+Warning 5 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 1989; min: -3; max: 10; base: -2.89308 timevary_val: -3.80761 RecrDist_GP_1_area_1_month_2
+Warning 6 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 1990; min: -3; max: 10; base: -2.89308 timevary_val: -4.73207 RecrDist_GP_1_area_1_month_2
+Warning 7 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 1991; min: -3; max: 10; base: -2.89308 timevary_val: -5.67316 RecrDist_GP_1_area_1_month_2
+Warning 8 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 1992; min: -3; max: 10; base: -2.89308 timevary_val: -6.61416 RecrDist_GP_1_area_1_month_2
+Warning 9 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 1993; min: -3; max: 10; base: -2.89308 timevary_val: -7.5491 RecrDist_GP_1_area_1_month_2
+Warning 10 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 1994; min: -3; max: 10; base: -2.89308 timevary_val: -8.48652 RecrDist_GP_1_area_1_month_2
+Warning 11 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 1995; min: -3; max: 10; base: -2.89308 timevary_val: -9.41204 RecrDist_GP_1_area_1_month_2
+Warning 12 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 1996; min: -3; max: 10; base: -2.89308 timevary_val: -10.207 RecrDist_GP_1_area_1_month_2
+Warning 13 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 1997; min: -3; max: 10; base: -2.89308 timevary_val: -10.8962 RecrDist_GP_1_area_1_month_2
+Warning 14 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 1998; min: -3; max: 10; base: -2.89308 timevary_val: -11.5849 RecrDist_GP_1_area_1_month_2
+Warning 15 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 1999; min: -3; max: 10; base: -2.89308 timevary_val: -12.4505 RecrDist_GP_1_area_1_month_2
+Warning 16 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2000; min: -3; max: 10; base: -2.89308 timevary_val: -13.3165 RecrDist_GP_1_area_1_month_2
+Warning 17 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2001; min: -3; max: 10; base: -2.89308 timevary_val: -14.183 RecrDist_GP_1_area_1_month_2
+Warning 18 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2002; min: -3; max: 10; base: -2.89308 timevary_val: -15.0005 RecrDist_GP_1_area_1_month_2
+Warning 19 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2003; min: -3; max: 10; base: -2.89308 timevary_val: -15.7372 RecrDist_GP_1_area_1_month_2
+Warning 20 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2004; min: -3; max: 10; base: -2.89308 timevary_val: -16.4737 RecrDist_GP_1_area_1_month_2
+Warning 21 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2005; min: -3; max: 10; base: -2.89308 timevary_val: -17.2421 RecrDist_GP_1_area_1_month_2
+Warning 22 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2006; min: -3; max: 10; base: -2.89308 timevary_val: -17.9266 RecrDist_GP_1_area_1_month_2
+Warning 23 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2007; min: -3; max: 10; base: -2.89308 timevary_val: -18.6111 RecrDist_GP_1_area_1_month_2
+Warning 24 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2008; min: -3; max: 10; base: -2.89308 timevary_val: -19.2772 RecrDist_GP_1_area_1_month_2
+Warning 25 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2009; min: -3; max: 10; base: -2.89308 timevary_val: -19.9432 RecrDist_GP_1_area_1_month_2
+Warning 26 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2010; min: -3; max: 10; base: -2.89308 timevary_val: -20.4254 RecrDist_GP_1_area_1_month_2
+Warning 27 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2011; min: -3; max: 10; base: -2.89308 timevary_val: -20.7907 RecrDist_GP_1_area_1_month_2
+Warning 28 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2012; min: -3; max: 10; base: -2.89308 timevary_val: -21.1559 RecrDist_GP_1_area_1_month_2
+Warning 29 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 13; y: 2012; min: -3; max: 10; base: 3.88154 timevary_val: 10.0543 RecrDist_GP_1_area_1_month_5
+Warning 30 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2013; min: -3; max: 10; base: -2.89308 timevary_val: -21.3972 RecrDist_GP_1_area_1_month_2
+Warning 31 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2014; min: -3; max: 10; base: -2.89308 timevary_val: -21.6383 RecrDist_GP_1_area_1_month_2
+Warning 32 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2015; min: -3; max: 10; base: -2.89308 timevary_val: -21.7496 RecrDist_GP_1_area_1_month_2
+Warning 33 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2016; min: -3; max: 10; base: -2.89308 timevary_val: -21.603 RecrDist_GP_1_area_1_month_2
+Warning 34 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 13; y: 2016; min: -3; max: 10; base: 3.88154 timevary_val: 10.2524 RecrDist_GP_1_area_1_month_5
+Warning 35 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2017; min: -3; max: 10; base: -2.89308 timevary_val: -21.5664 RecrDist_GP_1_area_1_month_2
+Warning 36 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 13; y: 2017; min: -3; max: 10; base: 3.88154 timevary_val: 10.3037 RecrDist_GP_1_area_1_month_5
+Warning 37 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2018; min: -3; max: 10; base: -2.89308 timevary_val: -21.5299 RecrDist_GP_1_area_1_month_2
+Warning 38 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 13; y: 2018; min: -3; max: 10; base: 3.88154 timevary_val: 10.3552 RecrDist_GP_1_area_1_month_5
+Warning 39 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2019; min: -3; max: 10; base: -2.89308 timevary_val: -21.4967 RecrDist_GP_1_area_1_month_2
+Warning 40 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 13; y: 2019; min: -3; max: 10; base: 3.88154 timevary_val: 10.4172 RecrDist_GP_1_area_1_month_5
+Warning 41 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2020; min: -3; max: 10; base: -2.89308 timevary_val: -21.4768 RecrDist_GP_1_area_1_month_2
+Warning 42 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 13; y: 2020; min: -3; max: 10; base: 3.88154 timevary_val: 10.0496 RecrDist_GP_1_area_1_month_5
+Warning 43 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 12; y: 2021; min: -3; max: 10; base: -2.89308 timevary_val: -21.4694 RecrDist_GP_1_area_1_month_2
+Warning 44 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 538; parm#: 14; y: 2021; min: -3; max: 10; base: 1.6739 timevary_val: 10.0521 RecrDist_GP_1_area_1_month_8
+Warning 45 : poor convergence in Fmsy, final dy/dy2= -0.108949
+Warning 46 : Fmsy/mey is >3x of Fspr are you sure?  check for convergence 
+Warning 47 : Fmsy.mey is close to max allowed; check for convergence 
+Warning 48 : Forecast F capped by max possible F from control file4
+Warning 49 : Final gradient: 2880.84 is larger than final_conv: 1e-05
+Warning 50 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1989; min: -3; max: 10; base: -2.89308 timevary_val: -3.80761 RecrDist_GP_1_area_1_month_2
+Warning 51 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1990; min: -3; max: 10; base: -2.89308 timevary_val: -4.73207 RecrDist_GP_1_area_1_month_2
+Warning 52 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1991; min: -3; max: 10; base: -2.89308 timevary_val: -5.67316 RecrDist_GP_1_area_1_month_2
+Warning 53 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1992; min: -3; max: 10; base: -2.89308 timevary_val: -6.61416 RecrDist_GP_1_area_1_month_2
+Warning 54 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1993; min: -3; max: 10; base: -2.89308 timevary_val: -7.5491 RecrDist_GP_1_area_1_month_2
+Warning 55 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1994; min: -3; max: 10; base: -2.89308 timevary_val: -8.48652 RecrDist_GP_1_area_1_month_2
+Warning 56 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1995; min: -3; max: 10; base: -2.89308 timevary_val: -9.41204 RecrDist_GP_1_area_1_month_2
+Warning 57 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1996; min: -3; max: 10; base: -2.89308 timevary_val: -10.207 RecrDist_GP_1_area_1_month_2
+Warning 58 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1997; min: -3; max: 10; base: -2.89308 timevary_val: -10.8962 RecrDist_GP_1_area_1_month_2
+Warning 59 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1998; min: -3; max: 10; base: -2.89308 timevary_val: -11.5849 RecrDist_GP_1_area_1_month_2
+Warning 60 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1999; min: -3; max: 10; base: -2.89308 timevary_val: -12.4505 RecrDist_GP_1_area_1_month_2
+Warning 61 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2000; min: -3; max: 10; base: -2.89308 timevary_val: -13.3165 RecrDist_GP_1_area_1_month_2
+Warning 62 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2001; min: -3; max: 10; base: -2.89308 timevary_val: -14.183 RecrDist_GP_1_area_1_month_2
+Warning 63 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2002; min: -3; max: 10; base: -2.89308 timevary_val: -15.0005 RecrDist_GP_1_area_1_month_2
+Warning 64 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2003; min: -3; max: 10; base: -2.89308 timevary_val: -15.7372 RecrDist_GP_1_area_1_month_2
+Warning 65 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2004; min: -3; max: 10; base: -2.89308 timevary_val: -16.4737 RecrDist_GP_1_area_1_month_2
+Warning 66 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2005; min: -3; max: 10; base: -2.89308 timevary_val: -17.2421 RecrDist_GP_1_area_1_month_2
+Warning 67 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2006; min: -3; max: 10; base: -2.89308 timevary_val: -17.9266 RecrDist_GP_1_area_1_month_2
+Warning 68 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2007; min: -3; max: 10; base: -2.89308 timevary_val: -18.6111 RecrDist_GP_1_area_1_month_2
+Warning 69 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2008; min: -3; max: 10; base: -2.89308 timevary_val: -19.2772 RecrDist_GP_1_area_1_month_2
+Warning 70 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2009; min: -3; max: 10; base: -2.89308 timevary_val: -19.9432 RecrDist_GP_1_area_1_month_2
+Warning 71 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2010; min: -3; max: 10; base: -2.89308 timevary_val: -20.4254 RecrDist_GP_1_area_1_month_2
+Warning 72 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2011; min: -3; max: 10; base: -2.89308 timevary_val: -20.7907 RecrDist_GP_1_area_1_month_2
+Warning 73 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2012; min: -3; max: 10; base: -2.89308 timevary_val: -21.1559 RecrDist_GP_1_area_1_month_2
+Warning 74 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 13; y: 2012; min: -3; max: 10; base: 3.88154 timevary_val: 10.0543 RecrDist_GP_1_area_1_month_5
+Warning 75 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2013; min: -3; max: 10; base: -2.89308 timevary_val: -21.3972 RecrDist_GP_1_area_1_month_2
+Warning 76 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2014; min: -3; max: 10; base: -2.89308 timevary_val: -21.6383 RecrDist_GP_1_area_1_month_2
+Warning 77 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2015; min: -3; max: 10; base: -2.89308 timevary_val: -21.7496 RecrDist_GP_1_area_1_month_2
+Warning 78 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2016; min: -3; max: 10; base: -2.89308 timevary_val: -21.603 RecrDist_GP_1_area_1_month_2
+Warning 79 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 13; y: 2016; min: -3; max: 10; base: 3.88154 timevary_val: 10.2524 RecrDist_GP_1_area_1_month_5
+Warning 80 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2017; min: -3; max: 10; base: -2.89308 timevary_val: -21.5664 RecrDist_GP_1_area_1_month_2
+Warning 81 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 13; y: 2017; min: -3; max: 10; base: 3.88154 timevary_val: 10.3037 RecrDist_GP_1_area_1_month_5
+Warning 82 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2018; min: -3; max: 10; base: -2.89308 timevary_val: -21.5299 RecrDist_GP_1_area_1_month_2
+Warning 83 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 13; y: 2018; min: -3; max: 10; base: 3.88154 timevary_val: 10.3552 RecrDist_GP_1_area_1_month_5
+Warning 84 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2019; min: -3; max: 10; base: -2.89308 timevary_val: -21.4967 RecrDist_GP_1_area_1_month_2
+Warning 85 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 13; y: 2019; min: -3; max: 10; base: 3.88154 timevary_val: 10.4172 RecrDist_GP_1_area_1_month_5
+Warning 86 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2020; min: -3; max: 10; base: -2.89308 timevary_val: -21.4768 RecrDist_GP_1_area_1_month_2
+Warning 87 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 13; y: 2020; min: -3; max: 10; base: 3.88154 timevary_val: 10.0496 RecrDist_GP_1_area_1_month_5
+Warning 88 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2021; min: -3; max: 10; base: -2.89308 timevary_val: -21.4694 RecrDist_GP_1_area_1_month_2
+Warning 89 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 14; y: 2021; min: -3; max: 10; base: 1.6739 timevary_val: 10.0521 RecrDist_GP_1_area_1_month_8
+Warning 90 : Forecast F capped by max possible F from control file4
+Warning 91 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1989; min: -3; max: 10; base: -2.89308 timevary_val: -3.80761 RecrDist_GP_1_area_1_month_2
+Warning 92 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1990; min: -3; max: 10; base: -2.89308 timevary_val: -4.73207 RecrDist_GP_1_area_1_month_2
+Warning 93 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1991; min: -3; max: 10; base: -2.89308 timevary_val: -5.67316 RecrDist_GP_1_area_1_month_2
+Warning 94 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1992; min: -3; max: 10; base: -2.89308 timevary_val: -6.61416 RecrDist_GP_1_area_1_month_2
+Warning 95 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1993; min: -3; max: 10; base: -2.89308 timevary_val: -7.5491 RecrDist_GP_1_area_1_month_2
+Warning 96 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1994; min: -3; max: 10; base: -2.89308 timevary_val: -8.48652 RecrDist_GP_1_area_1_month_2
+Warning 97 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1995; min: -3; max: 10; base: -2.89308 timevary_val: -9.41204 RecrDist_GP_1_area_1_month_2
+Warning 98 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1996; min: -3; max: 10; base: -2.89308 timevary_val: -10.207 RecrDist_GP_1_area_1_month_2
+Warning 99 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1997; min: -3; max: 10; base: -2.89308 timevary_val: -10.8962 RecrDist_GP_1_area_1_month_2
+Warning 100 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1998; min: -3; max: 10; base: -2.89308 timevary_val: -11.5849 RecrDist_GP_1_area_1_month_2
+Warning 101 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 1999; min: -3; max: 10; base: -2.89308 timevary_val: -12.4505 RecrDist_GP_1_area_1_month_2
+Warning 102 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2000; min: -3; max: 10; base: -2.89308 timevary_val: -13.3165 RecrDist_GP_1_area_1_month_2
+Warning 103 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2001; min: -3; max: 10; base: -2.89308 timevary_val: -14.183 RecrDist_GP_1_area_1_month_2
+Warning 104 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2002; min: -3; max: 10; base: -2.89308 timevary_val: -15.0005 RecrDist_GP_1_area_1_month_2
+Warning 105 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2003; min: -3; max: 10; base: -2.89308 timevary_val: -15.7372 RecrDist_GP_1_area_1_month_2
+Warning 106 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2004; min: -3; max: 10; base: -2.89308 timevary_val: -16.4737 RecrDist_GP_1_area_1_month_2
+Warning 107 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2005; min: -3; max: 10; base: -2.89308 timevary_val: -17.2421 RecrDist_GP_1_area_1_month_2
+Warning 108 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2006; min: -3; max: 10; base: -2.89308 timevary_val: -17.9266 RecrDist_GP_1_area_1_month_2
+Warning 109 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2007; min: -3; max: 10; base: -2.89308 timevary_val: -18.6111 RecrDist_GP_1_area_1_month_2
+Warning 110 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2008; min: -3; max: 10; base: -2.89308 timevary_val: -19.2772 RecrDist_GP_1_area_1_month_2
+Warning 111 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2009; min: -3; max: 10; base: -2.89308 timevary_val: -19.9432 RecrDist_GP_1_area_1_month_2
+Warning 112 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2010; min: -3; max: 10; base: -2.89308 timevary_val: -20.4254 RecrDist_GP_1_area_1_month_2
+Warning 113 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2011; min: -3; max: 10; base: -2.89308 timevary_val: -20.7907 RecrDist_GP_1_area_1_month_2
+Warning 114 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2012; min: -3; max: 10; base: -2.89308 timevary_val: -21.1559 RecrDist_GP_1_area_1_month_2
+Warning 115 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 13; y: 2012; min: -3; max: 10; base: 3.88154 timevary_val: 10.0543 RecrDist_GP_1_area_1_month_5
+Warning 116 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2013; min: -3; max: 10; base: -2.89308 timevary_val: -21.3972 RecrDist_GP_1_area_1_month_2
+Warning 117 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2014; min: -3; max: 10; base: -2.89308 timevary_val: -21.6383 RecrDist_GP_1_area_1_month_2
+Warning 118 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2015; min: -3; max: 10; base: -2.89308 timevary_val: -21.7496 RecrDist_GP_1_area_1_month_2
+Warning 119 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2016; min: -3; max: 10; base: -2.89308 timevary_val: -21.603 RecrDist_GP_1_area_1_month_2
+Warning 120 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 13; y: 2016; min: -3; max: 10; base: 3.88154 timevary_val: 10.2524 RecrDist_GP_1_area_1_month_5
+Warning 121 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2017; min: -3; max: 10; base: -2.89308 timevary_val: -21.5664 RecrDist_GP_1_area_1_month_2
+Warning 122 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 13; y: 2017; min: -3; max: 10; base: 3.88154 timevary_val: 10.3037 RecrDist_GP_1_area_1_month_5
+Warning 123 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2018; min: -3; max: 10; base: -2.89308 timevary_val: -21.5299 RecrDist_GP_1_area_1_month_2
+Warning 124 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 13; y: 2018; min: -3; max: 10; base: 3.88154 timevary_val: 10.3552 RecrDist_GP_1_area_1_month_5
+Warning 125 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2019; min: -3; max: 10; base: -2.89308 timevary_val: -21.4967 RecrDist_GP_1_area_1_month_2
+Warning 126 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 13; y: 2019; min: -3; max: 10; base: 3.88154 timevary_val: 10.4172 RecrDist_GP_1_area_1_month_5
+Warning 127 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2020; min: -3; max: 10; base: -2.89308 timevary_val: -21.4768 RecrDist_GP_1_area_1_month_2
+Warning 128 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 13; y: 2020; min: -3; max: 10; base: 3.88154 timevary_val: 10.0496 RecrDist_GP_1_area_1_month_5
+Warning 129 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 12; y: 2021; min: -3; max: 10; base: -2.89308 timevary_val: -21.4694 RecrDist_GP_1_area_1_month_2
+Warning 130 : adjusted MGparm out of base parm bounds. Phase: 6; Inter: 1284; parm#: 14; y: 2021; min: -3; max: 10; base: 1.6739 timevary_val: 10.0521 RecrDist_GP_1_area_1_month_8
+Note 3 Information:  N parameters that are on or within 1% of min-max bound: 4; check results, variance may be suspect
+ 130 warnings  and 3 notes 

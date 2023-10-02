@@ -1,0 +1,332 @@
+---
+title: " ¿Cómo crear nuevos modelos SS3?"
+date: '`r format(Sys.Date(),"Última actualización: %B, %d, %Y")`'
+---
+
+
+
+```{css,echo=FALSE}
+
+.scroll-200{
+            max-height: 200px; 
+            overflow-y: auto; 
+            background-color: #f1f1f1;
+            }
+```
+
+
+
+```{css,echo=FALSE}
+
+/*----------LOGO above TOC---------*/
+
+#TOC::before {
+  content: "";
+  display: block;
+  height: 100px;
+  margin: 2em 20px 40px 20px;
+  background-image: url("LOGO_2SN_recortado.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+```
+
+
+
+```{r global-options, include=FALSE}
+knitr::opts_chunk$set(eval=T,echo=T, warning=FALSE, message=FALSE,class.output="scroll-200",fig.align = "center")
+```
+
+
+# Creando nuevos modelos 
+
+```{r}
+#install.packages('r4ss')
+#install.packages('here')
+```
+
+```{r}
+library(here)
+library(r4ss)
+```
+
+ 
+ # Directorios de trabajo
+
+ Identificamos el directorio donde se encuentra el modelo base
+```{r}
+
+dirname.base <- here("modelos_SS3","simple")
+
+```
+
+
+
+Creamos un nuevo directorio  donde se encuentra el modelo base (para este ejercicio)
+```{r}
+dirname.simple_base <- here("Ejercicios","4.Crear_nuevos_modelos","simple_base")
+dir.create(path=dirname.simple_base, showWarnings = TRUE, recursive = TRUE)
+
+```
+
+
+ Creamos un nuevo directorio para la nueva versión del modelo modificado 
+```{r}
+dirname.simple_mod <- here("Ejercicios","4.Crear_nuevos_modelos","simple_modificado")
+dir.create(path=dirname.simple_mod, showWarnings = TRUE, recursive = TRUE)
+
+```
+
+
+
+Copiamos los archivos de entrada del modelo con la función `copy_SS_inputs()`
+```{r eval=FALSE}
+#?copy_SS_inputs
+
+```
+
+
+
+Copiamos los archivos del modelo base
+```{r}
+copy_SS_inputs(dir.old = dirname.base, 
+               dir.new = dirname.simple_base,
+               copy_exe = TRUE,
+               verbose = FALSE)
+```
+
+
+
+Copiamos los archivos para el modelo que vamos a  modificar
+```{r}
+copy_SS_inputs(dir.old = dirname.base, 
+               dir.new = dirname.simple_mod,
+               copy_exe = TRUE,
+               verbose = FALSE)
+```
+
+
+
+# 5. Leer los archivos de Stock Synthesis  con la función `SS_read()`
+
+```{r eval=FALSE}
+#?SS_read
+
+```
+
+```{r}
+inputs <- r4ss::SS_read(dir = dirname.simple_mod)
+```
+
+ También se pueden correr las funciones de `SS_read()` por separado:  `SS_readstarter()`, `SS_readdat()`,`SS_readctl()`, `SS_readforecast()`, and `SS_readwtatage()`.
+
+```{r}
+
+start <- r4ss::SS_readstarter(file = file.path(dirname.simple_mod, "starter.ss"), 
+                              verbose = FALSE)
+dat <- r4ss::SS_readdat(file = file.path(dirname.simple_mod, start$datfile),
+                        verbose = FALSE)
+ctl <- r4ss::SS_readctl(file = file.path(dirname.simple_mod, start$ctlfil),
+                        verbose = FALSE,
+                        use_datlist = TRUE, 
+                        datlist = dat)
+fore <- r4ss::SS_readforecast(file = file.path(dirname.simple_mod, "forecast.ss"),
+                              verbose = FALSE)
+
+```
+
+
+
+# 6. Investigar el modelo 
+
+ Cada uno de los archivos de entrada se lee en R como una lista. 
+ 
+ Use `names()` para ver todos los componentes de la lista
+
+
+Revisamos los elementos de la lista
+```{r}
+names(inputs) 
+
+```
+
+
+Revisamos los nombres de los componentes de la lista del archivo inicio
+```{r}
+names(inputs$start) 
+
+```
+
+
+También se puede hacer referencia a un elemento específico para ver los componentes.  Ejemplo, mirar la sección de parámetros de mortalidad y crecimiento (MG_parms)
+```{r}
+inputs$ctl$MG_parms
+
+```
+
+
+
+# 7. Modificar el modelo 
+
+Se pueden hacer cambios estructurales básicos o grandes en el modelo SS3 en R.  Por ejemplo, cambiar el valor inicial de M.
+
+
+Primero revisamos el valor inicial
+```{r}
+inputs$ctl$MG_parms["NatM_p_1_Fem_GP_1", "INIT"]
+
+```
+
+Luego cambiamos el valor inicial a 0.2
+```{r}
+inputs$ctl$MG_parms["NatM_p_1_Fem_GP_1", "INIT"] <- 0.2
+
+```
+
+
+
+También se pueden modificar las configuraciones en otros archivos.  Por ejemplo, la biomada objetivo se puede modificar en el archivo forecast.
+```{r}
+inputs$fore$Btarget
+inputs$fore$Btarget <- 0.45
+inputs$fore$Btarget
+
+```
+
+
+# 8. Escribir los modelos modificados 
+
+ La función `SS_write()` se puede utilizar para escribir los objetos modificados en R en archivos de entrada a SS3.
+
+```{r}
+#?SS_write
+r4ss::SS_write(inputs, dir = dirname.simple_mod, overwrite = TRUE)
+```
+
+
+```{r eval=F}
+# También se pueden correr las funciones de SS_write() por separado: 
+r4ss::SS_writestarter(start,
+                      dir = dirname.simple_mod,
+                      overwrite = TRUE,
+                      verbose = FALSE)
+r4ss::SS_writedat(dat,
+                  outfile = file.path(dirname.simple_mod, start$datfile),
+                  overwrite = TRUE,
+                  verbose = FALSE)
+r4ss::SS_writectl(ctl,
+                  outfile = file.path(dirname.simple_mod, start$ctlfile),
+                  overwrite = TRUE,
+                  verbose = FALSE)
+r4ss::SS_writeforecast(fore,
+                       dir = dirname.simple_mod,
+                       file = "forecast.ss",
+                       overwrite = TRUE,
+                       verbose = FALSE)
+
+```
+
+
+
+# 9. Ejecutar el modelo usando la función `run_SS_models()`
+```{r }
+#?run_SS_models
+
+```
+
+
+
+Ejecutamos el  modelo base
+```{r}
+r4ss::run_SS_models(dirvec = dirname.simple_base, 
+                    model = "ss_win.exe" ,
+                    skipfinished = FALSE)
+```
+
+
+
+Ejecutamos el  modelo modificado
+
+```{r}
+
+r4ss::run_SS_models(dirvec = dirname.simple_mod, 
+                    model = "ss_win.exe" ,
+                    skipfinished = FALSE)
+
+```
+
+
+
+
+# 10. Investigar la ejecución del modelo 
+
+# Leer las salidas del modelo usando la función `SS_output()`
+```{r eval=FALSE}
+#?SS_output
+```
+
+
+
+Leemos las salidas del modelo base
+```{r}
+replist_base <- r4ss::SS_output(
+  dir = dirname.simple_base,
+  verbose = TRUE,
+  printstats = TRUE
+)
+
+```
+
+
+
+Leemos las salidas del modelo modificado
+```{r }
+replist_mod <- r4ss::SS_output(
+  dir = dirname.simple_mod,
+  verbose = TRUE,
+  printstats = TRUE
+)
+```
+
+
+
+Generamos los plots de resultados usando la función  `SS_plots()`
+```{r}
+plotbase <-here("Ejercicios","4.Crear_nuevos_modelos","plots_simple_base")
+dir.create(path=plotbase, showWarnings = TRUE, recursive = TRUE)
+r4ss::SS_plots(replist_base,dir = plotbase)
+```
+
+```{r}
+plotmod <-here("Ejercicios","4.Crear_nuevos_modelos","plots_simple_modificado")
+dir.create(path=plotmod, showWarnings = TRUE, recursive = TRUE)
+r4ss::SS_plots(replist_mod,dir = plotmod)
+
+```
+
+
+# 11. Comparación de modelos 
+
+Creamos una lista que resuma los resultados del modelo
+```{r}
+mod.sum <- SSsummarize(list(replist_base, replist_mod))
+
+plotcomp <-here("Ejercicios","4.Crear_nuevos_modelos","plots_comparativo")
+
+dir.create(path=plotcomp, showWarnings = TRUE, recursive = TRUE)
+```
+
+
+
+
+Generamos los plot con Comparaciones de modelos
+```{r}
+SSplotComparisons(mod.sum, 
+                  legendlabels = c("modelo base", "modelo modificado"),
+                  pheight=4.5,png=TRUE,plotdir=plotcomp,legendloc='bottomleft')
+```
+
+
+

@@ -1,0 +1,228 @@
+---
+title: "Análisis Retrospectivo"
+---
+
+```{css,echo=FALSE}
+.scroll-200{
+            max-height: 200px; 
+            overflow-y: auto; 
+            background-color: #f1f1f1;
+            }
+```
+
+
+```{css,echo=FALSE}
+/*----------LOGO above TOC---------*/
+#TOC::before {
+  content: "";
+  display: block;
+  height: 100px;
+  margin: 2em 20px 40px 20px;
+  background-image: url("LOGO_2SN_recortado.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+```
+
+
+
+
+```{r global-options, include=FALSE}
+knitr::opts_chunk$set(eval=T,echo=F, warning=FALSE, message=FALSE,class.output="scroll-200",fig.align = "center")
+```
+
+Un análisis retrospectivo elimina una cierta cantidad de años de los datos del  modelo y vuelve a calcular el ajuste. Por lo general, esto se hace varias veces  y los resultados se utilizan para buscar patrones retrospectivos.
+
+
+ Código original extraído desde  <https://github.com/jabbamodel/ss3diags>
+<https://github.com/jabbamodel/ss3diags/blob/master/Cookbook/Run_Retrospective_example.R>
+
+
+
+
+# Cargar librerías
+
+```{r}
+library(here)
+library(r4ss)
+library(ss3diags)
+
+```
+
+
+```{r}
+#'*Directorio base*
+
+dir.base<-here("Escenarios_SS3","S1")
+```
+
+```{r}
+#'*Crear un nuevo directorio para el `Restrospectivo`*
+
+dirname.R0.profile <- here("Retrospectivo")
+dir.create(path=dirname.R0.profile, showWarnings = TRUE, recursive = TRUE)
+```
+
+```{r}
+#'*Crear un subdirectorio llamado `plots_Retrospectivo`*
+
+plotdir=paste0(dirname.R0.profile, "/plots_Retrospectivo_S1")
+dir.create(path=plotdir, showWarnings = TRUE, recursive = TRUE)
+```
+
+```{r}
+#'*Crear un subdirectorio llamado `S1`*
+
+reference.dir <- paste0(dirname.R0.profile,'/S1') 
+dir.create(path=reference.dir, showWarnings = TRUE, recursive = TRUE)
+```
+
+```{r}
+#'*Copiar el resultado del modelo base completo en este directorio*
+
+file.copy(Sys.glob(paste(dir.base, "*.*", sep="/"),
+                   dirmark = FALSE),
+                    reference.dir)
+```
+
+# Ejecutar SS3
+```{r eval=FALSE}
+
+# Identificar el directorio donde está el archivo ejecutable y copiarlo
+exe_path <- here("Ejecutables_SS3","3.30.20_release")
+file.copy(paste0(exe_path,"/ss_osx"),reference.dir)
+#### Ejecutar el modelo ----
+# Entramos en el directorio desde la terminal
+system(paste0("cd ",reference.dir,"/"))
+# Permitimos que el ordenador pueda abrir el ejecutable (terminal)
+system(paste0("chmod 755 ",reference.dir,"/ss_osx"))
+
+r4ss::run(dir=reference.dir, exe="ss_osx", skipfinished=FALSE)
+```
+
+
+
+```{r}
+#'* 6. Leer la salida del modelo base `SS_output()`*
+
+Base <- SS_output(dir=reference.dir)
+
+```
+
+
+
+```{r}
+#'* 7. Copiar los archivos necesarios de `S1` al directorio `Perfil_Verosimilitud` con la función `copy_SS_inputs()` *
+# 
+# copy_SS_inputs(dir.old = reference.dir, 
+#                dir.new =  dirname.R0.profile,
+#                copy_exe = TRUE,
+#                verbose = FALSE)
+
+```
+
+```{r}
+#'* 8. Leer los archivos del modelo `SS_read()` *
+
+inputs <- r4ss::SS_read(dir = reference.dir,ss_new = FALSE, verbose = FALSE)
+
+```                    
+                    
+
+```{r}
+#'* 9. Editar el archivo starter para que muestre una línea de visualización por cada iteración *
+inputs$start$run_display_detail <- 1
+```
+
+```{r}
+#'*10. Escribir los modelos modificados *
+r4ss::SS_write(inputs, dir = reference.dir, overwrite = TRUE)
+```
+
+```{r}
+#'* 11. Identificar el período retrospectivo *
+start.retro <- 0    # último año del modelo
+end.retro   <- 5    # número de años para el retrospectivo 
+```
+
+
+```{r eval=F}
+#'*12. Ejecutar la función `SS_doRetro()` *
+#?SS_doRetro()
+retro(dir=reference.dir,
+      exe = "ss_osx",
+      years=start.retro:-end.retro)
+```
+
+```{r}
+#'*13. Leer los archivos de salida `SSgetoutput()`* 
+retroModels<-SSgetoutput(dirvec=file.path(dirname.Retrospective, "Retrospectives", paste("retro",start.retro:-end.retro,sep="")))
+```
+
+```{r}
+#'* 14. Resumir las salidas con la función `SSsummarize()`*  
+retroSummary <- SSsummarize(retroModels)
+```
+
+```{r}
+#'* 15. Funciones para generar plots de Retrospectivo `SSplotRetro()`*
+
+## forecast =FALSE 
+#png(file.path(plotdir,"Retrospectivo.png"),width=7,height=4.5,res=300,units='in')
+sspar(mfrow=c(1,2),plot.cex=0.8)
+rb = SSplotRetro(retroSummary,
+                 add=T,
+                 forecast = F,
+                 legend = F,
+                 verbose=F)
+
+rf = SSplotRetro(retroSummary,
+                 add=T,
+                 subplots="F", 
+                 ylim=c(0,0.4),
+                 forecast = F,
+                 legendloc="topleft",
+                 legendcex = 0.8,
+                 verbose=F)
+#dev.off()
+```
+
+```{r}
+#'*forecast=TRUE *
+#png(file.path(plotdir,"Retrospectivo2.png"),width=7,height=4.5,res=300,units='in')
+sspar(mfrow = c(2, 1), plot.cex = 0.8)
+
+SSplotRetro(retroSummary, 
+            add = T, 
+            forecast = T, 
+            legend = F, 
+            verbose = F, 
+            xmin = 1970)
+
+SSplotRetro(retroSummary, 
+            add = T, 
+            subplots = "F", 
+            ylim = c(0, 0.5), 
+            forecast = T,
+            legendloc = "topleft", 
+            legendcex = 0.8, 
+            verbose = F, 
+            xmin = 1970)
+
+#dev.off()
+```
+
+```{r}
+#'*16. Función para Tabla de Rho `SShcbias()` *
+SShcbias(retroSummary,quant="SSB",verbose=F)
+
+SShcbias(retroSummary,quant="F",verbose=F)
+
+```
+
+
+
+
+
+

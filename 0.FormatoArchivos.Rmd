@@ -1,0 +1,782 @@
+---
+title: "Implementación del modelo"
+date: '`r format(Sys.Date(),"Última actualización: %B, %d, %Y")`'
+---
+
+
+
+```{r global-options, include=FALSE}
+knitr::opts_chunk$set(eval=T,echo=T,comment="",collapse=FALSE, warning=FALSE, message=FALSE,class.output="scroll-200",fig.align = "center")
+```
+
+
+```{css,echo=FALSE,include=FALSE}
+
+
+.scroll-200{
+            max-height: 300px; 
+            overflow-y: auto; 
+            background-color: #f1f1f1;
+            }
+```
+
+
+
+```{css,echo=FALSE,include=FALSE}
+
+/*----------LOGO above TOC---------*/
+
+#TOC::before {
+  content: "";
+  display: block;
+  height: 300px;
+  margin: 2em 20px 40px 20px;
+  background-image: url("LOGO_2SN_recortado.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+```
+
+
+```{r include=FALSE}
+ paquetes <- c("stringr", "tidyverse", "kableExtra","ggplot2","ggthemes",
+               "patchwork","dplyr","reshape","here","r4ss","zoo")
+ lapply(paquetes, require, character.only = TRUE)
+```
+
+
+```{r include=FALSE}
+dir.base<-here("Escenarios_SS3","S1")
+#'*Identificar el directorio donde está el archivo ejecutable y copiarlo*
+exe_path <- here("Ejecutables_SS3","3.30.20_release")
+file.copy(paste0(exe_path,"/ss_osx"),dir.base)
+```
+
+&nbsp; &nbsp;
+&nbsp; &nbsp;
+&nbsp; &nbsp;
+
+
+# Descripción general del modelo
+
+Utilizaremos el modelo más simple para la implementación de un modelo para el caso de boqueron. Ejecutaremos el modelo y graficaremos los resultados usando el paquete de R `r4ss`.
+
+Es un modelo de evaluación estructurado por tallas de 1 sexo para una sola población en 1 área que comienza en 1989 y finaliza en 2021. La máxima edad en el modelo es de 4 años. Incluye 1 pesquería y 3 campañas independiente de la pesquería.
+
+
+En la parte superior se especifica información general del modelo: los años del modelo, número de temporadas, número de sexos, edad máxima, número de áreas, número de flotas  
+
+
+```{r echo=FALSE}
+library(here)
+dat <- r4ss::SS_readdat(here(dir.base,"data.ss")) 
+# Lista para modificar
+dat1<-dat 
+# Contenido de la lista
+#names(dat1) 
+
+```
+
+```{r}
+#'*===============================================================================*
+#'*Especificaciones iniciales*
+#'*===============================================================================*
+dat1[4:14]
+```
+
+
+&nbsp; &nbsp;
+&nbsp; &nbsp;
+
+
+# DATOS
+
+
+&nbsp; &nbsp;
+
+En archivo `Data.ss` es donde se especifican las entradas de datos.
+
+
+&nbsp; &nbsp;
+
+&nbsp; &nbsp;
+
+- Se asume que la pesquería no descarta y por lo tanto retiene todo el pescado que captura. 
+- Se asume selectividad logística basada en tallas para la pesquería y para las campañas. 
+- La capturabilidad se estima para todas las campañas. 
+- Para ajustar la calidad de los datos, se especifica una desviación estándar (CV). 
+
+
+```{r include=F}
+replist <- SS_output(dir=dir.base,verbose=TRUE,printstats=TRUE)
+```
+
+```{r }
+
+SSplotData(replist, subplot = 1)
+```
+
+&nbsp; &nbsp;
+
+&nbsp; &nbsp;
+
+### Tipos de flota
+
+
+&nbsp; &nbsp;
+
+A continuación, se especifican los tipos de flota.  Como tenemos una pesquería y 2 campañas (3 flotas en total), habrá tres líneas. 
+
+
+- Se especifica el tipo de flota (`fleet_type`), donde la pesquería tiene tipo 1 (porque es una flota de captura) y las campañas tienen tipo 3. 
+
+- Se especifican las unidades para cada flota (lo que se denomina `catch_units` en el encabezado), aunque para las campañas son ignorados. 
+
+- La pesquería tiene `catch_units` =1, lo que significa que está en unidades de biomasa y no en números. 
+
+- Los nombres de las flotas se especifican al final de cada línea (antes del comentario). 
+
+Por ejemplo, en este caso, la pesquería se ha denominado `FISHERY`, mientras que la primera campaña `SURVEY1`.
+
+&nbsp; &nbsp;
+
+
+```{r }
+#'*_fleet_type: 1=catch fleet; 2=bycatch only fleet; 3=survey; 4=ignore *
+#'*_sample_timing: -1 for fishing fleet to use season-long catch-at-age for *
+#'*observations, or 1 to use observation month;  (always 1 for surveys)*
+#'*_fleet_area:  area the fleet/survey operates in *
+#'*_units of catch:  1=bio; 2=num (ignored for surveys; their units read later)*
+#'*_catch_mult: 0=no; 1=yes*
+#'*_rows are fleets*
+#'*_fleet_type fishery_timing area catch_units need_catch_mult fleetname*
+
+ dat1[15]%>% 
+kbl(caption = "Especificaciones de flotas") %>%
+  kable_paper("hover", full_width = F)%>% 
+  scroll_box(width = "100%",height="100px")
+ 
+```
+
+
+&nbsp; &nbsp;
+
+### Captura {.tabset .tabset-fade }
+
+- La captura proviene de la pesquería de cerco de España y Portugal para la zona 9a de ICES.
+- La línea `-999 1 1 0 0.01` especifica la captura  de equilibrio para los años anteriores al inicio del modelo; en este caso, no hay captura de equilibrio porque la columna de captura es 0.
+
+&nbsp; &nbsp;
+
+
+```{r }
+#'*_Catch data: yr, seas, fleet, catch, catch_se*
+#'*_catch_se:  standard error of log(catch)*
+#'*_NOTE:  catch data is ignored for survey fleets*
+
+ dat1[20] %>% 
+kbl(caption = "Datos de capturas en toneladas por año, trimestre y su coeficiente de variación") %>%
+  kable_paper("hover", full_width = F)%>% 
+  scroll_box(width = "100%",height="500px")
+
+```
+
+
+&nbsp; &nbsp;
+
+
+
+
+&nbsp; &nbsp;
+
+&nbsp; &nbsp;
+
+### Índices de abundancia {.tabset .tabset-fade }
+ 
+&nbsp; &nbsp;
+
+#### Especificaciones
+Luego viene la especificación de los índices de abundancia.  Primero está la configuración para todas las flotas. 
+
+&nbsp; &nbsp;
+
+
+```{r }
+#'*_CPUE_and_surveyabundance_observations*
+#'*_Units:  0=numbers; 1=biomass; 2=F; >=30 for special types*
+#'*_Errtype:  -1=normal; 0=lognormal; >0=T*
+#'*_SD_Report: 0=no sdreport; 1=enable sdreport*
+#'*_Fleet Units Errtype SD_Report*
+
+dat1[21]
+```
+
+#### Datos
+&nbsp; &nbsp;
+
+- Los encabezados de las columnas de esta sección están directamente encima de los números. Tenga en cuenta que aquí se definen todas las flotas (es decir, cada flota necesita una línea), incluida la pesquería, y se enumeran en el mismo orden que cuando se especificaron los tipos de flota.
+
+- Lo más importante en esta sección es que se especifican las unidades y el tipo de error que se utilizará al leer los índices de abundancia. 
+
+- En este caso, la pesquería y la campaña 1 tienen unidades de biomasa, mientras que la campaña 2 es en números. Se asume un error logarítmico normal para las 3 flotas.
+
+- Inmediatamente después de su encabezado, se incluyen los datos de índices de abundancia:
+
+&nbsp; &nbsp;
+
+
+```{r }
+#'*_yr month fleet obs stderr*
+
+dat1[22]%>% 
+kbl(caption = "Datos de índices de campañas en toneladas por año, mes, campaña y su coeficiente de variación") %>%
+  kable_paper("hover", full_width = F)%>% 
+  scroll_box(width = "100%",height="500px")
+```
+
+
+&nbsp; &nbsp;
+
+- Al igual que los datos de captura, se necesita una línea para decirle a SS cuándo dejar de leer los índices.
+
+
+&nbsp; &nbsp;
+
+&nbsp; &nbsp;
+
+### Composición de tallas {.tabset .tabset-fade }
+
+#### Especificaciones
+&nbsp; &nbsp;
+
+La siguiente sección configura los intervalos de talla (`length bin`) de la población. 
+
+Esto debe especificarse ya sea que se utilicen o no datos de composiciones de tallas (aunque podría generar los intervalos de longitud de la población a partir de los intervalos de datos de composiciones de tallas). 
+
+&nbsp; &nbsp;
+
+
+```{r }
+#'*set up population length bin structure (note - irrelevant if not using size *
+#'*data and using empirical wtatage*
+#'*length bin method: 1=use databins; 2=generate from binwidth,min,max below;3=read vector*
+#'*binwidth for population size comp *
+#'* minimum size in the population (lower edge of first bin and size at age 0.00) *
+#'* maximum size in the population (lower edge of last bin) *
+#'* use length composition data (0/1)*
+
+dat1[25:29] 
+
+```
+
+
+&nbsp; &nbsp;
+
+Después de los intervalos de tallas de la población está la especificación para la composición de tallas (asumiendo 1 línea por flota):
+
+
+&nbsp; &nbsp;
+
+```{r }
+#'*_mintailcomp addtocomp combM+F CompressBins CompError ParmSelect minsamplesize*
+dat1[30]
+
+```
+
+
+&nbsp; &nbsp;
+
+La especificación del vector de tallas:
+
+
+&nbsp; &nbsp;
+
+```{r }
+ dat1[31:32]
+```
+
+
+&nbsp; &nbsp;
+
+#### Datos 
+
+
+&nbsp; &nbsp;
+
+```{r }
+  dat1[33]%>% 
+kbl(caption = "Datos de composición de tallas") %>%
+  kable_paper("hover", full_width = F)%>% 
+  scroll_box(width = "100%",height="500px")
+```
+
+
+&nbsp; &nbsp;
+
+En este modelo de 2 sexos, los datos de composición de tallas se introducen para las hembras, con 1 número por intervalo de tallas especificado previamente, seguido de los datos de composición de tallas para los machos, también con 1 número por intervalo de tallas.
+
+#### Figura
+
+&nbsp; &nbsp;
+
+
+# PARÁMETROS
+
+&nbsp; &nbsp;
+
+### Mortalidad natural, crecimiento, madurez y proporción sexual
+
+- Se asume que todos los parámetros son los mismos a lo largo del tiempo. 
+- La mortalidad natural se especifica en 0,1.
+- Se utiliza una curva de crecimiento de von Bertalanfy con K estimado. 
+- Se supone que la madurez a la talla es logística. 
+
+
+
+&nbsp; &nbsp;
+
+### Relación stock-recluta
+
+- Se asume una relación stock-recluta de beverton-holt, con valores de steepness y R0 estimados.
+
+
+&nbsp; &nbsp;
+
+### Reclutamiento
+
+- Se asume desviaciones de reclutamiento y sesgo.
+
+
+&nbsp; &nbsp;
+
+### Mortalidad por pesca
+
+- Se utiliza un enfoque híbrido, lo que significa que los F son parámetros estimados, pero están restringidos usando la aproximación de Pope.
+
+&nbsp; &nbsp;
+
+&nbsp; &nbsp;
+
+
+## Archivo `Control.ss`
+
+```{r}
+#'*===============================================================================*
+#'*Leer archivo control.ss* ----
+#'*===============================================================================*
+ctl <- r4ss::SS_readctl(
+  file = here(dir.base,
+              "control.ss"),
+  version="3.3",
+  verbose = FALSE,
+  datlist = dat, use_datlist = TRUE)
+
+#'*===============================================================================*
+#'*Modificar archivo control.ss*  ----
+#'*==============================================================================*
+#'*Lista para modificar*
+ctl1<-ctl 
+#'*Contenido de la lista*
+# names(ctl1) 
+
+```
+
+&nbsp; &nbsp;
+
+### Patrón de crecimiento y reclutamiento
+
+
+&nbsp; &nbsp;
+
+Luego están las opciones para el número de patrones de crecimiento y platoons. Estos se establecen en 1 porque asumimos que toda la población tiene el mismo patrón de crecimiento y no hay platoons dentro de los patrones de crecimiento.
+
+
+&nbsp; &nbsp;
+
+```{r }
+#'*_N_Growth_Patterns (Growth Patterns, Morphs, Bio Patterns, GP are terms used *
+#'*interchangeably in SS)*
+#'*_N_platoons_Within_GrowthPattern *
+
+ctl1[16:17]
+```
+
+
+&nbsp; &nbsp;
+
+- Luego se especifica la distribución del reclutamiento. 
+
+- Suponemos que para esta población solo hay 1 patrón de crecimiento, 1 tiempo de asentamiento (settlement) y 1 área, por lo que podemos usar la opción 4. 
+
+- Esta es la más simple, porque no requiere líneas completas de parámetros más adelante en el archivo control.
+
+
+&nbsp; &nbsp;
+
+```{r }
+#'*recr_dist_method for parameters:  2=main effects for GP, Area, Settle timing; 3=each Settle entity; 4=none (only when N_GPxNsettlexpop==1)*
+#'*not yet implemented; Future usage: Spawner-Recruitment: 1=global; 2=by area*
+#'*number of recruitment settlement assignments* 
+#'*unused option*
+ ctl1[18:21]
+
+```
+
+```{r}
+#'*GPattern month  area  age (for each settlement assignment)*
+ ctl1[22] 
+```
+
+&nbsp; &nbsp;
+
+Tenga en cuenta que también usamos 1 asignación de asentamiento (settlement) y especificamos que los peces se establecieron en enero a la edad 0. 
+
+Esto podría modificarse si los peces se establecieron a una edad o momento diferente.
+
+
+&nbsp; &nbsp;
+
+
+&nbsp; &nbsp;
+
+### Parámetros variables en el tiempo
+
+
+&nbsp; &nbsp;
+
+Así mismo, no se utilizan parámetros variables en el tiempo, por lo que no es importante lo que se especifica en los parámetros de control variables en el tiempo.
+
+&nbsp; &nbsp;
+
+```{r }
+#'*controls for all timevary parameters *
+#'*_env/block/dev_adjust_method for all time-vary parms (1=warn relative to base parm bounds; 3=no bound check)*
+#'*AUTOGEN*
+#'*autogen:* 1st element for biology, 2nd for SR, 3rd for Q, 4th reserved, 5th for selex where: *
+#'*0 = autogen all time-varying parms; 1 = read each time-varying parm line; 2 = read then autogen if parm min==-12345*
+
+ ctl1[26:27]
+ 
+ 
+```
+
+
+&nbsp; &nbsp;
+
+### Parámetros biológicos {.tabset .tabset-fade }
+
+&nbsp; &nbsp;
+
+#### Especificaciones 
+
+&nbsp; &nbsp;
+
+La opción 0 se usa para la mortalidad natural porque solo se asume 1 valor. 
+
+El modelo de crecimiento 1 se usa para especificar un modelo de crecimiento de von Bertalanffy, seguido de líneas que especifican detalles sobre el crecimiento.
+
+Luego, las líneas de configuración por madurez, fecundidad y otras opciones especializadas:
+
+&nbsp; &nbsp;
+
+``` {r }
+#'*================================================================================================*
+#'*Mortalidad natural y crecimiento *
+#'*---------------------------------*
+#'*_natM_type:*_0=1Parm; 1=N_breakpoints;_2=Lorenzen;_3=agespecific;_4=agespec_withseasinterpolate _no additional input for selected M option;read 1P per morph*
+#'*GrowthModel:* 1=vonBert with L1&L2; 2=Richards with L1&L2; 3=age_specific_K_incr; 4=age_specific_K_decr; 5=age_specific_K_each; 6=NA; 7=NA; 8=growth cessation*
+#'*_Age(post-settlement)_for_L1;linear growth below this*
+#'*_Growth_Age_for_L2 (999 to use as Linf)*
+#'*_exponential decay for growth above maxage (value should approx initial Z; -999 replicates 3.24; -998 to not allow growth above maxage)*
+#'*_placeholder for future growth feature*
+#'*_SD_add_to_LAA (set to 0.1 for SS2 V1.x compatibility)*
+#'*_CV_Growth_Pattern:  0 CV=f(LAA); 1 CV=F(A); 2 SD=F(LAA); 3 SD=F(A); 4 logSD=F(A)*
+#'*================================================================================================*
+#'*Madurez y fecundidad*
+#'*--------------------*
+#'*_maturity_option:*  1=length logistic; 2=age logistic; 3=read age-maturity matrix by *
+#'*growth_pattern;* 4=read age-fecundity; 5=disabled; 6=read length-maturity*
+#'*_First_Mature_Age*
+#'*_fecundity option:*(1)eggs=Wtx(a+bxWt);(2)eggs=axL^b;(3)eggs=axWt^b; (4)eggs=a+bxL;(5)eggs=a+bxW*
+#'*_hermaphroditism option:*  0=none; 1=female-to-male age-specific fxn; -1=male-to-female *
+#'*age-specific fxn*
+#'*_parameter_offset_approach* (1=none, 2= M, G, CV_G as offset from female-GP1, 3=like SS2 V1.x)*
+
+ ctl1[28:42]
+#
+```
+
+&nbsp; &nbsp;
+
+#### Parámetros 
+
+- Las líneas de parámetros resultantes de la mortalidad natural, el crecimiento y la madurez (esta sección a veces se denomina parámetros MG) se especifican a continuación. 
+
+- El número de líneas de parámetros depende de las opciones seleccionadas en las líneas de especificación. 
+
+- Los parámetros también deben especificarse en un orden particular, con los parámetros de las hembras antes que los de machos en un modelo de 2 sexos.
+
+
+&nbsp; &nbsp;
+
+
+```{r}
+#'*_ LO HI INIT PRIOR PR_SD PR_type PHASE env_var&link dev_link dev_minyr dev_maxyr dev_PH Block Block_Fxn*
+ctl1[43]%>% 
+kbl(caption = "Parámetros biológicos") %>%
+  kable_paper("hover", full_width = F)%>% 
+  scroll_box(width = "100%",height="500px")
+```
+
+
+&nbsp; &nbsp;
+
+Tenga en cuenta que la primera línea en el bloque de entrada SS anterior muestra los encabezados de columna. 
+
+Todas las secciones con líneas de parámetros largas dentro del archivo de control tienen estos mismo encabezados. 
+
+- Hay muchas especificaciones en estas largas líneas de parámetros, pero algunas de particular importancia son:
+
+- Todo lo que tenga fase negativa (séptimo valor en una línea larga de parámetros) no se estima y se establece en el valor inicial (tercer valor en la línea), mientras que las fases positivas sí se estiman.
+- La mortalidad natural tanto para machos como para hembras se especifican en 0,1.
+- Se estiman los tres parámetros de la curva de crecimiento de von Bertalanffy.
+
+A continuación se presentan algunas opciones no utilizadas, porque no hay estacionalidad en los parámetros biológicos:
+
+&nbsp; &nbsp;
+&nbsp; &nbsp;
+
+### Relación stock-recluta {.tabset .tabset-fade }
+
+&nbsp; &nbsp;
+
+#### Especificaciones
+
+A continuación, se especifican la configuración de la relación stock-recluta y las líneas de parámetros SR. Para configurar las líneas, se especifica una curva SR de Beverton-Holt.
+
+&nbsp; &nbsp;
+
+```{r }
+#'*_Spawner-Recruitment; Options: 2=Ricker; 3=std_B-H; 4=SCAA; 5=Hockey; 6=B-H_flattop; 7=survival_3Parm; 8=Shepherd_3Parm; 9=RickerPower_3parm*
+#'* 0/1 to use steepness in initial equ recruitment calculation*
+#'* future feature:  0/1 to make realized sigmaR a function of SR curvature*
+ctl1[45:47]
+```
+
+
+&nbsp; &nbsp;
+
+#### Parámetros
+Lo que afecta al número de líneas de parámetros SR que siguen: 
+
+&nbsp; &nbsp;
+
+```{r }
+ctl1[48]%>% 
+kbl(caption = "Parámetros de la relación stock recluta") %>%
+  kable_paper("hover", full_width = F)%>% 
+  scroll_box(width = "100%",height="500px")
+```
+
+
+&nbsp; &nbsp;
+
+### Desvíos de reclutamiento {.tabset .tabset-fade }
+
+
+&nbsp; &nbsp;
+
+Las opciones de desviación de reclutamiento se especifican después de los parámetros de SR. Primero están las opciones de desviaciones estándar de reclutamiento:
+
+
+&nbsp; &nbsp;
+
+```{r }
+#'*do_recdev:  0=none; 1=devvector (R=F(SSB)+dev); 2=deviations (R=F(SSB)+dev); 3=deviations (R=R0xdev; dev2=R-f(SSB)); 4=like 3 with sum(dev2) adding penalty*
+#'* first year of main recr_devs; early devs can preceed this era*
+#'* last year of main recr_devs; forecast devs start in following year*
+#'*_recdev phase *
+ctl1[49:53]
+```
+
+
+Estos definen las principales desviaciones de reclutamientos, que en este caso duran desde el primer año del modelo hasta el último año. También se leen opciones avanzadas:
+
+
+&nbsp; &nbsp;
+
+
+Las opciones avanzadas permiten al usuario sesgar el ajuste de las desviaciones de reclutamiento. Hay más información sobre el ajuste del sesgo en el manual del usuario de SS, pero la idea general es tener en cuenta el hecho de que las desviaciones de reclutamiento anteriores y posteriores probablemente tengan menos información que las del medio. 
+
+La rampa de ajuste de sesgo tiene esto en cuenta y, por lo general, se "ajusta" observando la rampa de sesgo en los resultados del modelo después de ejecutarlo, volviendo a especificar la rampa de sesgo según sea necesario y volviendo a ejecutar el modelo.
+
+
+&nbsp; &nbsp;
+
+### Mortalidad por pesca {.tabset .tabset-fade }
+
+&nbsp; &nbsp;
+
+
+ [Consulte la Guía de usuario de SS3: Sección 8.7 "Fishing Mortality Method"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#fishing-mortality-method).
+ 
+ 
+&nbsp; &nbsp;
+
+```{r}
+#'*Fishing Mortality info *
+#'*F ballpark*
+#'*F ballpark year (neg value to disable)*
+#'*F_Method:  1=Pope; 2=instan. F; 3=hybrid (hybrid is recommended)*
+#'*max F or harvest rate, depends on F_Method*
+#'*no additional F input needed for Fmethod 1*
+#'*if Fmethod=2; read overall start F value; overall phase; N detailed inputs to read*
+#'*if Fmethod=3; read N iterations for tuning for Fmethod 3*
+#'*N iterations for tuning F in hybrid method (recommend 3 to 7)*
+
+ctl1[54:58]
+```
+
+
+&nbsp; &nbsp;
+
+No hay configuraciones especiales particulares para la información de mortalidad por pesca para este modelo, pero tenga en cuenta que se utiliza el método F híbrido recomendado.
+
+
+&nbsp; &nbsp;
+
+
+### Capturabilidad {.tabset .tabset-fade }
+
+
+
+
+&nbsp; &nbsp;
+
+#### Especificaciones
+
+```{r}
+#'*_Q_setup for fleets with cpue or survey data*
+#'*_1:  fleet number*
+#'*_2:  link type: (1=simple q, 1 parm; 2=mirror simple q, 1 mirrored parm; 3=q and power, 2 parm; 4=mirror with offset, 2 parm)*
+#'*_3:  extra input for link, i.e. mirror fleet# or dev index number*
+#'*_4:  0/1 to select extra sd parameter*
+#'*_5:  0/1 for biasadj or not*
+#'*_6:  0/1 to float*
+#'*_   fleet      link link_info  extra_se   biasadj     float  #  fleetname*
+ctl1[59]%>% 
+kbl(caption = "Especificaciones de capturabilidad") %>%
+  kable_paper("hover", full_width = F)%>% 
+  scroll_box(width = "100%",height="500px")
+
+```
+
+#### Parámetros
+
+```{r}
+#'*_Q_parms(if_any);Qunits_are_ln(q)*
+#'*_ LO HI INIT PRIOR PR_SD PR_type PHASE env-var use_dev dev_mnyr dev_mxyr dev_PH Block Blk_Fxn # parm_name*
+ctl1[60]%>% 
+kbl(caption = "Parámetros de capturabilidad") %>%
+  kable_paper("hover", full_width = F)%>% 
+  scroll_box(width = "100%",height="500px")
+```
+
+&nbsp; &nbsp;
+
+Debido a que la pesquería no se usa como un índice de abundancia, no requiere ninguna línea o parámetro de configuración de capturabilidad. 
+
+
+Tenga en cuenta que los parámetros de capturabilidad a escala logarítmica (LNQ) se estiman para las campañas.
+
+
+Además, para la flota 2 en las líneas de configuración, se especificó que se usara un error estándar adicional, por lo que hay un valor fijo `extraSD` especificado como una línea de parámetro.
+
+
+&nbsp; &nbsp;
+
+### Selectividad {.tabset .tabset-fade }
+
+
+&nbsp; &nbsp;
+
+#### Especificaciones
+
+En esta sección se especifican las líneas de selectividad a la talla y edad. [Consulte la Guía de usuario de SS3: Sección 8.9 "Selectivity and Discard"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#selectivity-and-discard).
+
+&nbsp; &nbsp;
+
+```{r}
+#'*_size_selex_patterns*
+ctl1[61]%>% 
+kbl(caption = "Especificaciones de selectividad tallas") %>%
+  kable_paper("hover", full_width = F)%>% 
+  scroll_box(width = "100%",height="500px")
+```
+
+```{r}
+#'*_age_selex_patterns*
+ctl1[62]%>% 
+kbl(caption = "Especificaciones de selectividad edad") %>%
+  kable_paper("hover", full_width = F)%>% 
+  scroll_box(width = "100%",height="500px")
+```
+
+
+&nbsp; &nbsp;
+
+Se debe especificar un patrón tanto para la selectividad por talla como para la selectividad a la edad para cada flota; sin embargo, el uso de los patrones 0 y 1 para la selectividad a la talla permite al usuario especificar que la selectividad sea la misma en todas las tallas (dentro del rango especificado, si se usa el patrón 1). 
+
+Aquí, el patrón de selectividad por edad 11 (logística) se utiliza para todas las flotas. Las líneas de configuración de selectividad van seguidas de las líneas de parámetros de selectividad.
+
+#### Parámetros
+&nbsp; &nbsp;
+```{r}
+ctl1[63]%>% 
+kbl(caption = "Parámetros selectividad talla") %>%
+  kable_paper("hover", full_width = F)%>% 
+  scroll_box(width = "100%",height="500px")
+```
+
+```{r}
+ctl1[64]%>% 
+kbl(caption = "Parámetros selectividad edad") %>%
+  kable_paper("hover", full_width = F)%>% 
+  scroll_box(width = "100%",height="500px")
+```
+
+
+
+&nbsp; &nbsp;
+
+Estas líneas de parámetros se especifican en orden, con las líneas de selectividad de tamaño (o longitud) especificadas antes de las líneas de selectividad de edad y las flotas en el mismo orden que en las líneas de configuración.
+
+Además, el patrón de selectividad utilizado determina la cantidad de parámetros necesarios para especificar el tamaño o la selectividad por edad de cada flota.
+
+### Varianza {.tabset .tabset-fade }
+
+```{r}
+ctl1[67]
+```
+
+```{r}
+ctl1[68]
+```
+
+
+## Ejecutar modelo 
+
+
+```{r eval=F}
+#'*Ejecutar el modelo* ----
+#'*Entramos en el directorio desde la terminal*
+system(paste0("cd ",dir.base,"/"))
+
+#'*Permitimos que el ordenador pueda abrir el ejecutable (terminal)*
+system(paste0("chmod 755 ",dir.base,"/ss_osx"))
+
+#'* Ejecutar el modelo SS3 usando la función run_SS_models* ----
+r4ss::run(dir=dir.base, exe="ss_osx", skipfinished=FALSE)
+```

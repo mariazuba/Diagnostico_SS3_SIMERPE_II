@@ -1,0 +1,491 @@
+---
+title: ""
+---
+
+
+```{css,echo=FALSE}
+.scroll-200{
+            max-height: 200px; 
+            overflow-y: auto; 
+            background-color: #f1f1f1;
+            }
+```
+
+
+```{css,echo=FALSE}
+/*----------LOGO above TOC---------*/
+#TOC::before {
+  content: "";
+  display: block;
+  height: 100px;
+  margin: 2em 20px 40px 20px;
+  background-image: url("LOGO_2SN_recortado.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+```
+
+
+
+```{r global-options, include=FALSE}
+knitr::opts_chunk$set(eval=T,echo=T, warning=FALSE, message=FALSE,class.output="scroll-200")
+```
+
+
+# Jitter Test for Global Convergence with Stock Synthesis
+&nbsp;
+&nbsp;
+
+Otro diagnóstico de uso común con los modelos de Stock Synthesis es el "jittering". Los valores iniciales del modelo se cambian aleatoriamente (por alguna fracción en un espacio de parámetros transformado) y el modelo se vuelve a optimizar. La función `jitter()` realiza esta rutina el número de veces especificado por el usuario. Para un modelo de stock Synthesis en una carpeta llamada `Jitter`, los valores iniciales de jittering se pueden ejecutar 100 veces (tenga en cuenta que esto podría llevar un tiempo, ya que se ejecutarán en secuencia):
+
+
+La salida de `jitter()` se guarda en `jitter_loglike`, que es una tabla de las diferentes probabilidades de registro negativo producidas por el jittering. Si hay alguna probabilidad logarítmica negativa menor que la probabilidad logarítmica del modelo original, esto indica que la probabilidad logarítmica del modelo original es un mínimo local y no el mínimo global. Por otro lado, si no hay logaritmo de verosimilitud inferior al logaritmo de verosimilitud del modelo original, esto es evidencia (pero no prueba) de que el logaritmo de verosimilitud negativo del modelo original podría ser el mínimo global.
+
+Los valores iniciales fluctuantes también pueden proporcionar evidencia sobre la sensibilidad del modelo a los valores iniciales. Si se llega a muchos valores de probabilidad diferentes durante el análisis de fluctuación, entonces el modelo es sensible a los valores iniciales. Sin embargo, si muchos de los modelos convergen al mismo valor de verosimilitud logarítmica negativa, esto indica que el modelo es menos sensible a los valores iniciales.
+
+&nbsp;
+&nbsp;
+
+## Github `ss3diags`
+
+ Código original extraído desde  <https://github.com/jabbamodel/ss3diags>
+<https://github.com/jabbamodel/ss3diags/blob/master/Cookbook/Jitter_test_example.R>
+
+
+&nbsp;
+&nbsp;
+
+## Instalar librerías
+
+```{r eval=FALSE}
+devtools::install_github("jabbamodel/ss3diags")
+install.packages('r4ss')
+install.packages('here')
+
+```
+
+&nbsp;
+&nbsp;
+
+## Cargar librerías
+
+```{r}
+library(here)
+library(r4ss)
+library(ss3diags)
+
+```
+
+&nbsp;
+&nbsp;
+
+## Preparar directorios de trabajo
+### 1. Identificar el directorio donde se encuentra el modelo base 
+```{r}
+dirname.model.run <- here("modelos_SS3","simple")
+```
+
+
+
+### 2. Crear un nuevo directorio para el "Jitter"  
+```{r}
+dirname.Jitter <- here("Ejercicios","9.Jitter")
+dir.create(path=dirname.Jitter, showWarnings = TRUE, recursive = TRUE)
+```
+
+
+### 3. Crear un subdirectorio llamado "plots_Jitter" 
+```{r}
+plotdir=paste0(dirname.Jitter, "/plots_Jitter")
+dir.create(path=plotdir, showWarnings = TRUE, recursive = TRUE)
+```
+
+
+
+### 4. Crear un subdirectorio llamado "simple" 
+```{r}
+reference.dir <- paste0(dirname.Jitter,'/simple') 
+dir.create(path=reference.dir, showWarnings = TRUE, recursive = TRUE)
+```
+
+
+
+### 5. Copiar el resultado del modelo base completo en este directorio 
+
+```{r}
+file.copy(Sys.glob(paste(dirname.model.run, "*.*", sep="/"),
+                   dirmark = FALSE),
+          reference.dir)
+```
+
+# Ejecutar SS3
+
+```{r}
+r4ss::run_SS_models(dirvec = reference.dir, 
+                    model = "ss_win.exe" ,
+                    skipfinished = FALSE)
+```
+
+             
+### 6. Leer la salida del modelo base 
+```{r}
+Base <- SS_output(dir=reference.dir,covar=T)
+```
+
+
+
+### 7. Copiar los archivos necesarios de "simple" al directorio "Jitter"
+
+```{r}
+copy_SS_inputs(dir.old = reference.dir, 
+               dir.new =  dirname.Jitter,
+               copy_exe = TRUE,
+               copy_par = TRUE,
+               verbose = FALSE)
+```
+
+
+&nbsp;
+&nbsp;
+
+### 8. Leer los archivos del modelo 
+```{r}
+inputs <- r4ss::SS_read(dir = dirname.Jitter)
+```
+
+&nbsp;
+&nbsp;
+
+
+### 9. Cambiar archivo `starter.ss` para usar el archivo `ss.par` 
+```{r}
+inputs$start$init_values_src <- 1
+```
+
+
+
+### 10. Cambiar el jitter (0.1 es una opción arbitraria, pero común para la cantidad de jitter) 
+```{r}
+inputs$start$jitter_fraction <- 0.1
+```
+
+
+
+# 11. Escribir los modelos modificados 
+```{r}
+r4ss::SS_write(inputs, dir = dirname.Jitter, overwrite = TRUE)
+
+```
+
+
+
+# 12. Ejecutar la prueba de Jitter para la convergencia global 
+
+## i. Establecer el número de iteraciones  
+```{r}
+Njitter=10
+```
+
+
+
+## ii. Ejecute jitter usando la función `SS_RunJitter()`, (el valor predeterminado es nohess) 
+
+```{r eval=F}
+jit.likes <- SS_RunJitter(mydir=dirname.Jitter,
+                          model = "ss_win",
+                          Njitter=Njitter, 
+                          extras="")
+```
+
+
+
+```{r echo=F}
+Rdata.dir <- here("Ejercicios","Rdata")
+load(paste0(Rdata.dir, "/","jitter 20230122_0917", ".RData"))
+```
+
+
+```{r}
+setwd(plotdir)
+getwd()
+```
+
+
+
+
+## iii. La Verosimilitud Total necesaria para evaluar la convergencia global se guardan en `jit.likes`
+```{r}
+x<-as.numeric(jit.likes)
+
+global.convergence.check<-table(x,exclude = NULL)
+
+```
+
+
+```{r}
+jit.likes
+
+```
+
+```{r eval=T}
+write.table(jit.likes,
+            "jit_like.csv") 
+```
+
+```{r}
+global.convergence.check
+
+```
+
+```{r eval=T}
+write.table(global.convergence.check,
+            "global_convergence_check.csv")
+```
+
+
+## iv. Resumir más resultados de Jitter `SSgetoutput()` y `SSsummarize()` 
+
+```{r eval=T}
+
+wd <- dirname.Jitter
+
+jitter=seq(1:Njitter)
+
+n=length(jitter)
+
+n
+
+witch_j <- SSgetoutput(keyvec=1:n, 
+                       getcomp=FALSE, 
+                       dirvec=wd, 
+                       getcovar=F)
+
+witch_j_summary <- SSsummarize(witch_j)
+
+```
+
+
+
+## Verosimilitud de cada ejecución 
+```{r}
+likes=witch_j_summary$likelihoods
+likes
+```
+
+
+
+## Cantidades derivadas de cada ejecución 
+```{r}
+quants=witch_j_summary$quants
+quants
+```
+
+
+
+## Parámetros estimados de cada ejecución 
+```{r}
+pars=witch_j_summary$pars
+pars
+```
+
+
+## Escribe más tablas de salidas en el directorio de Jitter 
+```{r eval=T}
+write.table(quants,"Quants.csv")
+write.table(pars,"Pars.csv")
+write.table(likes,"Likelihoods.csv")
+```
+
+
+Volver a tabular las verosimilitudes totales necesarias para evaluar la convergencia global y comparar con jit.likes de arriba.
+
+```{r}
+x<-as.numeric(likes[likes$Label=="TOTAL",1:n])
+
+global.convergence<-table(x,exclude = NULL)
+global.convergence
+
+
+```
+
+```{r eval=T}
+
+write.table(global.convergence,"global_convergence.csv")
+
+```
+
+
+
+# 13. Hacer Figuras con r4ss para ejecuciones que convergen 
+
+# make some plots
+```{r}
+setwd(plotdir)
+getwd()
+
+```
+
+
+
+### Plot 1: `Jittering results.png` 
+
+```{r}
+
+#png("Jittering results.png", width = 480, height = 480)
+par(mfrow=c(2,2), mai=c(.6,.6,.3,.2), mex=.5)
+
+plot(seq(1:Njitter), 
+     witch_j_summary$likelihoods[witch_j_summary$likelihoods$Label=="TOTAL",1:Njitter],
+     ylab="LL",
+     ylim=c(0,max(na.omit(jit.likes))*1.05)) 
+
+mtext(side=3, line=0, "Jittering")
+abline(h=Base$likelihoods_used[1,1], col=2)
+
+SSplotComparisons(witch_j_summary,     
+                  subplots =  c(2,8,18) , 
+                  pch = "",
+                  legend=FALSE,
+                  lwd = 1 ,
+                  new = F, 
+                  plotdir = plotdir, 
+                  ylimAdj=1)
+
+mtext(outer=T, side=3, line=-2.5, "Jitter results")
+#dev.off()
+
+```
+
+
+
+### Plot 2: `jit likes.png` 
+```{r}
+
+#png("jit likes.png", width = 480, height = 480)
+par(mfrow=c(1,1), mai=c(.6,.6,.3,.2), mex=.5)
+plot(seq(1:Njitter), 
+     witch_j_summary$likelihoods[witch_j_summary$likelihoods$Label=="TOTAL",1:Njitter],
+     ylab="Total likelihood",
+     ylim=c(0,max(na.omit(jit.likes))*1.05),
+     xlab="Jitter model runs at a converged solution"
+)
+mtext(side=3, line=0, "Jittering")     
+abline(h=Base$likelihoods_used[1,1], col=2)
+#dev.off()
+
+```
+
+
+
+# Repetir para todas las ejecuciones convergentes 
+
+```{r eval=T}
+
+x<-which(!is.na(witch_j_summary$likelihoods[witch_j_summary$likelihoods$Label=="TOTAL",1:Njitter]))
+
+jitter.converged=x
+jitter.converged
+n.converged=length(jitter.converged)
+n.converged
+witch_j.converged <- SSgetoutput(keyvec=jitter.converged, 
+                                 getcomp=FALSE, 
+                                 dirvec=wd, 
+                                 getcovar=F)
+
+witch_j_summary.converged <- SSsummarize(witch_j.converged)
+
+```
+
+
+### Plot 3: `Jittering results at converged solution.png` 
+```{r}
+
+#png("Jittering results at converged solution.png", width = 480, height = 480)
+par(mfrow=c(2,2), mai=c(.6,.6,.3,.2), mex=.5)
+plot(seq(jitter.converged), 
+     witch_j_summary$likelihoods[witch_j_summary$likelihoods$Label=="TOTAL", jitter.converged],
+     ylab="Total likelihood",
+     ylim=c(0,max(na.omit(jit.likes))*1.05),
+     xlab="Jitter runs at a converged solution"
+)
+mtext(side=3, line=0, "Jittering")
+abline(h=Base$likelihoods_used[1,1], col=2)
+
+SSplotComparisons(witch_j_summary.converged,     
+                  subplots =  c(2,8,18), 
+                  pch = "",legend=FALSE ,
+                  lwd = 1 ,
+                  new = F, 
+                  plotdir = plotdir, 
+                  ylimAdj=1)
+
+mtext(outer=T, side=3, line=-2.5, "Jitter results")
+#dev.off()
+
+```
+
+
+
+Repetir para ejecuciones que convergen en la solución mínima
+(debe ser igual que el caso base para pasar la prueba) `min(na.omit(jit.likes))`
+
+```{r eval=T}
+
+y<-which(witch_j_summary$likelihoods[witch_j_summary$likelihoods$Label=="TOTAL",1:Njitter]==min(na.omit(jit.likes)))
+
+
+jitter.min=y
+jitter.min
+n.min=length(jitter.min)
+n.min
+witch_j.min <- SSgetoutput(keyvec=jitter.min, 
+                           getcomp=FALSE, 
+                           dirvec=wd, 
+                           getcovar=F)
+
+witch_j_summary.min <- SSsummarize(witch_j.min)
+
+```
+
+
+
+# Plot 4: `Jittering results at min converged solution.png`
+
+```{r}
+#png("Jittering results at min converged solution.png", width = 480, height = 480)
+par(mfrow=c(2,2), mai=c(.6,.6,.3,.2), mex=.5)
+plot(seq(jitter.min), 
+     witch_j_summary$likelihoods[witch_j_summary$likelihoods$Label=="TOTAL", jitter.min],
+     ylab="Total likelihood",
+     ylim=c(0,max(na.omit(jit.likes))*1.05),
+     xlab="Jitter runs at the minimum converged solution"
+)
+mtext(side=3, line=0, "Jittering")
+abline(h=Base$likelihoods_used[1,1], col=2)
+
+SSplotComparisons(witch_j_summary.min,     
+                  subplots =  c(2,8,18), 
+                  pch = "",legend=FALSE,
+                  lwd = 1,
+                  new = F, 
+                  plotdir = plotdir, 
+                  ylimAdj=1)
+
+mtext(outer=T, side=3, line=-2.5, "Jitter results")
+#dev.off()
+```
+
+
+# Guarde archivo Rdata de todos los datos de ejecución para un análisis posterior 
+```{r eval=F}
+
+Rdata.dir <- here("Ejercicios","Rdata")
+dir.create(path=Rdata.dir, showWarnings = TRUE, recursive = TRUE)
+
+file.name<-paste('jitter',format(Sys.time(), "%Y%m%d_%H%M"))
+save.image(paste0(Rdata.dir, "/",file.name, ".RData"))
+
+```
+
+
