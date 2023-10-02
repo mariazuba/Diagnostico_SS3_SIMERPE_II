@@ -122,7 +122,7 @@ SSplotData(replist, subplot = 1)
 
 &nbsp; &nbsp;
 
-### Tipos de flota
+### Descripción de los Tipos de flota
 
 
 &nbsp; &nbsp;
@@ -154,9 +154,9 @@ Por ejemplo, en este caso, la pesquería se ha denominado `FISHERY`, mientras qu
 #'*_fleet_type fishery_timing area catch_units need_catch_mult fleetname*
 
  dat1[15]%>% 
-kbl(caption = "Especificaciones de flotas") %>%
+kbl() %>%
   kable_paper("hover", full_width = F)%>% 
-  scroll_box(width = "100%",height="100px")
+  scroll_box(width = "100%",height="250px")
  
 ```
 
@@ -170,6 +170,7 @@ kbl(caption = "Especificaciones de flotas") %>%
 
 &nbsp; &nbsp;
 
+#### Datos
 
 ```{r }
 #'*_Catch data: yr, seas, fleet, catch, catch_se*
@@ -177,27 +178,26 @@ kbl(caption = "Especificaciones de flotas") %>%
 #'*_NOTE:  catch data is ignored for survey fleets*
 
  dat1[20] %>% 
-kbl(caption = "Datos de capturas en toneladas por año, trimestre y su coeficiente de variación") %>%
+kbl() %>%
   kable_paper("hover", full_width = F)%>% 
-  scroll_box(width = "100%",height="500px")
+  scroll_box(width = "100%",height="300px")
 
 ```
 
+#### Figura 
 
-&nbsp; &nbsp;
+```{r}
+SSplotCatch(replist, subplots =c(2))
+```
 
 
-
-
-&nbsp; &nbsp;
-
-&nbsp; &nbsp;
 
 ### Índices de abundancia {.tabset .tabset-fade }
  
 &nbsp; &nbsp;
 
 #### Especificaciones
+
 Luego viene la especificación de los índices de abundancia.  Primero está la configuración para todas las flotas. 
 
 &nbsp; &nbsp;
@@ -210,7 +210,10 @@ Luego viene la especificación de los índices de abundancia.  Primero está la 
 #'*_SD_Report: 0=no sdreport; 1=enable sdreport*
 #'*_Fleet Units Errtype SD_Report*
 
-dat1[21]
+dat1[21]%>% 
+kbl() %>%
+  kable_paper("hover", full_width = F)%>% 
+  scroll_box(width = "100%",height="200px")
 ```
 
 #### Datos
@@ -224,22 +227,26 @@ dat1[21]
 
 - Inmediatamente después de su encabezado, se incluyen los datos de índices de abundancia:
 
-&nbsp; &nbsp;
-
+- Al igual que los datos de captura, se necesita una línea para decirle a SS cuándo dejar de leer los índices.
 
 ```{r }
 #'*_yr month fleet obs stderr*
 
 dat1[22]%>% 
-kbl(caption = "Datos de índices de campañas en toneladas por año, mes, campaña y su coeficiente de variación") %>%
+kbl() %>%
   kable_paper("hover", full_width = F)%>% 
   scroll_box(width = "100%",height="500px")
 ```
 
 
-&nbsp; &nbsp;
+#### Figura
 
-- Al igual que los datos de captura, se necesita una línea para decirle a SS cuándo dejar de leer los índices.
+```{r}
+SSplotIndices(replist,subplots = c(9))
+```
+
+
+
 
 
 &nbsp; &nbsp;
@@ -302,12 +309,11 @@ La especificación del vector de tallas:
 
 #### Datos 
 
-
 &nbsp; &nbsp;
 
 ```{r }
   dat1[33]%>% 
-kbl(caption = "Datos de composición de tallas") %>%
+kbl() %>%
   kable_paper("hover", full_width = F)%>% 
   scroll_box(width = "100%",height="500px")
 ```
@@ -318,6 +324,13 @@ kbl(caption = "Datos de composición de tallas") %>%
 En este modelo de 2 sexos, los datos de composición de tallas se introducen para las hembras, con 1 número por intervalo de tallas especificado previamente, seguido de los datos de composición de tallas para los machos, también con 1 número por intervalo de tallas.
 
 #### Figura
+
+
+```{r echo=FALSE,   out.width = "80%" }
+
+knitr::include_graphics(here("Escenarios_SS3","S1","plots","comp_lendat__aggregated_across_time.png"))
+
+```
 
 &nbsp; &nbsp;
 

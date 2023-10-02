@@ -533,8 +533,8 @@ $Nfleets
 <p><img src="0.FormatoArchivos_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>   </p>
 <p>   </p>
-<div id="tipos-de-flota" class="section level3">
-<h3>Tipos de flota</h3>
+<div id="descripción-de-los-tipos-de-flota" class="section level3">
+<h3>Descripción de los Tipos de flota</h3>
 <p>   </p>
 <p>A continuación, se especifican los tipos de flota. Como tenemos una pesquería y 2 campañas (3 flotas en total), habrá tres líneas.</p>
 <ul>
@@ -555,14 +555,11 @@ $Nfleets
 <span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&#39;*_fleet_type fishery_timing area catch_units need_catch_mult fleetname*</span></span>
 <span id="cb4-9"><a href="#cb4-9"></a></span>
 <span id="cb4-10"><a href="#cb4-10"></a> dat1[<span class="dv">15</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="kw">kbl</span>(<span class="dt">caption =</span> <span class="st">&quot;Especificaciones de flotas&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="kw">kbl</span>() <span class="op">%&gt;%</span></span>
 <span id="cb4-12"><a href="#cb4-12"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;100px&quot;</span>)</span></code></pre></div>
-<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:100px; overflow-x: scroll; width:100%; ">
+<span id="cb4-13"><a href="#cb4-13"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;250px&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:250px; overflow-x: scroll; width:100%; ">
 <table class="kable_wrapper lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>
-Especificaciones de flotas
-</caption>
 <tbody>
 <tr>
 <td>
@@ -686,19 +683,18 @@ ECORECLUTAS
 <li>La línea <code>-999 1 1 0 0.01</code> especifica la captura de equilibrio para los años anteriores al inicio del modelo; en este caso, no hay captura de equilibrio porque la columna de captura es 0.</li>
 </ul>
 <p>   </p>
+<div id="datos-1" class="section level4">
+<h4>Datos</h4>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">#&#39;*_Catch data: yr, seas, fleet, catch, catch_se*</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="co">#&#39;*_catch_se:  standard error of log(catch)*</span></span>
 <span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&#39;*_NOTE:  catch data is ignored for survey fleets*</span></span>
 <span id="cb5-4"><a href="#cb5-4"></a></span>
 <span id="cb5-5"><a href="#cb5-5"></a> dat1[<span class="dv">20</span>] <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="kw">kbl</span>(<span class="dt">caption =</span> <span class="st">&quot;Datos de capturas en toneladas por año, trimestre y su coeficiente de variación&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="kw">kbl</span>() <span class="op">%&gt;%</span></span>
 <span id="cb5-7"><a href="#cb5-7"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
-<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+<span id="cb5-8"><a href="#cb5-8"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;300px&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; overflow-x: scroll; width:100%; ">
 <table class="kable_wrapper lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>
-Datos de capturas en toneladas por año, trimestre y su coeficiente de variación
-</caption>
 <tbody>
 <tr>
 <td>
@@ -3042,9 +3038,12 @@ catch_se
 </tbody>
 </table>
 </div>
-<p>   </p>
-<p>   </p>
-<p>   </p>
+</div>
+<div id="figura" class="section level4">
+<h4>Figura</h4>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">SSplotCatch</span>(replist, <span class="dt">subplots =</span><span class="kw">c</span>(<span class="dv">2</span>))</span></code></pre></div>
+<p><img src="0.FormatoArchivos_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 <div id="índices-de-abundancia" class="section level3 tabset tabset-fade">
 <h3 class="tabset tabset-fade">Índices de abundancia</h3>
@@ -3053,21 +3052,118 @@ catch_se
 <h4>Especificaciones</h4>
 <p>Luego viene la especificación de los índices de abundancia. Primero está la configuración para todas las flotas.</p>
 <p>   </p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">#&#39;*_CPUE_and_surveyabundance_observations*</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="co">#&#39;*_Units:  0=numbers; 1=biomass; 2=F; &gt;=30 for special types*</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&#39;*_Errtype:  -1=normal; 0=lognormal; &gt;0=T*</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&#39;*_SD_Report: 0=no sdreport; 1=enable sdreport*</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&#39;*_Fleet Units Errtype SD_Report*</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a></span>
-<span id="cb6-7"><a href="#cb6-7"></a>dat1[<span class="dv">21</span>]</span></code></pre></div>
-<pre class="scroll-200"><code>$CPUEinfo
-            Fleet Units Errtype SD_Report
-FLOTA           1     1       0         0
-PELAGO          2     1       0         0
-ECOCADIZ        3     1       0         0
-ECORECLUTAS     4     1       0         0</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">#&#39;*_CPUE_and_surveyabundance_observations*</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="co">#&#39;*_Units:  0=numbers; 1=biomass; 2=F; &gt;=30 for special types*</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co">#&#39;*_Errtype:  -1=normal; 0=lognormal; &gt;0=T*</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co">#&#39;*_SD_Report: 0=no sdreport; 1=enable sdreport*</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co">#&#39;*_Fleet Units Errtype SD_Report*</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a></span>
+<span id="cb7-7"><a href="#cb7-7"></a>dat1[<span class="dv">21</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="kw">kbl</span>() <span class="op">%&gt;%</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;200px&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; overflow-x: scroll; width:100%; ">
+<table class="kable_wrapper lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Fleet
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Units
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Errtype
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+SD_Report
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+FLOTA
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PELAGO
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ECOCADIZ
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ECORECLUTAS
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="datos-1" class="section level4">
+</div>
+<div id="datos-2" class="section level4">
 <h4>Datos</h4>
 <p>   </p>
 <ul>
@@ -3075,19 +3171,16 @@ ECORECLUTAS     4     1       0         0</code></pre>
 <li><p>Lo más importante en esta sección es que se especifican las unidades y el tipo de error que se utilizará al leer los índices de abundancia.</p></li>
 <li><p>En este caso, la pesquería y la campaña 1 tienen unidades de biomasa, mientras que la campaña 2 es en números. Se asume un error logarítmico normal para las 3 flotas.</p></li>
 <li><p>Inmediatamente después de su encabezado, se incluyen los datos de índices de abundancia:</p></li>
+<li><p>Al igual que los datos de captura, se necesita una línea para decirle a SS cuándo dejar de leer los índices.</p></li>
 </ul>
-<p>   </p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">#&#39;*_yr month fleet obs stderr*</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a></span>
 <span id="cb8-3"><a href="#cb8-3"></a>dat1[<span class="dv">22</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="kw">kbl</span>(<span class="dt">caption =</span> <span class="st">&quot;Datos de índices de campañas en toneladas por año, mes, campaña y su coeficiente de variación&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="kw">kbl</span>() <span class="op">%&gt;%</span></span>
 <span id="cb8-5"><a href="#cb8-5"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb8-6"><a href="#cb8-6"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="kable_wrapper lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>
-Datos de índices de campañas en toneladas por año, mes, campaña y su coeficiente de variación
-</caption>
 <tbody>
 <tr>
 <td>
@@ -3799,10 +3892,11 @@ se_log
 </tbody>
 </table>
 </div>
-<p>   </p>
-<ul>
-<li>Al igual que los datos de captura, se necesita una línea para decirle a SS cuándo dejar de leer los índices.</li>
-</ul>
+</div>
+<div id="figura-1" class="section level4">
+<h4>Figura</h4>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">SSplotIndices</span>(replist,<span class="dt">subplots =</span> <span class="kw">c</span>(<span class="dv">9</span>))</span></code></pre></div>
+<p><img src="0.FormatoArchivos_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>   </p>
 <p>   </p>
 </div>
@@ -3815,15 +3909,15 @@ se_log
 <p>La siguiente sección configura los intervalos de talla (<code>length bin</code>) de la población.</p>
 <p>Esto debe especificarse ya sea que se utilicen o no datos de composiciones de tallas (aunque podría generar los intervalos de longitud de la población a partir de los intervalos de datos de composiciones de tallas).</p>
 <p>   </p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">#&#39;*set up population length bin structure (note - irrelevant if not using size *</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="co">#&#39;*data and using empirical wtatage*</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="co">#&#39;*length bin method: 1=use databins; 2=generate from binwidth,min,max below;3=read vector*</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="co">#&#39;*binwidth for population size comp *</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a><span class="co">#&#39;* minimum size in the population (lower edge of first bin and size at age 0.00) *</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a><span class="co">#&#39;* maximum size in the population (lower edge of last bin) *</span></span>
-<span id="cb9-7"><a href="#cb9-7"></a><span class="co">#&#39;* use length composition data (0/1)*</span></span>
-<span id="cb9-8"><a href="#cb9-8"></a></span>
-<span id="cb9-9"><a href="#cb9-9"></a>dat1[<span class="dv">25</span><span class="op">:</span><span class="dv">29</span>] </span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">#&#39;*set up population length bin structure (note - irrelevant if not using size *</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="co">#&#39;*data and using empirical wtatage*</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="co">#&#39;*length bin method: 1=use databins; 2=generate from binwidth,min,max below;3=read vector*</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&#39;*binwidth for population size comp *</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&#39;* minimum size in the population (lower edge of first bin and size at age 0.00) *</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&#39;* maximum size in the population (lower edge of last bin) *</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="co">#&#39;* use length composition data (0/1)*</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a></span>
+<span id="cb10-9"><a href="#cb10-9"></a>dat1[<span class="dv">25</span><span class="op">:</span><span class="dv">29</span>] </span></code></pre></div>
 <pre class="scroll-200"><code>$lbin_method
 [1] 2
 
@@ -3841,8 +3935,8 @@ $use_lencomp
 <p>   </p>
 <p>Después de los intervalos de tallas de la población está la especificación para la composición de tallas (asumiendo 1 línea por flota):</p>
 <p>   </p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">#&#39;*_mintailcomp addtocomp combM+F CompressBins CompError ParmSelect minsamplesize*</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a>dat1[<span class="dv">30</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">#&#39;*_mintailcomp addtocomp combM+F CompressBins CompError ParmSelect minsamplesize*</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>dat1[<span class="dv">30</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$len_info
             mintailcomp addtocomp combine_M_F CompressBins CompError ParmSelect
 FLOTA                -1     0.001           0            0         0          0
@@ -3857,7 +3951,7 @@ ECORECLUTAS             1</code></pre>
 <p>   </p>
 <p>La especificación del vector de tallas:</p>
 <p>   </p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a> dat1[<span class="dv">31</span><span class="op">:</span><span class="dv">32</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a> dat1[<span class="dv">31</span><span class="op">:</span><span class="dv">32</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$N_lbins
 [1] 37
 
@@ -3867,18 +3961,15 @@ $lbin_vector
 [31] 18.5 19.0 19.5 20.0 20.5 21.0 21.5</code></pre>
 <p>   </p>
 </div>
-<div id="datos-2" class="section level4">
+<div id="datos-3" class="section level4">
 <h4>Datos</h4>
 <p>   </p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>  dat1[<span class="dv">33</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="kw">kbl</span>(<span class="dt">caption =</span> <span class="st">&quot;Datos de composición de tallas&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb15-3"><a href="#cb15-3"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb15-4"><a href="#cb15-4"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>  dat1[<span class="dv">33</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="kw">kbl</span>() <span class="op">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="kable_wrapper lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>
-Datos de composición de tallas
-</caption>
 <tbody>
 <tr>
 <td>
@@ -26559,8 +26650,9 @@ l21.5
 <p>   </p>
 <p>En este modelo de 2 sexos, los datos de composición de tallas se introducen para las hembras, con 1 número por intervalo de tallas especificado previamente, seguido de los datos de composición de tallas para los machos, también con 1 número por intervalo de tallas.</p>
 </div>
-<div id="figura" class="section level4">
+<div id="figura-2" class="section level4">
 <h4>Figura</h4>
+<p><img src="Escenarios_SS3/S1/plots/comp_lendat__aggregated_across_time.png" width="80%" style="display: block; margin: auto;" /></p>
 <p>   </p>
 </div>
 </div>
@@ -26602,34 +26694,34 @@ l21.5
 </div>
 <div id="archivo-control.ss" class="section level2">
 <h2>Archivo <code>Control.ss</code></h2>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co">#&#39;*===============================================================================*</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="co">#&#39;*Leer archivo control.ss* ----</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a><span class="co">#&#39;*===============================================================================*</span></span>
-<span id="cb16-4"><a href="#cb16-4"></a>ctl &lt;-<span class="st"> </span>r4ss<span class="op">::</span><span class="kw">SS_readctl</span>(</span>
-<span id="cb16-5"><a href="#cb16-5"></a>  <span class="dt">file =</span> <span class="kw">here</span>(dir.base,</span>
-<span id="cb16-6"><a href="#cb16-6"></a>              <span class="st">&quot;control.ss&quot;</span>),</span>
-<span id="cb16-7"><a href="#cb16-7"></a>  <span class="dt">version=</span><span class="st">&quot;3.3&quot;</span>,</span>
-<span id="cb16-8"><a href="#cb16-8"></a>  <span class="dt">verbose =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb16-9"><a href="#cb16-9"></a>  <span class="dt">datlist =</span> dat, <span class="dt">use_datlist =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb16-10"><a href="#cb16-10"></a></span>
-<span id="cb16-11"><a href="#cb16-11"></a><span class="co">#&#39;*===============================================================================*</span></span>
-<span id="cb16-12"><a href="#cb16-12"></a><span class="co">#&#39;*Modificar archivo control.ss*  ----</span></span>
-<span id="cb16-13"><a href="#cb16-13"></a><span class="co">#&#39;*==============================================================================*</span></span>
-<span id="cb16-14"><a href="#cb16-14"></a><span class="co">#&#39;*Lista para modificar*</span></span>
-<span id="cb16-15"><a href="#cb16-15"></a>ctl1&lt;-ctl </span>
-<span id="cb16-16"><a href="#cb16-16"></a><span class="co">#&#39;*Contenido de la lista*</span></span>
-<span id="cb16-17"><a href="#cb16-17"></a><span class="co"># names(ctl1) </span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co">#&#39;*===============================================================================*</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="co">#&#39;*Leer archivo control.ss* ----</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="co">#&#39;*===============================================================================*</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a>ctl &lt;-<span class="st"> </span>r4ss<span class="op">::</span><span class="kw">SS_readctl</span>(</span>
+<span id="cb17-5"><a href="#cb17-5"></a>  <span class="dt">file =</span> <span class="kw">here</span>(dir.base,</span>
+<span id="cb17-6"><a href="#cb17-6"></a>              <span class="st">&quot;control.ss&quot;</span>),</span>
+<span id="cb17-7"><a href="#cb17-7"></a>  <span class="dt">version=</span><span class="st">&quot;3.3&quot;</span>,</span>
+<span id="cb17-8"><a href="#cb17-8"></a>  <span class="dt">verbose =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb17-9"><a href="#cb17-9"></a>  <span class="dt">datlist =</span> dat, <span class="dt">use_datlist =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb17-10"><a href="#cb17-10"></a></span>
+<span id="cb17-11"><a href="#cb17-11"></a><span class="co">#&#39;*===============================================================================*</span></span>
+<span id="cb17-12"><a href="#cb17-12"></a><span class="co">#&#39;*Modificar archivo control.ss*  ----</span></span>
+<span id="cb17-13"><a href="#cb17-13"></a><span class="co">#&#39;*==============================================================================*</span></span>
+<span id="cb17-14"><a href="#cb17-14"></a><span class="co">#&#39;*Lista para modificar*</span></span>
+<span id="cb17-15"><a href="#cb17-15"></a>ctl1&lt;-ctl </span>
+<span id="cb17-16"><a href="#cb17-16"></a><span class="co">#&#39;*Contenido de la lista*</span></span>
+<span id="cb17-17"><a href="#cb17-17"></a><span class="co"># names(ctl1) </span></span></code></pre></div>
 <p>   </p>
 <div id="patrón-de-crecimiento-y-reclutamiento" class="section level3">
 <h3>Patrón de crecimiento y reclutamiento</h3>
 <p>   </p>
 <p>Luego están las opciones para el número de patrones de crecimiento y platoons. Estos se establecen en 1 porque asumimos que toda la población tiene el mismo patrón de crecimiento y no hay platoons dentro de los patrones de crecimiento.</p>
 <p>   </p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co">#&#39;*_N_Growth_Patterns (Growth Patterns, Morphs, Bio Patterns, GP are terms used *</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="co">#&#39;*interchangeably in SS)*</span></span>
-<span id="cb17-3"><a href="#cb17-3"></a><span class="co">#&#39;*_N_platoons_Within_GrowthPattern *</span></span>
-<span id="cb17-4"><a href="#cb17-4"></a></span>
-<span id="cb17-5"><a href="#cb17-5"></a>ctl1[<span class="dv">16</span><span class="op">:</span><span class="dv">17</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co">#&#39;*_N_Growth_Patterns (Growth Patterns, Morphs, Bio Patterns, GP are terms used *</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="co">#&#39;*interchangeably in SS)*</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="co">#&#39;*_N_platoons_Within_GrowthPattern *</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a></span>
+<span id="cb18-5"><a href="#cb18-5"></a>ctl1[<span class="dv">16</span><span class="op">:</span><span class="dv">17</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$N_GP
 [1] 1
 
@@ -26642,11 +26734,11 @@ $N_platoon
 <li><p>Esta es la más simple, porque no requiere líneas completas de parámetros más adelante en el archivo control.</p></li>
 </ul>
 <p>   </p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co">#&#39;*recr_dist_method for parameters:  2=main effects for GP, Area, Settle timing; 3=each Settle entity; 4=none (only when N_GPxNsettlexpop==1)*</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="co">#&#39;*not yet implemented; Future usage: Spawner-Recruitment: 1=global; 2=by area*</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a><span class="co">#&#39;*number of recruitment settlement assignments* </span></span>
-<span id="cb19-4"><a href="#cb19-4"></a><span class="co">#&#39;*unused option*</span></span>
-<span id="cb19-5"><a href="#cb19-5"></a> ctl1[<span class="dv">18</span><span class="op">:</span><span class="dv">21</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co">#&#39;*recr_dist_method for parameters:  2=main effects for GP, Area, Settle timing; 3=each Settle entity; 4=none (only when N_GPxNsettlexpop==1)*</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="co">#&#39;*not yet implemented; Future usage: Spawner-Recruitment: 1=global; 2=by area*</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="co">#&#39;*number of recruitment settlement assignments* </span></span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="co">#&#39;*unused option*</span></span>
+<span id="cb20-5"><a href="#cb20-5"></a> ctl1[<span class="dv">18</span><span class="op">:</span><span class="dv">21</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$recr_dist_method
 [1] 3
 
@@ -26658,8 +26750,8 @@ $recr_dist_read
 
 $recr_dist_inx
 [1] 0</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co">#&#39;*GPattern month  area  age (for each settlement assignment)*</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a> ctl1[<span class="dv">22</span>] </span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co">#&#39;*GPattern month  area  age (for each settlement assignment)*</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a> ctl1[<span class="dv">22</span>] </span></code></pre></div>
 <pre class="scroll-200"><code>$recr_dist_pattern
                    GPattern month area age
 recr_dist_pattern1        1     2    1   0
@@ -26677,13 +26769,13 @@ recr_dist_pattern4        1    11    1   0</code></pre>
 <p>   </p>
 <p>Así mismo, no se utilizan parámetros variables en el tiempo, por lo que no es importante lo que se especifica en los parámetros de control variables en el tiempo.</p>
 <p>   </p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co">#&#39;*controls for all timevary parameters *</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a><span class="co">#&#39;*_env/block/dev_adjust_method for all time-vary parms (1=warn relative to base parm bounds; 3=no bound check)*</span></span>
-<span id="cb23-3"><a href="#cb23-3"></a><span class="co">#&#39;*AUTOGEN*</span></span>
-<span id="cb23-4"><a href="#cb23-4"></a><span class="co">#&#39;*autogen:* 1st element for biology, 2nd for SR, 3rd for Q, 4th reserved, 5th for selex where: *</span></span>
-<span id="cb23-5"><a href="#cb23-5"></a><span class="co">#&#39;*0 = autogen all time-varying parms; 1 = read each time-varying parm line; 2 = read then autogen if parm min==-12345*</span></span>
-<span id="cb23-6"><a href="#cb23-6"></a></span>
-<span id="cb23-7"><a href="#cb23-7"></a> ctl1[<span class="dv">26</span><span class="op">:</span><span class="dv">27</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co">#&#39;*controls for all timevary parameters *</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="co">#&#39;*_env/block/dev_adjust_method for all time-vary parms (1=warn relative to base parm bounds; 3=no bound check)*</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="co">#&#39;*AUTOGEN*</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="co">#&#39;*autogen:* 1st element for biology, 2nd for SR, 3rd for Q, 4th reserved, 5th for selex where: *</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a><span class="co">#&#39;*0 = autogen all time-varying parms; 1 = read each time-varying parm line; 2 = read then autogen if parm min==-12345*</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a></span>
+<span id="cb24-7"><a href="#cb24-7"></a> ctl1[<span class="dv">26</span><span class="op">:</span><span class="dv">27</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$time_vary_adjust_method
 [1] 1
 
@@ -26706,29 +26798,29 @@ time_vary_auto_generation_5
 <p>El modelo de crecimiento 1 se usa para especificar un modelo de crecimiento de von Bertalanffy, seguido de líneas que especifican detalles sobre el crecimiento.</p>
 <p>Luego, las líneas de configuración por madurez, fecundidad y otras opciones especializadas:</p>
 <p>   </p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co">#&#39;*================================================================================================*</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="co">#&#39;*Mortalidad natural y crecimiento *</span></span>
-<span id="cb25-3"><a href="#cb25-3"></a><span class="co">#&#39;*---------------------------------*</span></span>
-<span id="cb25-4"><a href="#cb25-4"></a><span class="co">#&#39;*_natM_type:*_0=1Parm; 1=N_breakpoints;_2=Lorenzen;_3=agespecific;_4=agespec_withseasinterpolate _no additional input for selected M option;read 1P per morph*</span></span>
-<span id="cb25-5"><a href="#cb25-5"></a><span class="co">#&#39;*GrowthModel:* 1=vonBert with L1&amp;L2; 2=Richards with L1&amp;L2; 3=age_specific_K_incr; 4=age_specific_K_decr; 5=age_specific_K_each; 6=NA; 7=NA; 8=growth cessation*</span></span>
-<span id="cb25-6"><a href="#cb25-6"></a><span class="co">#&#39;*_Age(post-settlement)_for_L1;linear growth below this*</span></span>
-<span id="cb25-7"><a href="#cb25-7"></a><span class="co">#&#39;*_Growth_Age_for_L2 (999 to use as Linf)*</span></span>
-<span id="cb25-8"><a href="#cb25-8"></a><span class="co">#&#39;*_exponential decay for growth above maxage (value should approx initial Z; -999 replicates 3.24; -998 to not allow growth above maxage)*</span></span>
-<span id="cb25-9"><a href="#cb25-9"></a><span class="co">#&#39;*_placeholder for future growth feature*</span></span>
-<span id="cb25-10"><a href="#cb25-10"></a><span class="co">#&#39;*_SD_add_to_LAA (set to 0.1 for SS2 V1.x compatibility)*</span></span>
-<span id="cb25-11"><a href="#cb25-11"></a><span class="co">#&#39;*_CV_Growth_Pattern:  0 CV=f(LAA); 1 CV=F(A); 2 SD=F(LAA); 3 SD=F(A); 4 logSD=F(A)*</span></span>
-<span id="cb25-12"><a href="#cb25-12"></a><span class="co">#&#39;*================================================================================================*</span></span>
-<span id="cb25-13"><a href="#cb25-13"></a><span class="co">#&#39;*Madurez y fecundidad*</span></span>
-<span id="cb25-14"><a href="#cb25-14"></a><span class="co">#&#39;*--------------------*</span></span>
-<span id="cb25-15"><a href="#cb25-15"></a><span class="co">#&#39;*_maturity_option:*  1=length logistic; 2=age logistic; 3=read age-maturity matrix by *</span></span>
-<span id="cb25-16"><a href="#cb25-16"></a><span class="co">#&#39;*growth_pattern;* 4=read age-fecundity; 5=disabled; 6=read length-maturity*</span></span>
-<span id="cb25-17"><a href="#cb25-17"></a><span class="co">#&#39;*_First_Mature_Age*</span></span>
-<span id="cb25-18"><a href="#cb25-18"></a><span class="co">#&#39;*_fecundity option:*(1)eggs=Wtx(a+bxWt);(2)eggs=axL^b;(3)eggs=axWt^b; (4)eggs=a+bxL;(5)eggs=a+bxW*</span></span>
-<span id="cb25-19"><a href="#cb25-19"></a><span class="co">#&#39;*_hermaphroditism option:*  0=none; 1=female-to-male age-specific fxn; -1=male-to-female *</span></span>
-<span id="cb25-20"><a href="#cb25-20"></a><span class="co">#&#39;*age-specific fxn*</span></span>
-<span id="cb25-21"><a href="#cb25-21"></a><span class="co">#&#39;*_parameter_offset_approach* (1=none, 2= M, G, CV_G as offset from female-GP1, 3=like SS2 V1.x)*</span></span>
-<span id="cb25-22"><a href="#cb25-22"></a></span>
-<span id="cb25-23"><a href="#cb25-23"></a> ctl1[<span class="dv">28</span><span class="op">:</span><span class="dv">42</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co">#&#39;*================================================================================================*</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="co">#&#39;*Mortalidad natural y crecimiento *</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="co">#&#39;*---------------------------------*</span></span>
+<span id="cb26-4"><a href="#cb26-4"></a><span class="co">#&#39;*_natM_type:*_0=1Parm; 1=N_breakpoints;_2=Lorenzen;_3=agespecific;_4=agespec_withseasinterpolate _no additional input for selected M option;read 1P per morph*</span></span>
+<span id="cb26-5"><a href="#cb26-5"></a><span class="co">#&#39;*GrowthModel:* 1=vonBert with L1&amp;L2; 2=Richards with L1&amp;L2; 3=age_specific_K_incr; 4=age_specific_K_decr; 5=age_specific_K_each; 6=NA; 7=NA; 8=growth cessation*</span></span>
+<span id="cb26-6"><a href="#cb26-6"></a><span class="co">#&#39;*_Age(post-settlement)_for_L1;linear growth below this*</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a><span class="co">#&#39;*_Growth_Age_for_L2 (999 to use as Linf)*</span></span>
+<span id="cb26-8"><a href="#cb26-8"></a><span class="co">#&#39;*_exponential decay for growth above maxage (value should approx initial Z; -999 replicates 3.24; -998 to not allow growth above maxage)*</span></span>
+<span id="cb26-9"><a href="#cb26-9"></a><span class="co">#&#39;*_placeholder for future growth feature*</span></span>
+<span id="cb26-10"><a href="#cb26-10"></a><span class="co">#&#39;*_SD_add_to_LAA (set to 0.1 for SS2 V1.x compatibility)*</span></span>
+<span id="cb26-11"><a href="#cb26-11"></a><span class="co">#&#39;*_CV_Growth_Pattern:  0 CV=f(LAA); 1 CV=F(A); 2 SD=F(LAA); 3 SD=F(A); 4 logSD=F(A)*</span></span>
+<span id="cb26-12"><a href="#cb26-12"></a><span class="co">#&#39;*================================================================================================*</span></span>
+<span id="cb26-13"><a href="#cb26-13"></a><span class="co">#&#39;*Madurez y fecundidad*</span></span>
+<span id="cb26-14"><a href="#cb26-14"></a><span class="co">#&#39;*--------------------*</span></span>
+<span id="cb26-15"><a href="#cb26-15"></a><span class="co">#&#39;*_maturity_option:*  1=length logistic; 2=age logistic; 3=read age-maturity matrix by *</span></span>
+<span id="cb26-16"><a href="#cb26-16"></a><span class="co">#&#39;*growth_pattern;* 4=read age-fecundity; 5=disabled; 6=read length-maturity*</span></span>
+<span id="cb26-17"><a href="#cb26-17"></a><span class="co">#&#39;*_First_Mature_Age*</span></span>
+<span id="cb26-18"><a href="#cb26-18"></a><span class="co">#&#39;*_fecundity option:*(1)eggs=Wtx(a+bxWt);(2)eggs=axL^b;(3)eggs=axWt^b; (4)eggs=a+bxL;(5)eggs=a+bxW*</span></span>
+<span id="cb26-19"><a href="#cb26-19"></a><span class="co">#&#39;*_hermaphroditism option:*  0=none; 1=female-to-male age-specific fxn; -1=male-to-female *</span></span>
+<span id="cb26-20"><a href="#cb26-20"></a><span class="co">#&#39;*age-specific fxn*</span></span>
+<span id="cb26-21"><a href="#cb26-21"></a><span class="co">#&#39;*_parameter_offset_approach* (1=none, 2= M, G, CV_G as offset from female-GP1, 3=like SS2 V1.x)*</span></span>
+<span id="cb26-22"><a href="#cb26-22"></a></span>
+<span id="cb26-23"><a href="#cb26-23"></a> ctl1[<span class="dv">28</span><span class="op">:</span><span class="dv">42</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$natM_type
 [1] 3
 
@@ -26774,7 +26866,7 @@ $hermaphroditism_option
 
 $parameter_offset_approach
 [1] 1</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co">#</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co">#</span></span></code></pre></div>
 <p>   </p>
 </div>
 <div id="parámetros-1" class="section level4">
@@ -26785,11 +26877,11 @@ $parameter_offset_approach
 <li><p>Los parámetros también deben especificarse en un orden particular, con los parámetros de las hembras antes que los de machos en un modelo de 2 sexos.</p></li>
 </ul>
 <p>   </p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co">#&#39;*_ LO HI INIT PRIOR PR_SD PR_type PHASE env_var&amp;link dev_link dev_minyr dev_maxyr dev_PH Block Block_Fxn*</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a>ctl1[<span class="dv">43</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb28-3"><a href="#cb28-3"></a><span class="kw">kbl</span>(<span class="dt">caption =</span> <span class="st">&quot;Parámetros biológicos&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb28-4"><a href="#cb28-4"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb28-5"><a href="#cb28-5"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co">#&#39;*_ LO HI INIT PRIOR PR_SD PR_type PHASE env_var&amp;link dev_link dev_minyr dev_maxyr dev_PH Block Block_Fxn*</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a>ctl1[<span class="dv">43</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="kw">kbl</span>(<span class="dt">caption =</span> <span class="st">&quot;Parámetros biológicos&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb29-4"><a href="#cb29-4"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb29-5"><a href="#cb29-5"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="kable_wrapper lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
@@ -27674,10 +27766,10 @@ FracFemale_GP_1
 <h4>Especificaciones</h4>
 <p>A continuación, se especifican la configuración de la relación stock-recluta y las líneas de parámetros SR. Para configurar las líneas, se especifica una curva SR de Beverton-Holt.</p>
 <p>   </p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co">#&#39;*_Spawner-Recruitment; Options: 2=Ricker; 3=std_B-H; 4=SCAA; 5=Hockey; 6=B-H_flattop; 7=survival_3Parm; 8=Shepherd_3Parm; 9=RickerPower_3parm*</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a><span class="co">#&#39;* 0/1 to use steepness in initial equ recruitment calculation*</span></span>
-<span id="cb29-3"><a href="#cb29-3"></a><span class="co">#&#39;* future feature:  0/1 to make realized sigmaR a function of SR curvature*</span></span>
-<span id="cb29-4"><a href="#cb29-4"></a>ctl1[<span class="dv">45</span><span class="op">:</span><span class="dv">47</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co">#&#39;*_Spawner-Recruitment; Options: 2=Ricker; 3=std_B-H; 4=SCAA; 5=Hockey; 6=B-H_flattop; 7=survival_3Parm; 8=Shepherd_3Parm; 9=RickerPower_3parm*</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a><span class="co">#&#39;* 0/1 to use steepness in initial equ recruitment calculation*</span></span>
+<span id="cb30-3"><a href="#cb30-3"></a><span class="co">#&#39;* future feature:  0/1 to make realized sigmaR a function of SR curvature*</span></span>
+<span id="cb30-4"><a href="#cb30-4"></a>ctl1[<span class="dv">45</span><span class="op">:</span><span class="dv">47</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$SR_function
 [1] 4
 
@@ -27692,10 +27784,10 @@ $Sigma_R_FofCurvature
 <h4>Parámetros</h4>
 <p>Lo que afecta al número de líneas de parámetros SR que siguen:</p>
 <p>   </p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>ctl1[<span class="dv">48</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb31-2"><a href="#cb31-2"></a><span class="kw">kbl</span>(<span class="dt">caption =</span> <span class="st">&quot;Parámetros de la relación stock recluta&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb31-3"><a href="#cb31-3"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb31-4"><a href="#cb31-4"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>ctl1[<span class="dv">48</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb32-2"><a href="#cb32-2"></a><span class="kw">kbl</span>(<span class="dt">caption =</span> <span class="st">&quot;Parámetros de la relación stock recluta&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb32-3"><a href="#cb32-3"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb32-4"><a href="#cb32-4"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="kable_wrapper lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
@@ -28004,11 +28096,11 @@ SR_autocorr
 <p>   </p>
 <p>Las opciones de desviación de reclutamiento se especifican después de los parámetros de SR. Primero están las opciones de desviaciones estándar de reclutamiento:</p>
 <p>   </p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co">#&#39;*do_recdev:  0=none; 1=devvector (R=F(SSB)+dev); 2=deviations (R=F(SSB)+dev); 3=deviations (R=R0xdev; dev2=R-f(SSB)); 4=like 3 with sum(dev2) adding penalty*</span></span>
-<span id="cb32-2"><a href="#cb32-2"></a><span class="co">#&#39;* first year of main recr_devs; early devs can preceed this era*</span></span>
-<span id="cb32-3"><a href="#cb32-3"></a><span class="co">#&#39;* last year of main recr_devs; forecast devs start in following year*</span></span>
-<span id="cb32-4"><a href="#cb32-4"></a><span class="co">#&#39;*_recdev phase *</span></span>
-<span id="cb32-5"><a href="#cb32-5"></a>ctl1[<span class="dv">49</span><span class="op">:</span><span class="dv">53</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="co">#&#39;*do_recdev:  0=none; 1=devvector (R=F(SSB)+dev); 2=deviations (R=F(SSB)+dev); 3=deviations (R=R0xdev; dev2=R-f(SSB)); 4=like 3 with sum(dev2) adding penalty*</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a><span class="co">#&#39;* first year of main recr_devs; early devs can preceed this era*</span></span>
+<span id="cb33-3"><a href="#cb33-3"></a><span class="co">#&#39;* last year of main recr_devs; forecast devs start in following year*</span></span>
+<span id="cb33-4"><a href="#cb33-4"></a><span class="co">#&#39;*_recdev phase *</span></span>
+<span id="cb33-5"><a href="#cb33-5"></a>ctl1[<span class="dv">49</span><span class="op">:</span><span class="dv">53</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$do_recdev
 [1] 1
 
@@ -28034,17 +28126,17 @@ $recdev_adv
 <p>   </p>
 <p><a href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#fishing-mortality-method">Consulte la Guía de usuario de SS3: Sección 8.7 “Fishing Mortality Method”</a>.</p>
 <p>   </p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="co">#&#39;*Fishing Mortality info *</span></span>
-<span id="cb34-2"><a href="#cb34-2"></a><span class="co">#&#39;*F ballpark*</span></span>
-<span id="cb34-3"><a href="#cb34-3"></a><span class="co">#&#39;*F ballpark year (neg value to disable)*</span></span>
-<span id="cb34-4"><a href="#cb34-4"></a><span class="co">#&#39;*F_Method:  1=Pope; 2=instan. F; 3=hybrid (hybrid is recommended)*</span></span>
-<span id="cb34-5"><a href="#cb34-5"></a><span class="co">#&#39;*max F or harvest rate, depends on F_Method*</span></span>
-<span id="cb34-6"><a href="#cb34-6"></a><span class="co">#&#39;*no additional F input needed for Fmethod 1*</span></span>
-<span id="cb34-7"><a href="#cb34-7"></a><span class="co">#&#39;*if Fmethod=2; read overall start F value; overall phase; N detailed inputs to read*</span></span>
-<span id="cb34-8"><a href="#cb34-8"></a><span class="co">#&#39;*if Fmethod=3; read N iterations for tuning for Fmethod 3*</span></span>
-<span id="cb34-9"><a href="#cb34-9"></a><span class="co">#&#39;*N iterations for tuning F in hybrid method (recommend 3 to 7)*</span></span>
-<span id="cb34-10"><a href="#cb34-10"></a></span>
-<span id="cb34-11"><a href="#cb34-11"></a>ctl1[<span class="dv">54</span><span class="op">:</span><span class="dv">58</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="co">#&#39;*Fishing Mortality info *</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a><span class="co">#&#39;*F ballpark*</span></span>
+<span id="cb35-3"><a href="#cb35-3"></a><span class="co">#&#39;*F ballpark year (neg value to disable)*</span></span>
+<span id="cb35-4"><a href="#cb35-4"></a><span class="co">#&#39;*F_Method:  1=Pope; 2=instan. F; 3=hybrid (hybrid is recommended)*</span></span>
+<span id="cb35-5"><a href="#cb35-5"></a><span class="co">#&#39;*max F or harvest rate, depends on F_Method*</span></span>
+<span id="cb35-6"><a href="#cb35-6"></a><span class="co">#&#39;*no additional F input needed for Fmethod 1*</span></span>
+<span id="cb35-7"><a href="#cb35-7"></a><span class="co">#&#39;*if Fmethod=2; read overall start F value; overall phase; N detailed inputs to read*</span></span>
+<span id="cb35-8"><a href="#cb35-8"></a><span class="co">#&#39;*if Fmethod=3; read N iterations for tuning for Fmethod 3*</span></span>
+<span id="cb35-9"><a href="#cb35-9"></a><span class="co">#&#39;*N iterations for tuning F in hybrid method (recommend 3 to 7)*</span></span>
+<span id="cb35-10"><a href="#cb35-10"></a></span>
+<span id="cb35-11"><a href="#cb35-11"></a>ctl1[<span class="dv">54</span><span class="op">:</span><span class="dv">58</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$F_ballpark
 [1] 0.1
 
@@ -28068,18 +28160,18 @@ $F_iter
 <p>   </p>
 <div id="especificaciones-4" class="section level4">
 <h4>Especificaciones</h4>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="co">#&#39;*_Q_setup for fleets with cpue or survey data*</span></span>
-<span id="cb36-2"><a href="#cb36-2"></a><span class="co">#&#39;*_1:  fleet number*</span></span>
-<span id="cb36-3"><a href="#cb36-3"></a><span class="co">#&#39;*_2:  link type: (1=simple q, 1 parm; 2=mirror simple q, 1 mirrored parm; 3=q and power, 2 parm; 4=mirror with offset, 2 parm)*</span></span>
-<span id="cb36-4"><a href="#cb36-4"></a><span class="co">#&#39;*_3:  extra input for link, i.e. mirror fleet# or dev index number*</span></span>
-<span id="cb36-5"><a href="#cb36-5"></a><span class="co">#&#39;*_4:  0/1 to select extra sd parameter*</span></span>
-<span id="cb36-6"><a href="#cb36-6"></a><span class="co">#&#39;*_5:  0/1 for biasadj or not*</span></span>
-<span id="cb36-7"><a href="#cb36-7"></a><span class="co">#&#39;*_6:  0/1 to float*</span></span>
-<span id="cb36-8"><a href="#cb36-8"></a><span class="co">#&#39;*_   fleet      link link_info  extra_se   biasadj     float  #  fleetname*</span></span>
-<span id="cb36-9"><a href="#cb36-9"></a>ctl1[<span class="dv">59</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb36-10"><a href="#cb36-10"></a><span class="kw">kbl</span>(<span class="dt">caption =</span> <span class="st">&quot;Especificaciones de capturabilidad&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb36-11"><a href="#cb36-11"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb36-12"><a href="#cb36-12"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="co">#&#39;*_Q_setup for fleets with cpue or survey data*</span></span>
+<span id="cb37-2"><a href="#cb37-2"></a><span class="co">#&#39;*_1:  fleet number*</span></span>
+<span id="cb37-3"><a href="#cb37-3"></a><span class="co">#&#39;*_2:  link type: (1=simple q, 1 parm; 2=mirror simple q, 1 mirrored parm; 3=q and power, 2 parm; 4=mirror with offset, 2 parm)*</span></span>
+<span id="cb37-4"><a href="#cb37-4"></a><span class="co">#&#39;*_3:  extra input for link, i.e. mirror fleet# or dev index number*</span></span>
+<span id="cb37-5"><a href="#cb37-5"></a><span class="co">#&#39;*_4:  0/1 to select extra sd parameter*</span></span>
+<span id="cb37-6"><a href="#cb37-6"></a><span class="co">#&#39;*_5:  0/1 for biasadj or not*</span></span>
+<span id="cb37-7"><a href="#cb37-7"></a><span class="co">#&#39;*_6:  0/1 to float*</span></span>
+<span id="cb37-8"><a href="#cb37-8"></a><span class="co">#&#39;*_   fleet      link link_info  extra_se   biasadj     float  #  fleetname*</span></span>
+<span id="cb37-9"><a href="#cb37-9"></a>ctl1[<span class="dv">59</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb37-10"><a href="#cb37-10"></a><span class="kw">kbl</span>(<span class="dt">caption =</span> <span class="st">&quot;Especificaciones de capturabilidad&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb37-11"><a href="#cb37-11"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb37-12"><a href="#cb37-12"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="kable_wrapper lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
@@ -28193,12 +28285,12 @@ ECORECLUTAS
 </div>
 <div id="parámetros-3" class="section level4">
 <h4>Parámetros</h4>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="co">#&#39;*_Q_parms(if_any);Qunits_are_ln(q)*</span></span>
-<span id="cb37-2"><a href="#cb37-2"></a><span class="co">#&#39;*_ LO HI INIT PRIOR PR_SD PR_type PHASE env-var use_dev dev_mnyr dev_mxyr dev_PH Block Blk_Fxn # parm_name*</span></span>
-<span id="cb37-3"><a href="#cb37-3"></a>ctl1[<span class="dv">60</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb37-4"><a href="#cb37-4"></a><span class="kw">kbl</span>(<span class="dt">caption =</span> <span class="st">&quot;Parámetros de capturabilidad&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb37-5"><a href="#cb37-5"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb37-6"><a href="#cb37-6"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="co">#&#39;*_Q_parms(if_any);Qunits_are_ln(q)*</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a><span class="co">#&#39;*_ LO HI INIT PRIOR PR_SD PR_type PHASE env-var use_dev dev_mnyr dev_mxyr dev_PH Block Blk_Fxn # parm_name*</span></span>
+<span id="cb38-3"><a href="#cb38-3"></a>ctl1[<span class="dv">60</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb38-4"><a href="#cb38-4"></a><span class="kw">kbl</span>(<span class="dt">caption =</span> <span class="st">&quot;Parámetros de capturabilidad&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb38-5"><a href="#cb38-5"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb38-6"><a href="#cb38-6"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="kable_wrapper lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
@@ -28419,11 +28511,11 @@ LnQ_base_ECORECLUTAS(4)
 <h4>Especificaciones</h4>
 <p>En esta sección se especifican las líneas de selectividad a la talla y edad. <a href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#selectivity-and-discard">Consulte la Guía de usuario de SS3: Sección 8.9 “Selectivity and Discard”</a>.</p>
 <p>   </p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="co">#&#39;*_size_selex_patterns*</span></span>
-<span id="cb38-2"><a href="#cb38-2"></a>ctl1[<span class="dv">61</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb38-3"><a href="#cb38-3"></a><span class="kw">kbl</span>(<span class="dt">caption =</span> <span class="st">&quot;Especificaciones de selectividad tallas&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb38-4"><a href="#cb38-4"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb38-5"><a href="#cb38-5"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="co">#&#39;*_size_selex_patterns*</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a>ctl1[<span class="dv">61</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb39-3"><a href="#cb39-3"></a><span class="kw">kbl</span>(<span class="dt">caption =</span> <span class="st">&quot;Especificaciones de selectividad tallas&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb39-4"><a href="#cb39-4"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb39-5"><a href="#cb39-5"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="kable_wrapper lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
@@ -28527,11 +28619,11 @@ ECORECLUTAS
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="co">#&#39;*_age_selex_patterns*</span></span>
-<span id="cb39-2"><a href="#cb39-2"></a>ctl1[<span class="dv">62</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb39-3"><a href="#cb39-3"></a><span class="kw">kbl</span>(<span class="dt">caption =</span> <span class="st">&quot;Especificaciones de selectividad edad&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb39-4"><a href="#cb39-4"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb39-5"><a href="#cb39-5"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="co">#&#39;*_age_selex_patterns*</span></span>
+<span id="cb40-2"><a href="#cb40-2"></a>ctl1[<span class="dv">62</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb40-3"><a href="#cb40-3"></a><span class="kw">kbl</span>(<span class="dt">caption =</span> <span class="st">&quot;Especificaciones de selectividad edad&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb40-4"><a href="#cb40-4"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb40-5"><a href="#cb40-5"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="kable_wrapper lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
@@ -28642,10 +28734,10 @@ ECORECLUTAS
 <div id="parámetros-4" class="section level4">
 <h4>Parámetros</h4>
 <p>   </p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>ctl1[<span class="dv">63</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb40-2"><a href="#cb40-2"></a><span class="kw">kbl</span>(<span class="dt">caption =</span> <span class="st">&quot;Parámetros selectividad talla&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb40-3"><a href="#cb40-3"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb40-4"><a href="#cb40-4"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>ctl1[<span class="dv">63</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb41-2"><a href="#cb41-2"></a><span class="kw">kbl</span>(<span class="dt">caption =</span> <span class="st">&quot;Parámetros selectividad talla&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb41-3"><a href="#cb41-3"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb41-4"><a href="#cb41-4"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="kable_wrapper lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
@@ -29087,10 +29179,10 @@ SizeSel_P_2_ECORECLUTAS(4)
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>ctl1[<span class="dv">64</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb41-2"><a href="#cb41-2"></a><span class="kw">kbl</span>(<span class="dt">caption =</span> <span class="st">&quot;Parámetros selectividad edad&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb41-3"><a href="#cb41-3"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb41-4"><a href="#cb41-4"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>ctl1[<span class="dv">64</span>]<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb42-2"><a href="#cb42-2"></a><span class="kw">kbl</span>(<span class="dt">caption =</span> <span class="st">&quot;Parámetros selectividad edad&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb42-3"><a href="#cb42-3"></a><span class="st">  </span><span class="kw">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="dt">full_width =</span> F)<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb42-4"><a href="#cb42-4"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="kable_wrapper lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
@@ -29539,10 +29631,10 @@ AgeSel_P_2_ECORECLUTAS(4)
 </div>
 <div id="varianza" class="section level3 tabset tabset-fade">
 <h3 class="tabset tabset-fade">Varianza</h3>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>ctl1[<span class="dv">67</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>ctl1[<span class="dv">67</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$DoVar_adjust
 [1] 1</code></pre>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>ctl1[<span class="dv">68</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>ctl1[<span class="dv">68</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$Variance_adjustment_list
                           Data_type Fleet   Value
 Variance_adjustment_list1         4     1 1.05016
@@ -29553,15 +29645,15 @@ Variance_adjustment_list4         4     4 1.15394</code></pre>
 </div>
 <div id="ejecutar-modelo" class="section level2">
 <h2>Ejecutar modelo</h2>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="co">#&#39;*Ejecutar el modelo* ----</span></span>
-<span id="cb46-2"><a href="#cb46-2"></a><span class="co">#&#39;*Entramos en el directorio desde la terminal*</span></span>
-<span id="cb46-3"><a href="#cb46-3"></a><span class="kw">system</span>(<span class="kw">paste0</span>(<span class="st">&quot;cd &quot;</span>,dir.base,<span class="st">&quot;/&quot;</span>))</span>
-<span id="cb46-4"><a href="#cb46-4"></a></span>
-<span id="cb46-5"><a href="#cb46-5"></a><span class="co">#&#39;*Permitimos que el ordenador pueda abrir el ejecutable (terminal)*</span></span>
-<span id="cb46-6"><a href="#cb46-6"></a><span class="kw">system</span>(<span class="kw">paste0</span>(<span class="st">&quot;chmod 755 &quot;</span>,dir.base,<span class="st">&quot;/ss_osx&quot;</span>))</span>
-<span id="cb46-7"><a href="#cb46-7"></a></span>
-<span id="cb46-8"><a href="#cb46-8"></a><span class="co">#&#39;* Ejecutar el modelo SS3 usando la función run_SS_models* ----</span></span>
-<span id="cb46-9"><a href="#cb46-9"></a>r4ss<span class="op">::</span><span class="kw">run</span>(<span class="dt">dir=</span>dir.base, <span class="dt">exe=</span><span class="st">&quot;ss_osx&quot;</span>, <span class="dt">skipfinished=</span><span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="co">#&#39;*Ejecutar el modelo* ----</span></span>
+<span id="cb47-2"><a href="#cb47-2"></a><span class="co">#&#39;*Entramos en el directorio desde la terminal*</span></span>
+<span id="cb47-3"><a href="#cb47-3"></a><span class="kw">system</span>(<span class="kw">paste0</span>(<span class="st">&quot;cd &quot;</span>,dir.base,<span class="st">&quot;/&quot;</span>))</span>
+<span id="cb47-4"><a href="#cb47-4"></a></span>
+<span id="cb47-5"><a href="#cb47-5"></a><span class="co">#&#39;*Permitimos que el ordenador pueda abrir el ejecutable (terminal)*</span></span>
+<span id="cb47-6"><a href="#cb47-6"></a><span class="kw">system</span>(<span class="kw">paste0</span>(<span class="st">&quot;chmod 755 &quot;</span>,dir.base,<span class="st">&quot;/ss_osx&quot;</span>))</span>
+<span id="cb47-7"><a href="#cb47-7"></a></span>
+<span id="cb47-8"><a href="#cb47-8"></a><span class="co">#&#39;* Ejecutar el modelo SS3 usando la función run_SS_models* ----</span></span>
+<span id="cb47-9"><a href="#cb47-9"></a>r4ss<span class="op">::</span><span class="kw">run</span>(<span class="dt">dir=</span>dir.base, <span class="dt">exe=</span><span class="st">&quot;ss_osx&quot;</span>, <span class="dt">skipfinished=</span><span class="ot">FALSE</span>)</span></code></pre></div>
 </div>
 </div>
 
