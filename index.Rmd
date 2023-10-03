@@ -23,18 +23,27 @@ title: "Implementación y análisis de desempeño de un modelo integrado de eval
 
 &nbsp;&nbsp;
 
-# Contexto
+# Resumen
 
-La implementación de modelos integrados de evaluación de stock implica tomar muchas decisiones, que van desde:
+La implementación de modelos integrados de evaluación de stock implica tomar muchas decisiones, que van desde determinar si el modelo se ajusta adecuadamente a los datos, evaluar el éxito de la optimización, verificar la consistencia de las estimaciones retrospectivas y asegurar que el modelo pueda proporcionar resultados útiles para la toma de decisión. 
 
-- determinar si el modelo se ajusta adecuadamente a los datos,
-- evaluar el éxito de la optimización
-- verificar la consistencia de las estimaciones retrospectivas
-- asegurar que el modelo pueda proporcionar resultados útiles para la toma de decisión.
+En el caso de los pequeños pelágicos, que presentan reclutamientos altamente variables de un año a otro y experimentan fluctuaciones rápidas y extremas en su abundancia, es de suma importancia realizar una adecuada especificación del reclutamiento en los modelos, y en particular en los modelos integrados.  Así mismo, se debe considerar el comportamiento gregario de estas especies, el cual puede influir en su capturabilidad y selectividad.
 
-En el caso de los pequeños pelágicos, que presentan reclutamientos altamente variables de un año a otro y experimentan fluctuaciones rápidas y extremas en su abundancia, es de suma importancia realizar una adecuada especificación del reclutamiento en los modelos y en particular en los modelos integrados.
+Es fundamental evitar la especificación errónea de estos procesos, ya que podrían generar patrones no deseados en los residuos de los ajustes o en los análisis retrospectivos, afectando así los resultados. En este estudio se implementa el modelo integrado “Stock Synthesis”, un modelo estructurado por tallas y edades para analizar el caso del boquerón del golfo de Cádiz.
 
-A sí mismo se debe considerar el comportamiento gregario de estas especies, en el cual puede influir en su capturabilidad y selectividad. Es fundamental evitar la especificación errónea de estos procesos, ya que podrían generar patrones no deseados en los residuos de los ajustes o en los análisis retrospectivos, afectando así los resultados.
+Se exploran diferentes fuentes de datos y  ponderación, así como, cambios en parámetros de crecimiento, selectividad, capturabilidad, entre otros. 
+
+El objetivo es evaluar el desempeño de diferentes escenarios, examinando la bondad de ajuste del modelo a los datos y detectando posibles violaciones de las asunciones de partida  y finalmente, determinar si los resultados obtenidos en los escenarios seleccionados con mejor desempeño permiten estimar puntos de referencia útiles para asesorar el estado presente y futuro del boquerón.
+
+
+Keywords:  golfo de Cádiz, boquerón, modelos integrados de evaluación de stock, Stock Synthesis, análisis de desempeño.
+
+First author: M. J. Zúñiga*
+
+Co-authors:   F. Ramos, A. Pérez-Rodríguez, M.M. Rincón,
+
+*Instituto Español de Oceanografía (IEO, CSIC). Centro Oceanográfico de Cádiz. Puerto Pesquero, Muelle de levante, s/n, 11006 Cádiz, Spain.  Email: maría.zuniga@ieo.csic.es
+
 
 
  Código original extraído desde  https://github.com/jabbamodel/ss3diags

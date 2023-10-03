@@ -13,7 +13,7 @@
 
 <title>Implementación y análisis de desempeño de un modelo integrado de evaluación de stock: estudio de caso de boquerón del golfo de Cádiz utilizando Stock Synthesis</title>
 
-<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -34,7 +34,6 @@
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -312,34 +311,16 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="0.FormatoArchivos.html">Datos</a>
+  <a href="1.Implementacion.html">Implementación</a>
 </li>
 <li>
-  <a href="1.EjecutarSS3.html">Ejecutar</a>
+  <a href="2.Escenarios.html">Escenarios</a>
 </li>
 <li>
-  <a href="2.Visualizacion.html">Visualizar</a>
+  <a href="3.Diagnostico.html">Diagnóstico</a>
 </li>
 <li>
-  <a href="3.Comparacion_de_modelos.html">CompararModelos</a>
-</li>
-<li>
-  <a href="4.Crear_nuevos_modelosSS3.html">CrearModelos</a>
-</li>
-<li>
-  <a href="5.Residuos.html">Residuos</a>
-</li>
-<li>
-  <a href="6.Perfil_Verosimilitud.html">Verosimilitud</a>
-</li>
-<li>
-  <a href="7.Retrospectivo.html">Retrospectivo</a>
-</li>
-<li>
-  <a href="8.Hindcast.html">Hindcast</a>
-</li>
-<li>
-  <a href="10.Tune_comps.html">Tune</a>
+  <a href="2.Series.html">Series</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -362,7 +343,9 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Implementación y análisis de desempeño de un modelo integrado de evaluación de stock: estudio de caso de boquerón del golfo de Cádiz utilizando Stock Synthesis</h1>
+<h1 class="title toc-ignore">Implementación y análisis de desempeño de
+un modelo integrado de evaluación de stock: estudio de caso de boquerón
+del golfo de Cádiz utilizando Stock Synthesis</h1>
 
 </div>
 
@@ -384,17 +367,49 @@ div.tocify {
 
 </style>
 <p>  </p>
-<div id="contexto" class="section level1">
-<h1>Contexto</h1>
-<p>La implementación de modelos integrados de evaluación de stock implica tomar muchas decisiones, que van desde:</p>
-<ul>
-<li>determinar si el modelo se ajusta adecuadamente a los datos,</li>
-<li>evaluar el éxito de la optimización</li>
-<li>verificar la consistencia de las estimaciones retrospectivas</li>
-<li>asegurar que el modelo pueda proporcionar resultados útiles para la toma de decisión.</li>
-</ul>
-<p>En el caso de los pequeños pelágicos, que presentan reclutamientos altamente variables de un año a otro y experimentan fluctuaciones rápidas y extremas en su abundancia, es de suma importancia realizar una adecuada especificación del reclutamiento en los modelos y en particular en los modelos integrados.</p>
-<p>A sí mismo se debe considerar el comportamiento gregario de estas especies, en el cual puede influir en su capturabilidad y selectividad. Es fundamental evitar la especificación errónea de estos procesos, ya que podrían generar patrones no deseados en los residuos de los ajustes o en los análisis retrospectivos, afectando así los resultados.</p>
+<div id="resumen" class="section level1">
+<h1>Resumen</h1>
+<p>La implementación de modelos integrados de evaluación de stock
+implica tomar muchas decisiones, que van desde determinar si el modelo
+se ajusta adecuadamente a los datos, evaluar el éxito de la
+optimización, verificar la consistencia de las estimaciones
+retrospectivas y asegurar que el modelo pueda proporcionar resultados
+útiles para la toma de decisión.</p>
+<p>En el caso de los pequeños pelágicos, que presentan reclutamientos
+altamente variables de un año a otro y experimentan fluctuaciones
+rápidas y extremas en su abundancia, es de suma importancia realizar una
+adecuada especificación del reclutamiento en los modelos, y en
+particular en los modelos integrados. Así mismo, se debe considerar el
+comportamiento gregario de estas especies, el cual puede influir en su
+capturabilidad y selectividad.</p>
+<p>Es fundamental evitar la especificación errónea de estos procesos, ya
+que podrían generar patrones no deseados en los residuos de los ajustes
+o en los análisis retrospectivos, afectando así los resultados. En este
+estudio se implementa el modelo integrado “Stock Synthesis”, un modelo
+estructurado por tallas y edades para analizar el caso del boquerón del
+golfo de Cádiz.</p>
+<p>Se exploran diferentes fuentes de datos y ponderación, así como,
+cambios en parámetros de crecimiento, selectividad, capturabilidad,
+entre otros.</p>
+<p>El objetivo es evaluar el desempeño de diferentes escenarios,
+examinando la bondad de ajuste del modelo a los datos y detectando
+posibles violaciones de las asunciones de partida y finalmente,
+determinar si los resultados obtenidos en los escenarios seleccionados
+con mejor desempeño permiten estimar puntos de referencia útiles para
+asesorar el estado presente y futuro del boquerón.</p>
+<p>Keywords: golfo de Cádiz, boquerón, modelos integrados de evaluación
+de stock, Stock Synthesis, análisis de desempeño.</p>
+<p>First author: M. J. Zúñiga*</p>
+<p>Co-authors: F. Ramos, A. Pérez-Rodríguez, M.M. Rincón,</p>
+<p>*Instituto Español de Oceanografía (IEO, CSIC). Centro Oceanográfico
+de Cádiz. Puerto Pesquero, Muelle de levante, s/n, 11006 Cádiz, Spain.
+Email: <a href="mailto:maría.zuniga@ieo.csic.es"
+class="email">maría.zuniga@ieo.csic.es</a></p>
+<p>Código original extraído desde <a
+href="https://github.com/jabbamodel/ss3diags"
+class="uri">https://github.com/jabbamodel/ss3diags</a> <a
+href="https://github.com/jabbamodel/ss3diags/blob/master/Cookbook/Likelihood_profile_R0_example.R"
+class="uri">https://github.com/jabbamodel/ss3diags/blob/master/Cookbook/Likelihood_profile_R0_example.R</a></p>
 </div>
 
 
@@ -434,7 +449,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeCodeFolding("show" === "show");
+  window.initializeCodeFolding("hide" === "show");
 });
 </script>
 
