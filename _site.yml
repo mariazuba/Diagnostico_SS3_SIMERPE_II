@@ -2,22 +2,14 @@ name: "Math4fish_SS3"
 navbar:
   title: "Inicio"
   left:
-    - text: "Datos"
-      href: 0.FormatoArchivos.html
-    - text: "Visualizar"
-      href: 2.Visualizacion.html
-    - text: "CrearModelos"
-      href: 4.Crear_nuevos_modelosSS3.html
-    - text: "Residuos"
-      href: 5.Residuos.html
-    - text: "Verosimilitud"
-      href: 6.Perfil_Verosimilitud.html
-    - text: "Retrospectivo"
-      href: 7.Retrospectivo.html
-    - text: "Hindcast"
-      href: 8.Hindcast.html
-    - text: "Tune"
-      href: 10.Tune_comps.html      
+    - text: "Implementación"
+      href: 1.Implementacion.html
+    - text: "Escenarios"
+      href: 2.Escenarios.html
+    - text: "Diagnóstico"
+      href: 3.Diagnostico.html     
+    - text: "Series"
+      href: 2.Series.html   
       
 output_dir: "."
 output: 
