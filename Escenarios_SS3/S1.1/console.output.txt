@@ -1,0 +1,13 @@
+###
+console output
+2023-10-09 09:58:15
+###
+ 
+ reading from STARTER.SS
+ reading from data file
+Data read sucessful 999
+
+ reading forecast file 
+ reading from control file
+matrix bound exceeded -- row index too low in imatrix::operator()(int, int)
+value was "0".
