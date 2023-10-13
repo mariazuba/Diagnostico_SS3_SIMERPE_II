@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>3.Diagnostico.knit</title>
+
+<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Inicio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="1.Implementacion.html">Implementación</a>
+</li>
+<li>
+  <a href="2.Escenarios.html">Escenarios</a>
+</li>
+<li>
+  <a href="3.Diagnostico.html">Diagnóstico</a>
+</li>
+<li>
+  <a href="2.Series.html">Series</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+<div class="upper-right-logo"> </div>
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<style type="text/css">
+
+
+.scroll-200{
+            max-height: 200px; 
+            overflow-y: auto; 
+            background-color: #f1f1f1;
+            }
+</style>
+<style type="text/css">
+
+/*----------LOGO above TOC---------*/
+
+#TOC::before {
+  content: "";
+  display: block;
+  height: 100px;
+  margin: 2em 20px 40px 20px;
+  background-image: url("inputs/LOGO_2SN_recortado.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+</style>
+<div id="convergencia" class="section level1">
+<h1>Convergencia</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>c.s1<span class="ot">&lt;-</span>replist_s1<span class="sc">$</span>maximum_gradient_component</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>c.s2<span class="ot">&lt;-</span>replist_s2<span class="sc">$</span>maximum_gradient_component</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>c.s3<span class="ot">&lt;-</span>replist_s3<span class="sc">$</span>maximum_gradient_component</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>c.s4<span class="ot">&lt;-</span>replist_s4<span class="sc">$</span>maximum_gradient_component</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>c.s5<span class="ot">&lt;-</span>replist_s5<span class="sc">$</span>maximum_gradient_component</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>c.s6<span class="ot">&lt;-</span>replist_s6<span class="sc">$</span>maximum_gradient_component</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>c.s7<span class="ot">&lt;-</span>replist_s7<span class="sc">$</span>maximum_gradient_component</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>c.s8<span class="ot">&lt;-</span>replist_s8<span class="sc">$</span>maximum_gradient_component</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>convergencia<span class="ot">&lt;-</span><span class="fu">rbind</span>(c.s1,c.s2,c.s3,c.s4,c.s5,c.s6,c.s7,c.s8)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>convergencia<span class="sc">%&gt;%</span> </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;250px&quot;</span>)</span></code></pre></div>
+<div
+style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:250px; overflow-x: scroll; width:100%; ">
+<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;">
+c.s1
+</td>
+<td style="text-align:right;">
+0.0000159
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+c.s2
+</td>
+<td style="text-align:right;">
+0.0000674
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+c.s3
+</td>
+<td style="text-align:right;">
+0.0001865
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+c.s4
+</td>
+<td style="text-align:right;">
+0.0002910
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+c.s5
+</td>
+<td style="text-align:right;">
+0.0000702
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+c.s6
+</td>
+<td style="text-align:right;">
+0.0000126
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+c.s7
+</td>
+<td style="text-align:right;">
+0.0000031
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+c.s8
+</td>
+<td style="text-align:right;">
+0.0000440
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="análisis-de-residuos" class="section level1">
+<h1>Análisis de residuos</h1>
+<p>Graficos de los residuos y límites 3xsigma para índices, tallas y
+edades y genera una tabla de prueba de diagnóstico. Estas Figuras
+corresponden a un test de ajustes de los índices y composiciones de
+tallas. El sombreado verde indica que no hay evidencia (p = 0,05) y el
+sombreado rojo evidencia (p &lt; 0,05) para rechazar la hipótesis de una
+serie temporal de residuos distribuida aleatoriamente, respectivamente.
+El área sombreada (verde/roja) abarca tres desviaciones estándar
+residuales a ambos lados de cero. Los puntos rojos fuera del sombreado
+violan el “límite de tres sigma” para esa serie.</p>
+<ul>
+<li>‘cpue’ opcional para datos de índice,</li>
+<li>‘len’ para datos de composición por tallas,</li>
+<li>‘size’ para datos de composición por tallas generalizados,</li>
+<li>‘age’ para datos de composición por edades o</li>
+<li>‘con’ para datos condicionales de edad por tallas</li>
+</ul>
+<div id="residuos" class="section level2 tabset tabset-fade">
+<h2 class="tabset tabset-fade">Residuos</h2>
+<div id="índices" class="section level3">
+<h3>Índices</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">##&#39;* S1*</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>plotdir.S1<span class="ot">=</span><span class="fu">paste0</span>(dir.s1, <span class="st">&quot;/plots_residuos&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>plotdir.S1, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist_s1,  <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>,  <span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">legendcex =</span> <span class="fl">0.8</span>,  <span class="at">verbose =</span> F,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S1)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##         Index runs.p   test sigma3.lo sigma3.hi type
+## 1      PELAGO  0.109 Passed -1.147181  1.147181 cpue
+## 2    ECOCADIZ  0.163 Passed -2.038259  2.038259 cpue
+## 3 ECORECLUTAS  0.890 Passed -3.491259  3.491259 cpue</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">##&#39;* S2*</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>plotdir.S2<span class="ot">=</span><span class="fu">paste0</span>(dir.s2, <span class="st">&quot;/plots_residuos&quot;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>plotdir.S2, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist_s2,  <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">legendcex =</span> <span class="fl">0.8</span>, <span class="at">verbose =</span> F,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S2)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##         Index runs.p   test sigma3.lo sigma3.hi type
+## 1      PELAGO  0.401 Passed -1.064164  1.064164 cpue
+## 2    ECOCADIZ  0.910 Passed -1.564711  1.564711 cpue
+## 3 ECORECLUTAS  0.841 Passed -2.430055  2.430055 cpue</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## S3</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>plotdir.S3<span class="ot">=</span><span class="fu">paste0</span>(dir.s3, <span class="st">&quot;/plots_residuos&quot;</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>plotdir.S3, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist_s3,  <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>,  <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">legendcex =</span> <span class="fl">0.8</span>, <span class="at">verbose =</span> F,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S3)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##         Index runs.p   test sigma3.lo sigma3.hi type
+## 1      PELAGO  0.401 Passed -1.061788  1.061788 cpue
+## 2    ECOCADIZ  0.910 Passed -1.570706  1.570706 cpue
+## 3 ECORECLUTAS  0.841 Passed -2.418695  2.418695 cpue</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## S4</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>plotdir.S4<span class="ot">=</span><span class="fu">paste0</span>(dir.s4, <span class="st">&quot;/plots_residuos&quot;</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>plotdir.S4, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist_s4,  <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>,  <span class="at">legendcex =</span> <span class="fl">0.8</span>,  <span class="at">verbose =</span> F,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S4)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##         Index runs.p   test  sigma3.lo sigma3.hi type
+## 1      PELAGO  0.401 Passed -0.9769056 0.9769056 cpue
+## 2    ECOCADIZ  0.556 Passed -1.6062487 1.6062487 cpue
+## 3 ECORECLUTAS  0.841 Passed -2.8814708 2.8814708 cpue</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## S5</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>plotdir.S5<span class="ot">=</span><span class="fu">paste0</span>(dir.s5, <span class="st">&quot;/plots_residuos&quot;</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>plotdir.S5, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist_s5, <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>,<span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">legendcex =</span> <span class="fl">0.8</span>,<span class="at">verbose =</span> F,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S5)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##         Index runs.p   test  sigma3.lo sigma3.hi type
+## 1      PELAGO  0.401 Passed -0.9898656 0.9898656 cpue
+## 2    ECOCADIZ  0.163 Passed -1.5818268 1.5818268 cpue
+## 3 ECORECLUTAS  0.841 Passed -2.8611808 2.8611808 cpue</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## S6</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plotdir.S6<span class="ot">=</span><span class="fu">paste0</span>(dir.s6, <span class="st">&quot;/plots_residuos&quot;</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>plotdir.S6, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist_s6, <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>,<span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">legendcex =</span> <span class="fl">0.8</span>,<span class="at">verbose =</span> F,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S6)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##         Index runs.p   test sigma3.lo sigma3.hi type
+## 1      PELAGO  0.401 Passed -1.098723  1.098723 cpue
+## 2    ECOCADIZ  0.103 Passed -1.342302  1.342302 cpue
+## 3 ECORECLUTAS  0.841 Passed -2.750317  2.750317 cpue</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">## S7</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plotdir.S7<span class="ot">=</span><span class="fu">paste0</span>(dir.s7, <span class="st">&quot;/plots_residuos&quot;</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>plotdir.S7, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist_s7, <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>,<span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">legendcex =</span> <span class="fl">0.8</span>,<span class="at">verbose =</span> F,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S7)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##         Index runs.p   test sigma3.lo sigma3.hi type
+## 1      PELAGO  0.401 Passed -1.101288  1.101288 cpue
+## 2    ECOCADIZ  0.251 Passed -1.357343  1.357343 cpue
+## 3 ECORECLUTAS  0.841 Passed -2.826655  2.826655 cpue</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">## S8</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>plotdir.S8<span class="ot">=</span><span class="fu">paste0</span>(dir.s8, <span class="st">&quot;/plots_residuos&quot;</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>plotdir.S8, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist_s8, <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>,<span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">legendcex =</span> <span class="fl">0.8</span>,<span class="at">verbose =</span> F,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S8)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##         Index runs.p   test sigma3.lo sigma3.hi type
+## 1      PELAGO  0.401 Passed -1.002643  1.002643 cpue
+## 2    ECOCADIZ  0.251 Passed -1.394152  1.394152 cpue
+## 3 ECORECLUTAS  0.841 Passed -2.460770  2.460770 cpue</code></pre>
+</div>
+<div id="tallas" class="section level3">
+<h3>Tallas</h3>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S1</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist_s1, </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">legendcex =</span> <span class="fl">0.8</span>,  <span class="at">verbose =</span> F,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S1)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##         Index runs.p   test   sigma3.lo  sigma3.hi type
+## 1       FLOTA  0.245 Passed -0.27313067 0.27313067  len
+## 2      PELAGO  0.052 Passed -0.20354902 0.20354902  len
+## 3    ECOCADIZ  0.556 Passed -0.18282452 0.18282452  len
+## 4 ECORECLUTAS  0.001 Failed -0.06972435 0.06972435  len</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S2</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist_s2, </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">legendcex =</span> <span class="fl">0.8</span>,  <span class="at">verbose =</span> F,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S2)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##         Index runs.p   test  sigma3.lo sigma3.hi type
+## 1       FLOTA  0.224 Passed -0.2926434 0.2926434  len
+## 2      PELAGO  0.109 Passed -0.1879304 0.1879304  len
+## 3    ECOCADIZ  0.023 Failed -0.1808321 0.1808321  len
+## 4 ECORECLUTAS  0.001 Failed -0.1709456 0.1709456  len</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S3</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist_s3, </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">legendcex =</span> <span class="fl">0.8</span>,  <span class="at">verbose =</span> F,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S3)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##         Index runs.p   test  sigma3.lo sigma3.hi type
+## 1       FLOTA  0.224 Passed -0.2925541 0.2925541  len
+## 2      PELAGO  0.109 Passed -0.1883418 0.1883418  len
+## 3    ECOCADIZ  0.023 Failed -0.1808682 0.1808682  len
+## 4 ECORECLUTAS  0.001 Failed -0.1699520 0.1699520  len</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S4</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist_s4, </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">legendcex =</span> <span class="fl">0.8</span>,  <span class="at">verbose =</span> F,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S4)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##         Index runs.p   test  sigma3.lo sigma3.hi type
+## 1       FLOTA  0.091 Passed -0.2320310 0.2320310  len
+## 2      PELAGO  0.092 Passed -0.1658645 0.1658645  len
+## 3    ECOCADIZ  0.090 Passed -0.1791870 0.1791870  len
+## 4 ECORECLUTAS  0.001 Failed -0.1780408 0.1780408  len</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S5</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist_s5, </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">legendcex =</span> <span class="fl">0.8</span>,  <span class="at">verbose =</span> F,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S5)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##         Index runs.p   test  sigma3.lo sigma3.hi type
+## 1       FLOTA  0.145 Passed -0.2209147 0.2209147  len
+## 2      PELAGO  0.092 Passed -0.1678320 0.1678320  len
+## 3    ECOCADIZ  0.090 Passed -0.1809026 0.1809026  len
+## 4 ECORECLUTAS  0.001 Failed -0.1786764 0.1786764  len</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S6</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist_s6, </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">legendcex =</span> <span class="fl">0.8</span>,  <span class="at">verbose =</span> F,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S6)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##         Index runs.p   test  sigma3.lo sigma3.hi type
+## 1       FLOTA  0.029 Failed -0.2058449 0.2058449  len
+## 2      PELAGO  0.155 Passed -0.2146878 0.2146878  len
+## 3    ECOCADIZ  0.500 Passed -0.1872236 0.1872236  len
+## 4 ECORECLUTAS  0.001 Failed -0.2482719 0.2482719  len</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S7</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist_s7, </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">legendcex =</span> <span class="fl">0.8</span>,  <span class="at">verbose =</span> F,</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S7)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##         Index runs.p   test  sigma3.lo sigma3.hi type
+## 1       FLOTA  0.001 Failed -0.2231557 0.2231557  len
+## 2      PELAGO  0.031 Failed -0.1912246 0.1912246  len
+## 3    ECOCADIZ  0.103 Passed -0.1753090 0.1753090  len
+## 4 ECORECLUTAS  0.001 Failed -0.2478913 0.2478913  len</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S8</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist_s8, </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">legendcex =</span> <span class="fl">0.8</span>,  <span class="at">verbose =</span> F,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S8)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##         Index runs.p   test  sigma3.lo sigma3.hi type
+## 1       FLOTA  0.104 Passed -0.2163649 0.2163649  len
+## 2      PELAGO  0.251 Passed -0.1375237 0.1375237  len
+## 3    ECOCADIZ  0.103 Passed -0.1503363 0.1503363  len
+## 4 ECORECLUTAS  0.001 Failed -0.1532383 0.1532383  len</code></pre>
+</div>
+<div id="tabla-de-diagnóstico" class="section level3">
+<h3>Tabla de diagnóstico</h3>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#S1</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>test_indices.s1<span class="ot">&lt;-</span><span class="fu">SSrunstest</span>(replist_s1,<span class="at">quants =</span> <span class="st">&quot;cpue&quot;</span>,<span class="at">verbose=</span>F)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>test_len.s1<span class="ot">&lt;-</span><span class="fu">SSrunstest</span>(replist_s1,<span class="at">quants =</span> <span class="st">&quot;len&quot;</span>,<span class="at">verbose=</span>F)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(test_indices.s1,test_len.s1)</span></code></pre></div>
+<pre class="scroll-200"><code>##         Index runs.p   test   sigma3.lo  sigma3.hi type
+## 1      PELAGO  0.109 Passed -1.14718125 1.14718125 cpue
+## 2    ECOCADIZ  0.163 Passed -2.03825904 2.03825904 cpue
+## 3 ECORECLUTAS  0.890 Passed -3.49125887 3.49125887 cpue
+## 4       FLOTA  0.245 Passed -0.27313067 0.27313067  len
+## 5      PELAGO  0.052 Passed -0.20354902 0.20354902  len
+## 6    ECOCADIZ  0.556 Passed -0.18282452 0.18282452  len
+## 7 ECORECLUTAS  0.001 Failed -0.06972435 0.06972435  len</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#S2</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>test_indices.s2<span class="ot">&lt;-</span><span class="fu">SSrunstest</span>(replist_s2,<span class="at">quants =</span> <span class="st">&quot;cpue&quot;</span>,<span class="at">verbose=</span>F)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>test_len.s2<span class="ot">&lt;-</span><span class="fu">SSrunstest</span>(replist_s2,<span class="at">quants =</span> <span class="st">&quot;len&quot;</span>,<span class="at">verbose=</span>F)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(test_indices.s2,test_len.s2)</span></code></pre></div>
+<pre class="scroll-200"><code>##         Index runs.p   test  sigma3.lo sigma3.hi type
+## 1      PELAGO  0.401 Passed -1.0641644 1.0641644 cpue
+## 2    ECOCADIZ  0.910 Passed -1.5647108 1.5647108 cpue
+## 3 ECORECLUTAS  0.841 Passed -2.4300546 2.4300546 cpue
+## 4       FLOTA  0.224 Passed -0.2926434 0.2926434  len
+## 5      PELAGO  0.109 Passed -0.1879304 0.1879304  len
+## 6    ECOCADIZ  0.023 Failed -0.1808321 0.1808321  len
+## 7 ECORECLUTAS  0.001 Failed -0.1709456 0.1709456  len</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#S3</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>test_indices.s3<span class="ot">&lt;-</span><span class="fu">SSrunstest</span>(replist_s3,<span class="at">quants =</span> <span class="st">&quot;cpue&quot;</span>,<span class="at">verbose=</span>F)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>test_len.s3<span class="ot">&lt;-</span><span class="fu">SSrunstest</span>(replist_s3,<span class="at">quants =</span> <span class="st">&quot;len&quot;</span>,<span class="at">verbose=</span>F)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(test_indices.s3,test_len.s3)</span></code></pre></div>
+<pre class="scroll-200"><code>##         Index runs.p   test  sigma3.lo sigma3.hi type
+## 1      PELAGO  0.401 Passed -1.0617879 1.0617879 cpue
+## 2    ECOCADIZ  0.910 Passed -1.5707056 1.5707056 cpue
+## 3 ECORECLUTAS  0.841 Passed -2.4186948 2.4186948 cpue
+## 4       FLOTA  0.224 Passed -0.2925541 0.2925541  len
+## 5      PELAGO  0.109 Passed -0.1883418 0.1883418  len
+## 6    ECOCADIZ  0.023 Failed -0.1808682 0.1808682  len
+## 7 ECORECLUTAS  0.001 Failed -0.1699520 0.1699520  len</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#s4</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>test_indices.s4<span class="ot">&lt;-</span><span class="fu">SSrunstest</span>(replist_s4,<span class="at">quants =</span> <span class="st">&quot;cpue&quot;</span>,<span class="at">verbose=</span>F)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>test_len.s4<span class="ot">&lt;-</span><span class="fu">SSrunstest</span>(replist_s4,<span class="at">quants =</span> <span class="st">&quot;len&quot;</span>,<span class="at">verbose=</span>F)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(test_indices.s4,test_len.s4)</span></code></pre></div>
+<pre class="scroll-200"><code>##         Index runs.p   test  sigma3.lo sigma3.hi type
+## 1      PELAGO  0.401 Passed -0.9769056 0.9769056 cpue
+## 2    ECOCADIZ  0.556 Passed -1.6062487 1.6062487 cpue
+## 3 ECORECLUTAS  0.841 Passed -2.8814708 2.8814708 cpue
+## 4       FLOTA  0.091 Passed -0.2320310 0.2320310  len
+## 5      PELAGO  0.092 Passed -0.1658645 0.1658645  len
+## 6    ECOCADIZ  0.090 Passed -0.1791870 0.1791870  len
+## 7 ECORECLUTAS  0.001 Failed -0.1780408 0.1780408  len</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#s5</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>test_indices.s5<span class="ot">&lt;-</span><span class="fu">SSrunstest</span>(replist_s5,<span class="at">quants =</span> <span class="st">&quot;cpue&quot;</span>,<span class="at">verbose=</span>F)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>test_len.s5<span class="ot">&lt;-</span><span class="fu">SSrunstest</span>(replist_s5,<span class="at">quants =</span> <span class="st">&quot;len&quot;</span>,<span class="at">verbose=</span>F)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(test_indices.s5,test_len.s5)</span></code></pre></div>
+<pre class="scroll-200"><code>##         Index runs.p   test  sigma3.lo sigma3.hi type
+## 1      PELAGO  0.401 Passed -0.9898656 0.9898656 cpue
+## 2    ECOCADIZ  0.163 Passed -1.5818268 1.5818268 cpue
+## 3 ECORECLUTAS  0.841 Passed -2.8611808 2.8611808 cpue
+## 4       FLOTA  0.145 Passed -0.2209147 0.2209147  len
+## 5      PELAGO  0.092 Passed -0.1678320 0.1678320  len
+## 6    ECOCADIZ  0.090 Passed -0.1809026 0.1809026  len
+## 7 ECORECLUTAS  0.001 Failed -0.1786764 0.1786764  len</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#s6</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>test_indices.s6<span class="ot">&lt;-</span><span class="fu">SSrunstest</span>(replist_s6,<span class="at">quants =</span> <span class="st">&quot;cpue&quot;</span>,<span class="at">verbose=</span>F)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>test_len.s6<span class="ot">&lt;-</span><span class="fu">SSrunstest</span>(replist_s6,<span class="at">quants =</span> <span class="st">&quot;len&quot;</span>,<span class="at">verbose=</span>F)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(test_indices.s6,test_len.s6)</span></code></pre></div>
+<pre class="scroll-200"><code>##         Index runs.p   test  sigma3.lo sigma3.hi type
+## 1      PELAGO  0.401 Passed -1.0987234 1.0987234 cpue
+## 2    ECOCADIZ  0.103 Passed -1.3423017 1.3423017 cpue
+## 3 ECORECLUTAS  0.841 Passed -2.7503167 2.7503167 cpue
+## 4       FLOTA  0.029 Failed -0.2058449 0.2058449  len
+## 5      PELAGO  0.155 Passed -0.2146878 0.2146878  len
+## 6    ECOCADIZ  0.500 Passed -0.1872236 0.1872236  len
+## 7 ECORECLUTAS  0.001 Failed -0.2482719 0.2482719  len</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co">#s7</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>test_indices.s7<span class="ot">&lt;-</span><span class="fu">SSrunstest</span>(replist_s7,<span class="at">quants =</span> <span class="st">&quot;cpue&quot;</span>,<span class="at">verbose=</span>F)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>test_len.s7<span class="ot">&lt;-</span><span class="fu">SSrunstest</span>(replist_s7,<span class="at">quants =</span> <span class="st">&quot;len&quot;</span>,<span class="at">verbose=</span>F)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(test_indices.s7,test_len.s7)</span></code></pre></div>
+<pre class="scroll-200"><code>##         Index runs.p   test  sigma3.lo sigma3.hi type
+## 1      PELAGO  0.401 Passed -1.1012880 1.1012880 cpue
+## 2    ECOCADIZ  0.251 Passed -1.3573427 1.3573427 cpue
+## 3 ECORECLUTAS  0.841 Passed -2.8266551 2.8266551 cpue
+## 4       FLOTA  0.001 Failed -0.2231557 0.2231557  len
+## 5      PELAGO  0.031 Failed -0.1912246 0.1912246  len
+## 6    ECOCADIZ  0.103 Passed -0.1753090 0.1753090  len
+## 7 ECORECLUTAS  0.001 Failed -0.2478913 0.2478913  len</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">#s8</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>test_indices.s8<span class="ot">&lt;-</span><span class="fu">SSrunstest</span>(replist_s8,<span class="at">quants =</span> <span class="st">&quot;cpue&quot;</span>,<span class="at">verbose=</span>F)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>test_len.s8<span class="ot">&lt;-</span><span class="fu">SSrunstest</span>(replist_s8,<span class="at">quants =</span> <span class="st">&quot;len&quot;</span>,<span class="at">verbose=</span>F)</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(test_indices.s8,test_len.s8)</span></code></pre></div>
+<pre class="scroll-200"><code>##         Index runs.p   test  sigma3.lo sigma3.hi type
+## 1      PELAGO  0.401 Passed -1.0026432 1.0026432 cpue
+## 2    ECOCADIZ  0.251 Passed -1.3941520 1.3941520 cpue
+## 3 ECORECLUTAS  0.841 Passed -2.4607701 2.4607701 cpue
+## 4       FLOTA  0.104 Passed -0.2163649 0.2163649  len
+## 5      PELAGO  0.251 Passed -0.1375237 0.1375237  len
+## 6    ECOCADIZ  0.103 Passed -0.1503363 0.1503363  len
+## 7 ECORECLUTAS  0.001 Failed -0.1532383 0.1532383  len</code></pre>
+</div>
+</div>
+</div>
+<div id="boxplot-residuales-con-loess" class="section level1">
+<h1>Boxplot residuales con loess</h1>
+<p>Ejecuta el gráfico de prueba y el gráfico de residuos conjuntos para
+ajustes a los índices, donde las líneas verticales con puntos muestran
+los residuos y las líneas negras sólidas muestran loess más suave en
+todos los residuos. Los boxplot indican la mediana y cuantiles en los
+casos en que los residuos de los índices múltiples estén disponibles
+para un año determinado. Los errores cuadráticos medios (RMSE) se
+incluyen en la esquina superior derecha de cada gráfico. Los plots de
+residuales para todos los índices como boxplot están codificados por
+colores por flota, con un loess que muestra tendencias sistemáticas a lo
+largo del tiempo.</p>
+<div id="boxplot" class="section level2 tabset tabset-fade">
+<h2 class="tabset tabset-fade">Boxplot</h2>
+<div id="índices-1" class="section level3">
+<h3>Índices</h3>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S1</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist_s1, <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>, <span class="at">add =</span> T,<span class="at">legendcex =</span> <span class="fl">0.8</span>,<span class="at">verbose =</span> F,</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S1)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##       indices RMSE.perc nobs
+## 1      PELAGO      60.4   19
+## 2    ECOCADIZ      72.4   13
+## 3 ECORECLUTAS      57.9    8
+## 4    Combined      64.1   40</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S2</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist_s2, <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>, <span class="at">add =</span> T,<span class="at">legendcex =</span> <span class="fl">0.8</span>,<span class="at">verbose =</span> F,</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S2)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##       indices RMSE.perc nobs
+## 1      PELAGO      47.9   19
+## 2    ECOCADIZ      57.2   13
+## 3 ECORECLUTAS      53.1    8
+## 4    Combined      52.1   40</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S3</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist_s3, <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>, <span class="at">add =</span> T,<span class="at">legendcex =</span> <span class="fl">0.8</span>,<span class="at">verbose =</span> F,</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S3)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##       indices RMSE.perc nobs
+## 1      PELAGO      48.1   19
+## 2    ECOCADIZ      58.4   13
+## 3 ECORECLUTAS      55.4    8
+## 4    Combined      53.1   40</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S4</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist_s4, <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>, <span class="at">add =</span> T,<span class="at">legendcex =</span> <span class="fl">0.8</span>,<span class="at">verbose =</span> F,</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S4)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##       indices RMSE.perc nobs
+## 1      PELAGO      46.7   19
+## 2    ECOCADIZ      56.1   13
+## 3 ECORECLUTAS      52.2    8
+## 4    Combined      51.0   40</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S5</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist_s5, <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>, <span class="at">add =</span> T,<span class="at">legendcex =</span> <span class="fl">0.8</span>,<span class="at">verbose =</span> F,</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S5)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##       indices RMSE.perc nobs
+## 1      PELAGO      47.3   19
+## 2    ECOCADIZ      56.7   13
+## 3 ECORECLUTAS      52.3    8
+## 4    Combined      51.5   40</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S6</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist_s6, <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>, <span class="at">add =</span> T,<span class="at">legendcex =</span> <span class="fl">0.8</span>,<span class="at">verbose =</span> F,</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S6)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##       indices RMSE.perc nobs
+## 1      PELAGO      49.3   19
+## 2    ECOCADIZ      54.6   13
+## 3 ECORECLUTAS      52.0    8
+## 4    Combined      51.6   40</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S7</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist_s7, <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>, <span class="at">add =</span> T,<span class="at">legendcex =</span> <span class="fl">0.8</span>,<span class="at">verbose =</span> F,</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S7)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##       indices RMSE.perc nobs
+## 1      PELAGO      48.3   19
+## 2    ECOCADIZ      47.7   13
+## 3 ECORECLUTAS      42.9    8
+## 4    Combined      47.1   40</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S8</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist_s8, <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>, <span class="at">add =</span> T,<span class="at">legendcex =</span> <span class="fl">0.8</span>,<span class="at">verbose =</span> F,</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S8)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##       indices RMSE.perc nobs
+## 1      PELAGO      55.9   19
+## 2    ECOCADIZ      52.9   13
+## 3 ECORECLUTAS      47.7    8
+## 4    Combined      53.4   40</code></pre>
+</div>
+<div id="tallas-1" class="section level3">
+<h3>Tallas</h3>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S1</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist_s1,<span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>,<span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">verbose =</span> F,<span class="at">legendcex =</span> <span class="fl">0.8</span>,</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S1)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##       indices RMSE.perc nobs
+## 1       FLOTA      13.8  116
+## 2      PELAGO       8.4   15
+## 3    ECOCADIZ       9.3   10
+## 4 ECORECLUTAS      13.6    4
+## 5    Combined      13.1  145</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S2</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist_s2,<span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>,<span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">verbose =</span> F,<span class="at">legendcex =</span> <span class="fl">0.8</span>,</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S2)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##       indices RMSE.perc nobs
+## 1       FLOTA      17.8  116
+## 2      PELAGO       7.9   15
+## 3    ECOCADIZ      12.2   10
+## 4 ECORECLUTAS      23.6    4
+## 5    Combined      16.9  145</code></pre>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S3</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist_s3,<span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>,<span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">verbose =</span> F,<span class="at">legendcex =</span> <span class="fl">0.8</span>,</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S3)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##       indices RMSE.perc nobs
+## 1       FLOTA      17.8  116
+## 2      PELAGO       7.8   15
+## 3    ECOCADIZ      12.1   10
+## 4 ECORECLUTAS      23.7    4
+## 5    Combined      16.9  145</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S4</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist_s4,<span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>,<span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">verbose =</span> F,<span class="at">legendcex =</span> <span class="fl">0.8</span>,</span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S4)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##       indices RMSE.perc nobs
+## 1       FLOTA      15.7  116
+## 2      PELAGO       7.2   15
+## 3    ECOCADIZ       9.1   10
+## 4 ECORECLUTAS      15.8    4
+## 5    Combined      14.7  145</code></pre>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S5</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist_s5,<span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>,<span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">verbose =</span> F,<span class="at">legendcex =</span> <span class="fl">0.8</span>,</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S5)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##       indices RMSE.perc nobs
+## 1       FLOTA      15.4  116
+## 2      PELAGO       7.4   15
+## 3    ECOCADIZ       9.2   10
+## 4 ECORECLUTAS      16.7    4
+## 5    Combined      14.4  145</code></pre>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S6</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist_s6,<span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>,<span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">verbose =</span> F,<span class="at">legendcex =</span> <span class="fl">0.8</span>,</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S6)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##       indices RMSE.perc nobs
+## 1       FLOTA      14.3  116
+## 2      PELAGO       9.5   15
+## 3    ECOCADIZ       8.1   10
+## 4 ECORECLUTAS       7.8    4
+## 5    Combined      13.4  145</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S7</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist_s7,<span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>,<span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">verbose =</span> F,<span class="at">legendcex =</span> <span class="fl">0.8</span>,</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S7)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##       indices RMSE.perc nobs
+## 1       FLOTA      12.8  116
+## 2      PELAGO       8.0   15
+## 3    ECOCADIZ       7.6   10
+## 4 ECORECLUTAS       8.2    4
+## 5    Combined      12.0  145</code></pre>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="do">### S8</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist_s8,<span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>,<span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">verbose =</span> F,<span class="at">legendcex =</span> <span class="fl">0.8</span>,</span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">plotdir =</span> plotdir.S8)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##       indices RMSE.perc nobs
+## 1       FLOTA      12.1  116
+## 2      PELAGO       5.9   15
+## 3    ECOCADIZ       5.7   10
+## 4 ECORECLUTAS       6.9    4
+## 5    Combined      11.2  145</code></pre>
+</div>
+</div>
+</div>
+<div id="retrospectivo" class="section level1 tabset tabset-fade">
+<h1 class="tabset tabset-fade">Retrospectivo</h1>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*Crear un nuevo directorio para el `Restrospectivo`*</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>dir.retro <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">&quot;Retrospectivo&quot;</span>)</span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>dir.retro, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------</span></span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*Crear un subdirectorio llamado `plots_Retrospectivo`*</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>plotdir<span class="ot">=</span><span class="fu">paste0</span>(dir.retro, <span class="st">&quot;/plots_Retrospectivo&quot;</span>)</span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>plotdir, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*Crear un subdirectorio llamado `S1`*</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>ref.dir.S1 <span class="ot">&lt;-</span> <span class="fu">paste0</span>(dir.retro,<span class="st">&#39;/S1&#39;</span>) </span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>ref.dir.S2 <span class="ot">&lt;-</span> <span class="fu">paste0</span>(dir.retro,<span class="st">&#39;/S2&#39;</span>) </span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>ref.dir.S3 <span class="ot">&lt;-</span> <span class="fu">paste0</span>(dir.retro,<span class="st">&#39;/S3&#39;</span>) </span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a>ref.dir.S4 <span class="ot">&lt;-</span> <span class="fu">paste0</span>(dir.retro,<span class="st">&#39;/S4&#39;</span>) </span>
+<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a>ref.dir.S5 <span class="ot">&lt;-</span> <span class="fu">paste0</span>(dir.retro,<span class="st">&#39;/S5&#39;</span>) </span>
+<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a>ref.dir.S6 <span class="ot">&lt;-</span> <span class="fu">paste0</span>(dir.retro,<span class="st">&#39;/S6&#39;</span>) </span>
+<span id="cb84-9"><a href="#cb84-9" aria-hidden="true" tabindex="-1"></a>ref.dir.S7 <span class="ot">&lt;-</span> <span class="fu">paste0</span>(dir.retro,<span class="st">&#39;/S7&#39;</span>) </span>
+<span id="cb84-10"><a href="#cb84-10" aria-hidden="true" tabindex="-1"></a>ref.dir.S8 <span class="ot">&lt;-</span> <span class="fu">paste0</span>(dir.retro,<span class="st">&#39;/S8&#39;</span>) </span>
+<span id="cb84-11"><a href="#cb84-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-12"><a href="#cb84-12" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>ref.dir.S1, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb84-13"><a href="#cb84-13" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>ref.dir.S2, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb84-14"><a href="#cb84-14" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>ref.dir.S3, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb84-15"><a href="#cb84-15" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>ref.dir.S4, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb84-16"><a href="#cb84-16" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>ref.dir.S5, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb84-17"><a href="#cb84-17" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>ref.dir.S6, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb84-18"><a href="#cb84-18" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>ref.dir.S7, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb84-19"><a href="#cb84-19" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>ref.dir.S8, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* 8. Leer los archivos del modelo `SS_read()` *</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>inputs_S1 <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_read</span>(<span class="at">dir =</span> ref.dir.S1,<span class="at">ss_new =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>inputs_S2 <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_read</span>(<span class="at">dir =</span> ref.dir.S2,<span class="at">ss_new =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>inputs_S3 <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_read</span>(<span class="at">dir =</span> ref.dir.S3,<span class="at">ss_new =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a>inputs_S4 <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_read</span>(<span class="at">dir =</span> ref.dir.S4,<span class="at">ss_new =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb85-7"><a href="#cb85-7" aria-hidden="true" tabindex="-1"></a>inputs_S5 <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_read</span>(<span class="at">dir =</span> ref.dir.S5,<span class="at">ss_new =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb85-8"><a href="#cb85-8" aria-hidden="true" tabindex="-1"></a>inputs_S6 <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_read</span>(<span class="at">dir =</span> ref.dir.S6,<span class="at">ss_new =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb85-9"><a href="#cb85-9" aria-hidden="true" tabindex="-1"></a>inputs_S7 <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_read</span>(<span class="at">dir =</span> ref.dir.S7,<span class="at">ss_new =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb85-10"><a href="#cb85-10" aria-hidden="true" tabindex="-1"></a>inputs_S8 <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_read</span>(<span class="at">dir =</span> ref.dir.S8,<span class="at">ss_new =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* 9. Editar el archivo starter para que muestre una línea de visualización por cada iteración *</span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>inputs_S1<span class="sc">$</span>start<span class="sc">$</span>run_display_detail <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>inputs_S2<span class="sc">$</span>start<span class="sc">$</span>run_display_detail <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>inputs_S3<span class="sc">$</span>start<span class="sc">$</span>run_display_detail <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>inputs_S4<span class="sc">$</span>start<span class="sc">$</span>run_display_detail <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>inputs_S5<span class="sc">$</span>start<span class="sc">$</span>run_display_detail <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb86-7"><a href="#cb86-7" aria-hidden="true" tabindex="-1"></a>inputs_S6<span class="sc">$</span>start<span class="sc">$</span>run_display_detail <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb86-8"><a href="#cb86-8" aria-hidden="true" tabindex="-1"></a>inputs_S7<span class="sc">$</span>start<span class="sc">$</span>run_display_detail <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb86-9"><a href="#cb86-9" aria-hidden="true" tabindex="-1"></a>inputs_S8<span class="sc">$</span>start<span class="sc">$</span>run_display_detail <span class="ot">&lt;-</span> <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*10. Escribir los modelos modificados *</span></span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">SS_write</span>(inputs_S1, <span class="at">dir =</span> ref.dir.S1, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">SS_write</span>(inputs_S2, <span class="at">dir =</span> ref.dir.S2, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">SS_write</span>(inputs_S3, <span class="at">dir =</span> ref.dir.S3, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">SS_write</span>(inputs_S4, <span class="at">dir =</span> ref.dir.S4, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">SS_write</span>(inputs_S5, <span class="at">dir =</span> ref.dir.S5, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">SS_write</span>(inputs_S6, <span class="at">dir =</span> ref.dir.S6, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">SS_write</span>(inputs_S7, <span class="at">dir =</span> ref.dir.S7, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb87-9"><a href="#cb87-9" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">SS_write</span>(inputs_S8, <span class="at">dir =</span> ref.dir.S8, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* 11. Identificar el período retrospectivo *</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>start.retro <span class="ot">&lt;-</span> <span class="dv">0</span>    <span class="co"># último año del modelo</span></span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>end.retro   <span class="ot">&lt;-</span> <span class="dv">5</span>    <span class="co"># número de años para el retrospectivo </span></span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*12. Ejecutar la función `SS_doRetro()` *</span></span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a><span class="co">#?SS_doRetro()</span></span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>esc<span class="ot">&lt;-</span><span class="fu">c</span>(ref.dir.S1,ref.dir.S2,ref.dir.S3,ref.dir.S4,ref.dir.S5,ref.dir.S6,ref.dir.S7,ref.dir.S8)</span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>){</span>
+<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a><span class="fu">retro</span>(<span class="at">dir=</span>esc[i],</span>
+<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">exe =</span> <span class="st">&quot;ss_win&quot;</span>, <span class="co">#&quot;ss_osx&quot;,</span></span>
+<span id="cb89-9"><a href="#cb89-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">years=</span>start.retro<span class="sc">:-</span>end.retro)</span>
+<span id="cb89-10"><a href="#cb89-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*13. Leer los archivos de salida `SSgetoutput()`* </span></span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>retroM.S1<span class="ot">&lt;-</span><span class="fu">SSgetoutput</span>(<span class="at">dirvec=</span><span class="fu">file.path</span>(ref.dir.S1, <span class="st">&quot;Retrospectives&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;retro&quot;</span>,start.retro<span class="sc">:-</span>end.retro,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)))</span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>retroM.S2<span class="ot">&lt;-</span><span class="fu">SSgetoutput</span>(<span class="at">dirvec=</span><span class="fu">file.path</span>(ref.dir.S2, <span class="st">&quot;Retrospectives&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;retro&quot;</span>,start.retro<span class="sc">:-</span>end.retro,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)))</span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>retroM.S3<span class="ot">&lt;-</span><span class="fu">SSgetoutput</span>(<span class="at">dirvec=</span><span class="fu">file.path</span>(ref.dir.S3, <span class="st">&quot;Retrospectives&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;retro&quot;</span>,start.retro<span class="sc">:-</span>end.retro,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)))</span>
+<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a>retroM.S4<span class="ot">&lt;-</span><span class="fu">SSgetoutput</span>(<span class="at">dirvec=</span><span class="fu">file.path</span>(ref.dir.S4, <span class="st">&quot;Retrospectives&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;retro&quot;</span>,start.retro<span class="sc">:-</span>end.retro,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)))</span>
+<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a>retroM.S5<span class="ot">&lt;-</span><span class="fu">SSgetoutput</span>(<span class="at">dirvec=</span><span class="fu">file.path</span>(ref.dir.S5, <span class="st">&quot;Retrospectives&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;retro&quot;</span>,start.retro<span class="sc">:-</span>end.retro,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)))</span>
+<span id="cb90-11"><a href="#cb90-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-12"><a href="#cb90-12" aria-hidden="true" tabindex="-1"></a>retroM.S6<span class="ot">&lt;-</span><span class="fu">SSgetoutput</span>(<span class="at">dirvec=</span><span class="fu">file.path</span>(ref.dir.S6, <span class="st">&quot;Retrospectives&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;retro&quot;</span>,start.retro<span class="sc">:-</span>end.retro,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)))</span>
+<span id="cb90-13"><a href="#cb90-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-14"><a href="#cb90-14" aria-hidden="true" tabindex="-1"></a>retroM.S7<span class="ot">&lt;-</span><span class="fu">SSgetoutput</span>(<span class="at">dirvec=</span><span class="fu">file.path</span>(ref.dir.S7, <span class="st">&quot;Retrospectives&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;retro&quot;</span>,start.retro<span class="sc">:-</span>end.retro,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)))</span>
+<span id="cb90-15"><a href="#cb90-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-16"><a href="#cb90-16" aria-hidden="true" tabindex="-1"></a>retroM.S8<span class="ot">&lt;-</span><span class="fu">SSgetoutput</span>(<span class="at">dirvec=</span><span class="fu">file.path</span>(ref.dir.S8, <span class="st">&quot;Retrospectives&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;retro&quot;</span>,start.retro<span class="sc">:-</span>end.retro,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)))</span></code></pre></div>
+<div id="resumen" class="section level2">
+<h2>Resumen</h2>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* 14. Resumir las salidas con la función `SSsummarize()`*  </span></span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>retroSummaryS1 <span class="ot">&lt;-</span> <span class="fu">SSsummarize</span>(retroM.S1)</span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>retroSummaryS2 <span class="ot">&lt;-</span> <span class="fu">SSsummarize</span>(retroM.S2)</span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a>retroSummaryS3 <span class="ot">&lt;-</span> <span class="fu">SSsummarize</span>(retroM.S3)</span>
+<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a>retroSummaryS4 <span class="ot">&lt;-</span> <span class="fu">SSsummarize</span>(retroM.S4)</span>
+<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a>retroSummaryS5 <span class="ot">&lt;-</span> <span class="fu">SSsummarize</span>(retroM.S5)</span>
+<span id="cb91-7"><a href="#cb91-7" aria-hidden="true" tabindex="-1"></a>retroSummaryS6 <span class="ot">&lt;-</span> <span class="fu">SSsummarize</span>(retroM.S6)</span>
+<span id="cb91-8"><a href="#cb91-8" aria-hidden="true" tabindex="-1"></a>retroSummaryS7 <span class="ot">&lt;-</span> <span class="fu">SSsummarize</span>(retroM.S7)</span>
+<span id="cb91-9"><a href="#cb91-9" aria-hidden="true" tabindex="-1"></a>retroSummaryS8 <span class="ot">&lt;-</span> <span class="fu">SSsummarize</span>(retroM.S8)</span></code></pre></div>
+</div>
+<div id="figura-1" class="section level2">
+<h2>Figura 1</h2>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* 15. Funciones para generar plots de Retrospectivo `SSplotRetro()`*</span></span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*forecast =FALSE*</span></span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a><span class="co">#sspar(mfrow=c(1,1),plot.cex=0.8)</span></span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(retroSummaryS1,<span class="at">add=</span>T, <span class="at">forecast =</span> F, <span class="at">legend =</span> T, <span class="at">verbose=</span>F)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-58-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##   type     peel          Rho  ForecastRho
+## 1  SSB     2020 1.417420e+07 2.488573e+07
+## 2  SSB     2019 9.810604e+01 9.629246e+01
+## 3  SSB     2018 5.947443e-01 6.537563e-01
+## 4  SSB     2017 1.477752e+00 8.054197e-01
+## 5  SSB     2016 7.291544e-01 2.711266e+00
+## 6  SSB Combined 2.834860e+06 4.977166e+06</code></pre>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(retroSummaryS2,<span class="at">add=</span>T, <span class="at">forecast =</span> F, <span class="at">legend =</span> T, <span class="at">verbose=</span>F)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-58-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##   type     peel        Rho ForecastRho
+## 1  SSB     2020 -0.9999985  -0.9999987
+## 2  SSB     2019 -0.9999983  -0.9999979
+## 3  SSB     2018 -0.9999989  -0.9999987
+## 4  SSB     2017 -0.9999986  -0.9999984
+## 5  SSB     2016 -0.9999982  -0.9999974
+## 6  SSB Combined -0.9999985  -0.9999982</code></pre>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(retroSummaryS3,<span class="at">add=</span>T, <span class="at">forecast =</span> F, <span class="at">legend =</span> T, <span class="at">verbose=</span>F)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-58-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##   type     peel        Rho ForecastRho
+## 1  SSB     2020 -0.2852800  -0.2028168
+## 2  SSB     2019 -0.7975616  -0.7723146
+## 3  SSB     2018 -0.9113480  -0.9039940
+## 4  SSB     2017 -0.9999972  -0.9999968
+## 5  SSB     2016 -0.9999963  -0.9999947
+## 6  SSB Combined -0.7988366  -0.7758234</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(retroSummaryS4,<span class="at">add=</span>T, <span class="at">forecast =</span> F, <span class="at">legend =</span> T, <span class="at">verbose=</span>F)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-58-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##   type     peel          Rho  ForecastRho
+## 1  SSB     2020 1.939539e+05 3.522900e+05
+## 2  SSB     2019 2.088657e-01 2.599904e-01
+## 3  SSB     2018 3.328172e-02 8.336731e-02
+## 4  SSB     2017 2.700499e-01 5.692568e-01
+## 5  SSB     2016 2.364997e-01 9.756209e-01
+## 6  SSB Combined 3.879093e+04 7.045837e+04</code></pre>
+<div class="sourceCode" id="cb100"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(retroSummaryS5,<span class="at">add=</span>T, <span class="at">forecast =</span> F, <span class="at">legend =</span> T, <span class="at">verbose=</span>F)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-58-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##   type     peel          Rho  ForecastRho
+## 1  SSB     2020 7.213707e+02 1.232709e+03
+## 2  SSB     2019 7.983342e+05 6.686456e+05
+## 3  SSB     2018 9.284471e-02 4.692718e-02
+## 4  SSB     2017 6.242696e+00 9.460352e+00
+## 5  SSB     2016 2.126910e-01 8.580664e-01
+## 6  SSB Combined 1.598124e+05 1.339777e+05</code></pre>
+<div class="sourceCode" id="cb102"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(retroSummaryS6,<span class="at">add=</span>T, <span class="at">forecast =</span> F, <span class="at">legend =</span> T, <span class="at">verbose=</span>F)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-58-6.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##   type     peel        Rho ForecastRho
+## 1  SSB     2020 0.09970470   0.7006584
+## 2  SSB     2019 0.32652479   0.1469943
+## 3  SSB     2018 0.01926319  -0.2443721
+## 4  SSB     2017 0.15128167   0.1941856
+## 5  SSB     2016 0.19325529   0.8232217
+## 6  SSB Combined 0.15800593   0.3241376</code></pre>
+<div class="sourceCode" id="cb104"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(retroSummaryS7,<span class="at">add=</span>T, <span class="at">forecast =</span> F, <span class="at">legend =</span> T, <span class="at">verbose=</span>F)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-58-7.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##   type     peel        Rho ForecastRho
+## 1  SSB     2020 0.05973140   1.4529405
+## 2  SSB     2019 0.11943931   0.1423146
+## 3  SSB     2018 0.04004978  -0.4439661
+## 4  SSB     2017 0.13535383   0.1029494
+## 5  SSB     2016 0.06540601   1.4085438
+## 6  SSB Combined 0.08399607   0.5325565</code></pre>
+<div class="sourceCode" id="cb106"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(retroSummaryS8,<span class="at">add=</span>T, <span class="at">forecast =</span> F, <span class="at">legend =</span> T, <span class="at">verbose=</span>F)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-58-8.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##   type     peel          Rho ForecastRho
+## 1  SSB     2020  0.002406661  0.88464806
+## 2  SSB     2019  0.118509626  0.31219334
+## 3  SSB     2018 -0.037646588 -0.16684903
+## 4  SSB     2017  0.067177274  0.05272521
+## 5  SSB     2016  0.094053565  1.78044629
+## 6  SSB Combined  0.048900107  0.57263278</code></pre>
+</div>
+<div id="figura-2" class="section level2">
+<h2>Figura 2</h2>
+<div class="sourceCode" id="cb108"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*forecast=TRUE *</span></span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="co">#sspar(mfrow = c(1, 1), plot.cex = 0.8)</span></span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(retroSummaryS1,<span class="at">add=</span>T,<span class="at">forecast=</span>T,<span class="at">legend=</span>F,<span class="at">verbose =</span> F,<span class="at">xmin =</span> <span class="dv">1989</span>)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-59-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##   type     peel          Rho  ForecastRho
+## 1  SSB     2020 1.417420e+07 2.488573e+07
+## 2  SSB     2019 9.810604e+01 9.629246e+01
+## 3  SSB     2018 5.947443e-01 6.537563e-01
+## 4  SSB     2017 1.477752e+00 8.054197e-01
+## 5  SSB     2016 7.291544e-01 2.711266e+00
+## 6  SSB Combined 2.834860e+06 4.977166e+06</code></pre>
+<div class="sourceCode" id="cb110"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(retroSummaryS2,<span class="at">add=</span>T,<span class="at">forecast=</span>T,<span class="at">legend=</span>F,<span class="at">verbose =</span> F,<span class="at">xmin =</span> <span class="dv">1989</span>)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-59-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##   type     peel        Rho ForecastRho
+## 1  SSB     2020 -0.9999985  -0.9999987
+## 2  SSB     2019 -0.9999983  -0.9999979
+## 3  SSB     2018 -0.9999989  -0.9999987
+## 4  SSB     2017 -0.9999986  -0.9999984
+## 5  SSB     2016 -0.9999982  -0.9999974
+## 6  SSB Combined -0.9999985  -0.9999982</code></pre>
+<div class="sourceCode" id="cb112"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(retroSummaryS3,<span class="at">add=</span>T,<span class="at">forecast=</span>T,<span class="at">legend=</span>F,<span class="at">verbose =</span> F,<span class="at">xmin =</span> <span class="dv">1989</span>)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-59-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##   type     peel        Rho ForecastRho
+## 1  SSB     2020 -0.2852800  -0.2028168
+## 2  SSB     2019 -0.7975616  -0.7723146
+## 3  SSB     2018 -0.9113480  -0.9039940
+## 4  SSB     2017 -0.9999972  -0.9999968
+## 5  SSB     2016 -0.9999963  -0.9999947
+## 6  SSB Combined -0.7988366  -0.7758234</code></pre>
+<div class="sourceCode" id="cb114"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(retroSummaryS4,<span class="at">add=</span>T,<span class="at">forecast=</span>T,<span class="at">legend=</span>F,<span class="at">verbose =</span> F,<span class="at">xmin =</span> <span class="dv">1989</span>)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-59-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##   type     peel          Rho  ForecastRho
+## 1  SSB     2020 1.939539e+05 3.522900e+05
+## 2  SSB     2019 2.088657e-01 2.599904e-01
+## 3  SSB     2018 3.328172e-02 8.336731e-02
+## 4  SSB     2017 2.700499e-01 5.692568e-01
+## 5  SSB     2016 2.364997e-01 9.756209e-01
+## 6  SSB Combined 3.879093e+04 7.045837e+04</code></pre>
+<div class="sourceCode" id="cb116"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(retroSummaryS5,<span class="at">add=</span>T,<span class="at">forecast=</span>T,<span class="at">legend=</span>F,<span class="at">verbose =</span> F,<span class="at">xmin =</span> <span class="dv">1989</span>)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-59-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##   type     peel          Rho  ForecastRho
+## 1  SSB     2020 7.213707e+02 1.232709e+03
+## 2  SSB     2019 7.983342e+05 6.686456e+05
+## 3  SSB     2018 9.284471e-02 4.692718e-02
+## 4  SSB     2017 6.242696e+00 9.460352e+00
+## 5  SSB     2016 2.126910e-01 8.580664e-01
+## 6  SSB Combined 1.598124e+05 1.339777e+05</code></pre>
+<div class="sourceCode" id="cb118"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(retroSummaryS6,<span class="at">add=</span>T,<span class="at">forecast=</span>T,<span class="at">legend=</span>F,<span class="at">verbose =</span> F,<span class="at">xmin =</span> <span class="dv">1989</span>)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-59-6.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##   type     peel        Rho ForecastRho
+## 1  SSB     2020 0.09970470   0.7006584
+## 2  SSB     2019 0.32652479   0.1469943
+## 3  SSB     2018 0.01926319  -0.2443721
+## 4  SSB     2017 0.15128167   0.1941856
+## 5  SSB     2016 0.19325529   0.8232217
+## 6  SSB Combined 0.15800593   0.3241376</code></pre>
+<div class="sourceCode" id="cb120"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(retroSummaryS7,<span class="at">add=</span>T,<span class="at">forecast=</span>T,<span class="at">legend=</span>F,<span class="at">verbose =</span> F,<span class="at">xmin =</span> <span class="dv">1989</span>)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-59-7.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##   type     peel        Rho ForecastRho
+## 1  SSB     2020 0.05973140   1.4529405
+## 2  SSB     2019 0.11943931   0.1423146
+## 3  SSB     2018 0.04004978  -0.4439661
+## 4  SSB     2017 0.13535383   0.1029494
+## 5  SSB     2016 0.06540601   1.4085438
+## 6  SSB Combined 0.08399607   0.5325565</code></pre>
+<div class="sourceCode" id="cb122"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(retroSummaryS8,<span class="at">add=</span>T,<span class="at">forecast=</span>T,<span class="at">legend=</span>F,<span class="at">verbose =</span> F,<span class="at">xmin =</span> <span class="dv">1989</span>)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-59-8.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##   type     peel          Rho ForecastRho
+## 1  SSB     2020  0.002406661  0.88464806
+## 2  SSB     2019  0.118509626  0.31219334
+## 3  SSB     2018 -0.037646588 -0.16684903
+## 4  SSB     2017  0.067177274  0.05272521
+## 5  SSB     2016  0.094053565  1.78044629
+## 6  SSB Combined  0.048900107  0.57263278</code></pre>
+</div>
+<div id="tabla-de-rho" class="section level2">
+<h2>Tabla de Rho</h2>
+<div class="sourceCode" id="cb124"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*16. Función para Tabla de Rho `SShcbias()` *</span></span>
+<span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SShcbias</span>(retroSummaryS1,<span class="at">quant=</span><span class="st">&quot;SSB&quot;</span>,<span class="at">verbose=</span>F)</span></code></pre></div>
+<pre class="scroll-200"><code>##   type     peel          Rho   ForcastRho
+## 1  SSB     2020 1.417420e+07 2.488573e+07
+## 2  SSB     2019 9.810604e+01 9.629246e+01
+## 3  SSB     2018 5.947443e-01 6.537563e-01
+## 4  SSB     2017 1.477752e+00 8.054197e-01
+## 5  SSB     2016 7.291544e-01 2.711266e+00
+## 6  SSB Combined 2.834860e+06 4.977166e+06</code></pre>
+<div class="sourceCode" id="cb126"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SShcbias</span>(retroSummaryS2,<span class="at">quant=</span><span class="st">&quot;SSB&quot;</span>,<span class="at">verbose=</span>F)</span></code></pre></div>
+<pre class="scroll-200"><code>##   type     peel        Rho ForcastRho
+## 1  SSB     2020 -0.9999985 -0.9999987
+## 2  SSB     2019 -0.9999983 -0.9999979
+## 3  SSB     2018 -0.9999989 -0.9999987
+## 4  SSB     2017 -0.9999986 -0.9999984
+## 5  SSB     2016 -0.9999982 -0.9999974
+## 6  SSB Combined -0.9999985 -0.9999982</code></pre>
+<div class="sourceCode" id="cb128"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SShcbias</span>(retroSummaryS3,<span class="at">quant=</span><span class="st">&quot;SSB&quot;</span>,<span class="at">verbose=</span>F)</span></code></pre></div>
+<pre class="scroll-200"><code>##   type     peel        Rho ForcastRho
+## 1  SSB     2020 -0.2852800 -0.2028168
+## 2  SSB     2019 -0.7975616 -0.7723146
+## 3  SSB     2018 -0.9113480 -0.9039940
+## 4  SSB     2017 -0.9999972 -0.9999968
+## 5  SSB     2016 -0.9999963 -0.9999947
+## 6  SSB Combined -0.7988366 -0.7758234</code></pre>
+<div class="sourceCode" id="cb130"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SShcbias</span>(retroSummaryS4,<span class="at">quant=</span><span class="st">&quot;SSB&quot;</span>,<span class="at">verbose=</span>F)</span></code></pre></div>
+<pre class="scroll-200"><code>##   type     peel          Rho   ForcastRho
+## 1  SSB     2020 1.939539e+05 3.522900e+05
+## 2  SSB     2019 2.088657e-01 2.599904e-01
+## 3  SSB     2018 3.328172e-02 8.336731e-02
+## 4  SSB     2017 2.700499e-01 5.692568e-01
+## 5  SSB     2016 2.364997e-01 9.756209e-01
+## 6  SSB Combined 3.879093e+04 7.045837e+04</code></pre>
+<div class="sourceCode" id="cb132"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SShcbias</span>(retroSummaryS5,<span class="at">quant=</span><span class="st">&quot;SSB&quot;</span>,<span class="at">verbose=</span>F)</span></code></pre></div>
+<pre class="scroll-200"><code>##   type     peel          Rho   ForcastRho
+## 1  SSB     2020 7.213707e+02 1.232709e+03
+## 2  SSB     2019 7.983342e+05 6.686456e+05
+## 3  SSB     2018 9.284471e-02 4.692718e-02
+## 4  SSB     2017 6.242696e+00 9.460352e+00
+## 5  SSB     2016 2.126910e-01 8.580664e-01
+## 6  SSB Combined 1.598124e+05 1.339777e+05</code></pre>
+<div class="sourceCode" id="cb134"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SShcbias</span>(retroSummaryS6,<span class="at">quant=</span><span class="st">&quot;SSB&quot;</span>,<span class="at">verbose=</span>F)</span></code></pre></div>
+<pre class="scroll-200"><code>##   type     peel        Rho ForcastRho
+## 1  SSB     2020 0.09970470  0.7006584
+## 2  SSB     2019 0.32652479  0.1469943
+## 3  SSB     2018 0.01926319 -0.2443721
+## 4  SSB     2017 0.15128167  0.1941856
+## 5  SSB     2016 0.19325529  0.8232217
+## 6  SSB Combined 0.15800593  0.3241376</code></pre>
+<div class="sourceCode" id="cb136"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SShcbias</span>(retroSummaryS7,<span class="at">quant=</span><span class="st">&quot;SSB&quot;</span>,<span class="at">verbose=</span>F)</span></code></pre></div>
+<pre class="scroll-200"><code>##   type     peel        Rho ForcastRho
+## 1  SSB     2020 0.05973140  1.4529405
+## 2  SSB     2019 0.11943931  0.1423146
+## 3  SSB     2018 0.04004978 -0.4439661
+## 4  SSB     2017 0.13535383  0.1029494
+## 5  SSB     2016 0.06540601  1.4085438
+## 6  SSB Combined 0.08399607  0.5325565</code></pre>
+<div class="sourceCode" id="cb138"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SShcbias</span>(retroSummaryS8,<span class="at">quant=</span><span class="st">&quot;SSB&quot;</span>,<span class="at">verbose=</span>F)</span></code></pre></div>
+<pre class="scroll-200"><code>##   type     peel          Rho  ForcastRho
+## 1  SSB     2020  0.002406661  0.88464806
+## 2  SSB     2019  0.118509626  0.31219334
+## 3  SSB     2018 -0.037646588 -0.16684903
+## 4  SSB     2017  0.067177274  0.05272521
+## 5  SSB     2016  0.094053565  1.78044629
+## 6  SSB Combined  0.048900107  0.57263278</code></pre>
+</div>
+</div>
+<div id="hindcast" class="section level1 tabset tabset-fade">
+<h1 class="tabset tabset-fade">Hindcast</h1>
+<div class="sourceCode" id="cb140"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*12. Ejecutar la función `SS_doRetro()` *</span></span>
+<span id="cb140-2"><a href="#cb140-2" aria-hidden="true" tabindex="-1"></a><span class="co">#?SS_doRetro()</span></span>
+<span id="cb140-3"><a href="#cb140-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-4"><a href="#cb140-4" aria-hidden="true" tabindex="-1"></a>esc<span class="ot">&lt;-</span><span class="fu">c</span>(ref.dir.S1,ref.dir.S2,ref.dir.S3,ref.dir.S4,ref.dir.S5,ref.dir.S6,ref.dir.S7,ref.dir.S8)</span>
+<span id="cb140-5"><a href="#cb140-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-6"><a href="#cb140-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>){</span>
+<span id="cb140-7"><a href="#cb140-7" aria-hidden="true" tabindex="-1"></a><span class="fu">retro</span>(<span class="at">dir=</span>esc[i],</span>
+<span id="cb140-8"><a href="#cb140-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">newsubdir =</span> <span class="st">&quot;Hincast&quot;</span>,</span>
+<span id="cb140-9"><a href="#cb140-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">subdirstart =</span> <span class="st">&quot;hin&quot;</span>,</span>
+<span id="cb140-10"><a href="#cb140-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">exe =</span> <span class="st">&quot;ss_win&quot;</span>, <span class="co">#&quot;ss_osx&quot;,</span></span>
+<span id="cb140-11"><a href="#cb140-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">years=</span>start.retro<span class="sc">:-</span>end.retro)</span>
+<span id="cb140-12"><a href="#cb140-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 13. Leer los archivos de salida `SSgetoutput()` </span></span>
+<span id="cb141-2"><a href="#cb141-2" aria-hidden="true" tabindex="-1"></a>HinMS1<span class="ot">&lt;-</span><span class="fu">SSgetoutput</span>(<span class="at">dirvec=</span><span class="fu">file.path</span>(ref.dir.S1, <span class="st">&quot;Hincast&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;hin&quot;</span>,start.retro<span class="sc">:-</span>end.retro,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)))</span>
+<span id="cb141-3"><a href="#cb141-3" aria-hidden="true" tabindex="-1"></a>HinMS2<span class="ot">&lt;-</span><span class="fu">SSgetoutput</span>(<span class="at">dirvec=</span><span class="fu">file.path</span>(ref.dir.S2, <span class="st">&quot;Hincast&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;hin&quot;</span>,start.retro<span class="sc">:-</span>end.retro,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)))</span>
+<span id="cb141-4"><a href="#cb141-4" aria-hidden="true" tabindex="-1"></a>HinMS3<span class="ot">&lt;-</span><span class="fu">SSgetoutput</span>(<span class="at">dirvec=</span><span class="fu">file.path</span>(ref.dir.S3, <span class="st">&quot;Hincast&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;hin&quot;</span>,start.retro<span class="sc">:-</span>end.retro,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)))</span>
+<span id="cb141-5"><a href="#cb141-5" aria-hidden="true" tabindex="-1"></a>HinMS4<span class="ot">&lt;-</span><span class="fu">SSgetoutput</span>(<span class="at">dirvec=</span><span class="fu">file.path</span>(ref.dir.S4, <span class="st">&quot;Hincast&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;hin&quot;</span>,start.retro<span class="sc">:-</span>end.retro,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)))</span>
+<span id="cb141-6"><a href="#cb141-6" aria-hidden="true" tabindex="-1"></a>HinMS5<span class="ot">&lt;-</span><span class="fu">SSgetoutput</span>(<span class="at">dirvec=</span><span class="fu">file.path</span>(ref.dir.S5, <span class="st">&quot;Hincast&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;hin&quot;</span>,start.retro<span class="sc">:-</span>end.retro,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)))</span>
+<span id="cb141-7"><a href="#cb141-7" aria-hidden="true" tabindex="-1"></a>HinMS6<span class="ot">&lt;-</span><span class="fu">SSgetoutput</span>(<span class="at">dirvec=</span><span class="fu">file.path</span>(ref.dir.S6, <span class="st">&quot;Hincast&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;hin&quot;</span>,start.retro<span class="sc">:-</span>end.retro,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)))</span>
+<span id="cb141-8"><a href="#cb141-8" aria-hidden="true" tabindex="-1"></a>HinMS7<span class="ot">&lt;-</span><span class="fu">SSgetoutput</span>(<span class="at">dirvec=</span><span class="fu">file.path</span>(ref.dir.S7, <span class="st">&quot;Hincast&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;hin&quot;</span>,start.retro<span class="sc">:-</span>end.retro,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)))</span>
+<span id="cb141-9"><a href="#cb141-9" aria-hidden="true" tabindex="-1"></a>HinMS8<span class="ot">&lt;-</span><span class="fu">SSgetoutput</span>(<span class="at">dirvec=</span><span class="fu">file.path</span>(ref.dir.S8, <span class="st">&quot;Hincast&quot;</span>, <span class="fu">paste</span>(<span class="st">&quot;hin&quot;</span>,start.retro<span class="sc">:-</span>end.retro,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 14. Resumir las salidas con la función `SSsummarize()`  </span></span>
+<span id="cb142-2"><a href="#cb142-2" aria-hidden="true" tabindex="-1"></a>HinSummaryS1 <span class="ot">&lt;-</span> <span class="fu">SSsummarize</span>(HinMS1)</span>
+<span id="cb142-3"><a href="#cb142-3" aria-hidden="true" tabindex="-1"></a>HinSummaryS2 <span class="ot">&lt;-</span> <span class="fu">SSsummarize</span>(HinMS2)</span>
+<span id="cb142-4"><a href="#cb142-4" aria-hidden="true" tabindex="-1"></a>HinSummaryS3 <span class="ot">&lt;-</span> <span class="fu">SSsummarize</span>(HinMS3)</span>
+<span id="cb142-5"><a href="#cb142-5" aria-hidden="true" tabindex="-1"></a>HinSummaryS4 <span class="ot">&lt;-</span> <span class="fu">SSsummarize</span>(HinMS4)</span>
+<span id="cb142-6"><a href="#cb142-6" aria-hidden="true" tabindex="-1"></a>HinSummaryS5 <span class="ot">&lt;-</span> <span class="fu">SSsummarize</span>(HinMS5)</span>
+<span id="cb142-7"><a href="#cb142-7" aria-hidden="true" tabindex="-1"></a>HinSummaryS6 <span class="ot">&lt;-</span> <span class="fu">SSsummarize</span>(HinMS6)</span>
+<span id="cb142-8"><a href="#cb142-8" aria-hidden="true" tabindex="-1"></a>HinSummaryS7 <span class="ot">&lt;-</span> <span class="fu">SSsummarize</span>(HinMS7)</span>
+<span id="cb142-9"><a href="#cb142-9" aria-hidden="true" tabindex="-1"></a>HinSummaryS8 <span class="ot">&lt;-</span> <span class="fu">SSsummarize</span>(HinMS8)</span></code></pre></div>
+<div id="hindcast-índices" class="section level2">
+<h2>Hindcast Índices</h2>
+<div class="sourceCode" id="cb143"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 15. Funciones para generar plots de Hindcast `SSplotHCxval()`</span></span>
+<span id="cb143-2"><a href="#cb143-2" aria-hidden="true" tabindex="-1"></a><span class="co">#png(file.path(plotdir,&quot;Hindcast_ind.png&quot;),width=9,height=4.5,res=300,units=&#39;in&#39;)</span></span>
+<span id="cb143-3"><a href="#cb143-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb143-4"><a href="#cb143-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb143-5"><a href="#cb143-5" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotHCxval</span>(HinSummaryS8, <span class="at">subplots =</span><span class="st">&quot;cpue&quot;</span>,<span class="at">add =</span> T, <span class="at">verbose =</span> F, <span class="at">ylimAdj =</span> <span class="fl">1.3</span>, <span class="at">legendcex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-64-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="scroll-200"><code>##         Index Season      MASE    MAE.PR MAE.base  MASE.adj n.eval
+## 1      PELAGO      1 0.5100959 0.6447941 1.264064 0.5100959      1
+## 2    ECOCADIZ      2        NA        NA       NA        NA      0
+## 3 ECORECLUTAS      4 0.4705975 0.3745104 0.795819 0.4705975      4</code></pre>
+<div class="sourceCode" id="cb145"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SSplotHCxval(HinSummaryS8, subplots =&quot;len&quot;,add = T, verbose = F, ylimAdj = 1.3, legendcex = 0.7)</span></span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a>hinC.lenS8 <span class="ot">=</span> <span class="fu">SSretroComps</span>(HinMS8)</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb147-2"><a href="#cb147-2" aria-hidden="true" tabindex="-1"></a>hcl <span class="ot">=</span> <span class="fu">SSplotHCxval</span>(hinC.lenS8, </span>
+<span id="cb147-3"><a href="#cb147-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>, </span>
+<span id="cb147-4"><a href="#cb147-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">add =</span> T, </span>
+<span id="cb147-5"><a href="#cb147-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">verbose =</span> F, </span>
+<span id="cb147-6"><a href="#cb147-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ylimAdj =</span> <span class="fl">1.3</span>,</span>
+<span id="cb147-7"><a href="#cb147-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">legendcex =</span> <span class="fl">0.7</span>, </span>
+<span id="cb147-8"><a href="#cb147-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">indexselect =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>, <span class="dv">3</span>))</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-66-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="mase" class="section level2">
+<h2>MASE</h2>
+<div class="sourceCode" id="cb148"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 16. Función para Tabla de MASE `SSmase()` </span></span>
+<span id="cb148-2"><a href="#cb148-2" aria-hidden="true" tabindex="-1"></a>MAE.base.adj <span class="ot">=</span> <span class="fl">0.1</span></span>
+<span id="cb148-3"><a href="#cb148-3" aria-hidden="true" tabindex="-1"></a>mase1 <span class="ot">=</span> <span class="fu">SSmase</span>(hinC.lenS8, </span>
+<span id="cb148-4"><a href="#cb148-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">quant =</span> <span class="st">&quot;len&quot;</span>, </span>
+<span id="cb148-5"><a href="#cb148-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">MAE.base.adj =</span> <span class="fl">0.15</span>, </span>
+<span id="cb148-6"><a href="#cb148-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">indexselect =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>))</span>
+<span id="cb148-7"><a href="#cb148-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-8"><a href="#cb148-8" aria-hidden="true" tabindex="-1"></a>mase2 <span class="ot">=</span> <span class="fu">SSmase</span>(HinSummaryS7, </span>
+<span id="cb148-9"><a href="#cb148-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">quant =</span> <span class="st">&quot;cpue&quot;</span>, </span>
+<span id="cb148-10"><a href="#cb148-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">MAE.base.adj =</span> <span class="fl">0.3</span>, </span>
+<span id="cb148-11"><a href="#cb148-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">indexselect =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a>mase1<span class="sc">$</span>MAE.PR<span class="sc">/</span>mase1<span class="sc">$</span>MAE.base</span></code></pre></div>
+<pre class="scroll-200"><code>## [1] 0.5022281 1.2485266        NA 0.5314765</code></pre>
+<div class="sourceCode" id="cb151"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a>mase1<span class="sc">$</span>MASE</span></code></pre></div>
+<pre class="scroll-200"><code>## [1] 0.5022281 1.2485266        NA 0.5314765</code></pre>
+<div class="sourceCode" id="cb153"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a>mase1<span class="sc">$</span>MAE.PR<span class="sc">/</span><span class="fu">pmax</span>(mase1<span class="sc">$</span>MAE.base, <span class="fl">0.1</span>)</span></code></pre></div>
+<pre class="scroll-200"><code>## [1] 0.5022281 0.6336682        NA 0.5314765</code></pre>
+<div class="sourceCode" id="cb155"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a>mase1<span class="sc">$</span>MASE.adj</span></code></pre></div>
+<pre class="scroll-200"><code>## [1] 0.5022281 0.4224455        NA 0.5314765</code></pre>
+<p>Una puntuación MASE &gt; 1 indica que los pronósticos promedio del
+modelo son peores que una caminata aleatoria.</p>
+<p>Por el contrario, una puntuación MASE de 0,5 indica que el modelo
+tiene habilidad de predicción.</p>
+</div>
+</div>
+<div id="verosilimitud" class="section level1">
+<h1>Verosilimitud</h1>
+<div class="sourceCode" id="cb157"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*Crear un nuevo directorio para el `Restrospectivo`*</span></span>
+<span id="cb157-2"><a href="#cb157-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-3"><a href="#cb157-3" aria-hidden="true" tabindex="-1"></a>dir.vero <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">&quot;Verosimilitud&quot;</span>)</span>
+<span id="cb157-4"><a href="#cb157-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>dir.vero, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb157-5"><a href="#cb157-5" aria-hidden="true" tabindex="-1"></a><span class="co">#----------------------------------------------------------------------</span></span></code></pre></div>
+<div class="sourceCode" id="cb158"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*Crear un subdirectorio llamado `S1`*</span></span>
+<span id="cb158-2"><a href="#cb158-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb158-3"><a href="#cb158-3" aria-hidden="true" tabindex="-1"></a>ve.dir.S1 <span class="ot">&lt;-</span> <span class="fu">paste0</span>(dir.vero,<span class="st">&#39;/S1&#39;</span>) </span>
+<span id="cb158-4"><a href="#cb158-4" aria-hidden="true" tabindex="-1"></a>ve.dir.S2 <span class="ot">&lt;-</span> <span class="fu">paste0</span>(dir.vero,<span class="st">&#39;/S2&#39;</span>) </span>
+<span id="cb158-5"><a href="#cb158-5" aria-hidden="true" tabindex="-1"></a>ve.dir.S3 <span class="ot">&lt;-</span> <span class="fu">paste0</span>(dir.vero,<span class="st">&#39;/S3&#39;</span>) </span>
+<span id="cb158-6"><a href="#cb158-6" aria-hidden="true" tabindex="-1"></a>ve.dir.S4 <span class="ot">&lt;-</span> <span class="fu">paste0</span>(dir.vero,<span class="st">&#39;/S4&#39;</span>) </span>
+<span id="cb158-7"><a href="#cb158-7" aria-hidden="true" tabindex="-1"></a>ve.dir.S5 <span class="ot">&lt;-</span> <span class="fu">paste0</span>(dir.vero,<span class="st">&#39;/S5&#39;</span>) </span>
+<span id="cb158-8"><a href="#cb158-8" aria-hidden="true" tabindex="-1"></a>ve.dir.S6 <span class="ot">&lt;-</span> <span class="fu">paste0</span>(dir.vero,<span class="st">&#39;/S6&#39;</span>) </span>
+<span id="cb158-9"><a href="#cb158-9" aria-hidden="true" tabindex="-1"></a>ve.dir.S7 <span class="ot">&lt;-</span> <span class="fu">paste0</span>(dir.vero,<span class="st">&#39;/S7&#39;</span>) </span>
+<span id="cb158-10"><a href="#cb158-10" aria-hidden="true" tabindex="-1"></a>ve.dir.S8 <span class="ot">&lt;-</span> <span class="fu">paste0</span>(dir.vero,<span class="st">&#39;/S8&#39;</span>) </span>
+<span id="cb158-11"><a href="#cb158-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb158-12"><a href="#cb158-12" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>ve.dir.S1, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb158-13"><a href="#cb158-13" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>ve.dir.S2, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb158-14"><a href="#cb158-14" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>ve.dir.S3, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb158-15"><a href="#cb158-15" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>ve.dir.S4, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb158-16"><a href="#cb158-16" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>ve.dir.S5, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb158-17"><a href="#cb158-17" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>ve.dir.S6, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb158-18"><a href="#cb158-18" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>ve.dir.S7, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb158-19"><a href="#cb158-19" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>ve.dir.S8, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* 8. Leer los archivos del modelo `SS_read()` *</span></span>
+<span id="cb159-2"><a href="#cb159-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb159-3"><a href="#cb159-3" aria-hidden="true" tabindex="-1"></a>inputs_S1 <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_read</span>(<span class="at">dir =</span> ve.dir.S1,<span class="at">ss_new =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb159-4"><a href="#cb159-4" aria-hidden="true" tabindex="-1"></a>inputs_S2 <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_read</span>(<span class="at">dir =</span> ve.dir.S2,<span class="at">ss_new =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb159-5"><a href="#cb159-5" aria-hidden="true" tabindex="-1"></a>inputs_S3 <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_read</span>(<span class="at">dir =</span> ve.dir.S3,<span class="at">ss_new =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb159-6"><a href="#cb159-6" aria-hidden="true" tabindex="-1"></a>inputs_S4 <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_read</span>(<span class="at">dir =</span> ve.dir.S4,<span class="at">ss_new =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb159-7"><a href="#cb159-7" aria-hidden="true" tabindex="-1"></a>inputs_S5 <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_read</span>(<span class="at">dir =</span> ve.dir.S5,<span class="at">ss_new =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb159-8"><a href="#cb159-8" aria-hidden="true" tabindex="-1"></a>inputs_S6 <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_read</span>(<span class="at">dir =</span> ve.dir.S6,<span class="at">ss_new =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb159-9"><a href="#cb159-9" aria-hidden="true" tabindex="-1"></a>inputs_S7 <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_read</span>(<span class="at">dir =</span> ve.dir.S7,<span class="at">ss_new =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb159-10"><a href="#cb159-10" aria-hidden="true" tabindex="-1"></a>inputs_S8 <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_read</span>(<span class="at">dir =</span> ve.dir.S8,<span class="at">ss_new =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* 9. Editar el archivo `control.ss` la fase de estimación recdev *</span></span>
+<span id="cb160-2"><a href="#cb160-2" aria-hidden="true" tabindex="-1"></a>inputs_S7<span class="sc">$</span>ctl<span class="sc">$</span>recdev_phase <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb160-3"><a href="#cb160-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb160-4"><a href="#cb160-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* 10. Editar el archivo starter para leer los valores de inicio *</span></span>
+<span id="cb160-5"><a href="#cb160-5" aria-hidden="true" tabindex="-1"></a>inputs_S7<span class="sc">$</span>start<span class="sc">$</span>init_values_src <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb160-6"><a href="#cb160-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb160-7"><a href="#cb160-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* 11. Vector de valores para el perfil *</span></span>
+<span id="cb160-8"><a href="#cb160-8" aria-hidden="true" tabindex="-1"></a>R0.vec <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">6.8</span>,<span class="fl">7.5</span>,<span class="fl">0.15</span>)  </span>
+<span id="cb160-9"><a href="#cb160-9" aria-hidden="true" tabindex="-1"></a>Nprof.R0 <span class="ot">&lt;-</span> <span class="fu">length</span>(R0.vec)</span>
+<span id="cb160-10"><a href="#cb160-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb160-11"><a href="#cb160-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* 12. Cambiar el nombre del archivo control en el archivo `starter.ss`*</span></span>
+<span id="cb160-12"><a href="#cb160-12" aria-hidden="true" tabindex="-1"></a>inputs_S7<span class="sc">$</span>start<span class="sc">$</span>ctlfile <span class="ot">&lt;-</span> <span class="st">&quot;control_modified.ss&quot;</span> </span>
+<span id="cb160-13"><a href="#cb160-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb160-14"><a href="#cb160-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*13. Incluir prior_like para parámetros no estimados *</span></span>
+<span id="cb160-15"><a href="#cb160-15" aria-hidden="true" tabindex="-1"></a>inputs_S7<span class="sc">$</span>start<span class="sc">$</span>prior_like <span class="ot">&lt;-</span> <span class="dv">1</span>                                 </span>
+<span id="cb160-16"><a href="#cb160-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb160-17"><a href="#cb160-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* 14. Escribir los modelos modificados `SS_write()`*</span></span>
+<span id="cb160-18"><a href="#cb160-18" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">SS_write</span>(inputs_S7, <span class="at">dir =</span> ref.dir.S7, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* 15. Ejecutar la función profile() *</span></span>
+<span id="cb161-2"><a href="#cb161-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-3"><a href="#cb161-3" aria-hidden="true" tabindex="-1"></a>profile <span class="ot">&lt;-</span> <span class="fu">profile</span>(</span>
+<span id="cb161-4"><a href="#cb161-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">dir =</span> ref.dir.S7,</span>
+<span id="cb161-5"><a href="#cb161-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">oldctlfile =</span> <span class="st">&quot;control.ss&quot;</span>,</span>
+<span id="cb161-6"><a href="#cb161-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">newctlfile =</span> <span class="st">&quot;control_modified.ss&quot;</span>,</span>
+<span id="cb161-7"><a href="#cb161-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">string =</span> <span class="st">&quot;SR_LN(R0)&quot;</span>, <span class="co"># subset of parameter label</span></span>
+<span id="cb161-8"><a href="#cb161-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">profilevec =</span> R0.vec,</span>
+<span id="cb161-9"><a href="#cb161-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">exe =</span> <span class="st">&quot;ss_win&quot;</span>,<span class="co">#&quot;ss_osx&quot;</span></span>
+<span id="cb161-10"><a href="#cb161-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* 16. Leer los archivos de salida `SSgetoutput()` *</span></span>
+<span id="cb162-2"><a href="#cb162-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*(con nombres como Report1.sso, Report2.sso, etc.)*</span></span>
+<span id="cb162-3"><a href="#cb162-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb162-4"><a href="#cb162-4" aria-hidden="true" tabindex="-1"></a>prof.R0.models <span class="ot">&lt;-</span> <span class="fu">SSgetoutput</span>(<span class="at">dirvec=</span>ref.dir.S7, </span>
+<span id="cb162-5"><a href="#cb162-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">keyvec=</span><span class="dv">1</span><span class="sc">:</span>Nprof.R0, </span>
+<span id="cb162-6"><a href="#cb162-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">getcovar =</span> <span class="cn">FALSE</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb163"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*17. Resumir las salidas con la función `SSsummarize()`*  </span></span>
+<span id="cb163-2"><a href="#cb163-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb163-3"><a href="#cb163-3" aria-hidden="true" tabindex="-1"></a>prof.R0.summary <span class="ot">&lt;-</span> <span class="fu">SSsummarize</span>(prof.R0.models)</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* 18. Identificar los componentes de Verosimilitud *</span></span>
+<span id="cb164-2"><a href="#cb164-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-3"><a href="#cb164-3" aria-hidden="true" tabindex="-1"></a>mainlike_components         <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;TOTAL&#39;</span>,<span class="st">&quot;Survey&quot;</span>, <span class="st">&#39;Length_comp&#39;</span>,<span class="st">&quot;Age_comp&quot;</span>,<span class="st">&#39;Size_at_age&#39;</span>,<span class="st">&#39;Recruitment&#39;</span>) </span>
+<span id="cb164-4"><a href="#cb164-4" aria-hidden="true" tabindex="-1"></a>mainlike_components_labels  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;Total likelihood&#39;</span>,<span class="st">&#39;Index likelihood&#39;</span>,<span class="st">&#39;Length likelihood&#39;</span>,<span class="st">&quot;Age likelihood&quot;</span>,<span class="st">&#39;Size_at_age likelihood&#39;</span>,<span class="st">&#39;Recruitment likelihood&#39;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb165"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* 19. Funciones para generar plots de perfil de verosimilitud*</span></span>
+<span id="cb165-2"><a href="#cb165-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb165-3"><a href="#cb165-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*`SSplotProfile()`*</span></span>
+<span id="cb165-4"><a href="#cb165-4" aria-hidden="true" tabindex="-1"></a><span class="co">#png(file.path(plotdir,&quot;R0_profile_plot.png&quot;),width=7,height=4.5,res=300,units=&#39;in&#39;)</span></span>
+<span id="cb165-5"><a href="#cb165-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb165-6"><a href="#cb165-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb165-7"><a href="#cb165-7" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotProfile</span>(prof.R0.summary,           <span class="co"># summary object</span></span>
+<span id="cb165-8"><a href="#cb165-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">profile.string =</span> <span class="st">&quot;R0&quot;</span>,     <span class="co"># substring of profile parameter</span></span>
+<span id="cb165-9"><a href="#cb165-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">profile.label=</span><span class="fu">expression</span>(<span class="fu">log</span>(<span class="fu">italic</span>(R)[<span class="dv">0</span>])), <span class="at">ymax=</span><span class="dv">150</span>,<span class="at">minfraction =</span> <span class="fl">0.001</span>,</span>
+<span id="cb165-10"><a href="#cb165-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">pheight=</span><span class="fl">4.5</span>, </span>
+<span id="cb165-11"><a href="#cb165-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">print=</span><span class="cn">FALSE</span>, </span>
+<span id="cb165-12"><a href="#cb165-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">plotdir=</span>plotdir, </span>
+<span id="cb165-13"><a href="#cb165-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">components =</span> mainlike_components, </span>
+<span id="cb165-14"><a href="#cb165-14" aria-hidden="true" tabindex="-1"></a>              <span class="at">component.labels =</span> mainlike_components_labels,</span>
+<span id="cb165-15"><a href="#cb165-15" aria-hidden="true" tabindex="-1"></a>              <span class="at">add_cutoff =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb165-16"><a href="#cb165-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">cutoff_prob =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<pre class="scroll-200"><code>##             frac_change include                  label
+## TOTAL            1.0000    TRUE       Total likelihood
+## Survey           0.0659    TRUE       Index likelihood
+## Length_comp      0.8973    TRUE      Length likelihood
+## Recruitment      0.1871    TRUE Recruitment likelihood</code></pre>
+<div class="sourceCode" id="cb167"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="#cb167-1" aria-hidden="true" tabindex="-1"></a>Baseval <span class="ot">&lt;-</span> <span class="fu">round</span>(replist_s7<span class="sc">$</span>parameters<span class="sc">$</span>Value[<span class="fu">grep</span>(<span class="st">&quot;R0&quot;</span>,replist_s7<span class="sc">$</span>parameters<span class="sc">$</span>Label)],<span class="dv">2</span>)</span>
+<span id="cb167-2"><a href="#cb167-2" aria-hidden="true" tabindex="-1"></a>Baselab <span class="ot">&lt;-</span> <span class="fu">paste</span>(Baseval,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb167-3"><a href="#cb167-3" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">at=</span>Baseval,<span class="at">label=</span>Baselab)</span>
+<span id="cb167-4"><a href="#cb167-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> Baseval, <span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-78-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb168"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dev.off()</span></span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* R0_profile_plot_Length_like `PinerPlot()`* </span></span>
+<span id="cb169-2"><a href="#cb169-2" aria-hidden="true" tabindex="-1"></a><span class="co">#png(file.path(plotdir,&quot;R0_profile_plot_Length_like.png&quot;),width=7,height=4.5,res=300,units=&#39;in&#39;)</span></span>
+<span id="cb169-3"><a href="#cb169-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb169-4"><a href="#cb169-4" aria-hidden="true" tabindex="-1"></a><span class="fu">PinerPlot</span>(prof.R0.summary, </span>
+<span id="cb169-5"><a href="#cb169-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">profile.string =</span> <span class="st">&quot;R0&quot;</span>, </span>
+<span id="cb169-6"><a href="#cb169-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">component =</span> <span class="st">&quot;Length_like&quot;</span>,</span>
+<span id="cb169-7"><a href="#cb169-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">main =</span> <span class="st">&quot;Changes in length-composition likelihoods by fleet&quot;</span>,</span>
+<span id="cb169-8"><a href="#cb169-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">add_cutoff =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb169-9"><a href="#cb169-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">cutoff_prob =</span> <span class="fl">0.95</span>)</span>
+<span id="cb169-10"><a href="#cb169-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb169-11"><a href="#cb169-11" aria-hidden="true" tabindex="-1"></a>Baseval <span class="ot">&lt;-</span> <span class="fu">round</span>(replist_s7<span class="sc">$</span>parameters<span class="sc">$</span>Value[<span class="fu">grep</span>(<span class="st">&quot;SR_LN&quot;</span>,replist_s7<span class="sc">$</span>parameters<span class="sc">$</span>Label)],<span class="dv">2</span>)</span>
+<span id="cb169-12"><a href="#cb169-12" aria-hidden="true" tabindex="-1"></a>Baselab <span class="ot">&lt;-</span> <span class="fu">paste</span>(Baseval,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb169-13"><a href="#cb169-13" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">at=</span>Baseval,<span class="at">label=</span>Baselab)</span>
+<span id="cb169-14"><a href="#cb169-14" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> Baseval, <span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-79-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb170"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dev.off()</span></span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* R0_profile_plot_Survey_like*</span></span>
+<span id="cb171-2"><a href="#cb171-2" aria-hidden="true" tabindex="-1"></a><span class="co">#png(file.path(plotdir,&quot;R0_profile_plot_Survey_like.png&quot;),width=7,height=4.5,res=300,units=&#39;in&#39;)</span></span>
+<span id="cb171-3"><a href="#cb171-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb171-4"><a href="#cb171-4" aria-hidden="true" tabindex="-1"></a><span class="fu">PinerPlot</span>(prof.R0.summary, <span class="at">profile.string =</span> <span class="st">&quot;R0&quot;</span>, <span class="at">component =</span> <span class="st">&quot;Surv_like&quot;</span>,<span class="at">main =</span> <span class="st">&quot;Changes in Index likelihoods by fleet&quot;</span>,</span>
+<span id="cb171-5"><a href="#cb171-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">add_cutoff =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb171-6"><a href="#cb171-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">cutoff_prob =</span> <span class="fl">0.95</span>, <span class="at">legendloc=</span><span class="st">&quot;topleft&quot;</span>)</span>
+<span id="cb171-7"><a href="#cb171-7" aria-hidden="true" tabindex="-1"></a>Baseval <span class="ot">&lt;-</span> <span class="fu">round</span>(replist_s7<span class="sc">$</span>parameters<span class="sc">$</span>Value[<span class="fu">grep</span>(<span class="st">&quot;SR_LN&quot;</span>,replist_s7<span class="sc">$</span>parameters<span class="sc">$</span>Label)],<span class="dv">2</span>)</span>
+<span id="cb171-8"><a href="#cb171-8" aria-hidden="true" tabindex="-1"></a>Baselab <span class="ot">&lt;-</span> <span class="fu">paste</span>(Baseval,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb171-9"><a href="#cb171-9" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">at=</span>Baseval,<span class="at">label=</span>Baselab)</span>
+<span id="cb171-10"><a href="#cb171-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> Baseval, <span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="3.Diagnostico_files/figure-html/unnamed-chunk-80-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb172"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dev.off()</span></span></code></pre></div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
