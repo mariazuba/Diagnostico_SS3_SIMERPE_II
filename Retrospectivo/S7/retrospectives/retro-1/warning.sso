@@ -1,0 +1,49 @@
+#V3.30.18.00;_safe;_compile_date:_Sep 30 2021;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_12.3
+#_Stock_Synthesis_is_a_work_of_the_U.S._Government_and_is_not_subject_to_copyright_protection_in_the_United_States.
+#_Foreign_copyrights_may_apply._See_copyright.txt_for_more_information.
+#_User_support_available_at:NMFS.Stock.Synthesis@noaa.gov
+#_User_info_available_at:https://vlab.noaa.gov/group/stock-synthesis
+#_Source_code_at:_https://github.com/nmfs-stock-synthesis/stock-synthesis
+
+This file contains warnings, suggestions and notes generated as files are read and processed
+
+1 parameter init value is greater than parameter max 3.278 > 3 for parm: 7 ; search for <now check> echoinput for parm_type, will exit if prior requested
+2 setting in starter does not request all priors, and 9 parameters have priors and are not estimated, so their prior not included in obj_fun.
+3  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 146714 1993 0 2 1.42708 2.22234 RecrDist_GP_1_area_1_month_8
+4  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 146712 2005 0 2 1.29244 -0.00867595 RecrDist_GP_1_area_1_month_2
+5  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 146714 2005 0 2 1.42708 2.15314 RecrDist_GP_1_area_1_month_8
+6  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 146714 2006 0 2 1.42708 2.12453 RecrDist_GP_1_area_1_month_8
+7  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 146713 2007 0 2 0.399702 2.00781 RecrDist_GP_1_area_1_month_5
+8  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 146714 2018 0 2 1.42708 2.02021 RecrDist_GP_1_area_1_month_8
+9 warning: poor convergence in Fmsy, final dy/dy2= -0.152072
+10 Fmsy is >3x of Fspr are you sure?  check for convergence 
+11 Fmsy is close to max allowed; check for convergence 
+12 Forecast F capped by max possible F from control file: 4
+13 Final gradient: 0.000172506 is larger than final_conv: 1e-05
+14  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219714 1993 0 2 1.42708 2.22234 RecrDist_GP_1_area_1_month_8
+15  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219712 2005 0 2 1.29244 -0.00867595 RecrDist_GP_1_area_1_month_2
+16  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219714 2005 0 2 1.42708 2.15314 RecrDist_GP_1_area_1_month_8
+17  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219714 2006 0 2 1.42708 2.12453 RecrDist_GP_1_area_1_month_8
+18  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219713 2007 0 2 0.399702 2.00781 RecrDist_GP_1_area_1_month_5
+19  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219714 2018 0 2 1.42708 2.02021 RecrDist_GP_1_area_1_month_8
+20 Forecast F capped by max possible F from control file: 4
+21  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219714 1993 0 2 1.42708 2.22234 RecrDist_GP_1_area_1_month_8
+22  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219712 2005 0 2 1.29244 -0.00867595 RecrDist_GP_1_area_1_month_2
+23  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219714 2005 0 2 1.42708 2.15314 RecrDist_GP_1_area_1_month_8
+24  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219714 2006 0 2 1.42708 2.12453 RecrDist_GP_1_area_1_month_8
+25  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219713 2007 0 2 0.399702 2.00781 RecrDist_GP_1_area_1_month_5
+26  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219714 2018 0 2 1.42708 2.02021 RecrDist_GP_1_area_1_month_8
+27  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219714 1993 0 2 1.42708 2.22234 RecrDist_GP_1_area_1_month_8
+28  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219712 2005 0 2 1.29244 -0.00867595 RecrDist_GP_1_area_1_month_2
+29  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219714 2005 0 2 1.42708 2.15314 RecrDist_GP_1_area_1_month_8
+30  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219714 2006 0 2 1.42708 2.12453 RecrDist_GP_1_area_1_month_8
+31  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219713 2007 0 2 0.399702 2.00781 RecrDist_GP_1_area_1_month_5
+32  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219714 2018 0 2 1.42708 2.02021 RecrDist_GP_1_area_1_month_8
+33 Forecast F capped by max possible F from control file: 4
+34  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219714 1993 0 2 1.42708 2.22234 RecrDist_GP_1_area_1_month_8
+35  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219712 2005 0 2 1.29244 -0.00867595 RecrDist_GP_1_area_1_month_2
+36  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219714 2005 0 2 1.42708 2.15314 RecrDist_GP_1_area_1_month_8
+37  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219714 2006 0 2 1.42708 2.12453 RecrDist_GP_1_area_1_month_8
+38  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219713 2007 0 2 0.399702 2.00781 RecrDist_GP_1_area_1_month_5
+39  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 219714 2018 0 2 1.42708 2.02021 RecrDist_GP_1_area_1_month_8
+N warnings: 39

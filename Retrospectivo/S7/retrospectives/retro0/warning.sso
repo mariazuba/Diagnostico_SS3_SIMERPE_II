@@ -1,0 +1,79 @@
+#V3.30.18.00;_safe;_compile_date:_Sep 30 2021;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_12.3
+#_Stock_Synthesis_is_a_work_of_the_U.S._Government_and_is_not_subject_to_copyright_protection_in_the_United_States.
+#_Foreign_copyrights_may_apply._See_copyright.txt_for_more_information.
+#_User_support_available_at:NMFS.Stock.Synthesis@noaa.gov
+#_User_info_available_at:https://vlab.noaa.gov/group/stock-synthesis
+#_Source_code_at:_https://github.com/nmfs-stock-synthesis/stock-synthesis
+
+This file contains warnings, suggestions and notes generated as files are read and processed
+
+1 parameter init value is greater than parameter max 3.278 > 3 for parm: 7 ; search for <now check> echoinput for parm_type, will exit if prior requested
+2 setting in starter does not request all priors, and 9 parameters have priors and are not estimated, so their prior not included in obj_fun.
+3  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 53613 1990 0 2 0.0302706 -0.138697 RecrDist_GP_1_area_1_month_5
+4  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 53613 1991 0 2 0.0302706 -0.0847134 RecrDist_GP_1_area_1_month_5
+5  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 53613 1992 0 2 0.0302706 -0.0430034 RecrDist_GP_1_area_1_month_5
+6  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 53613 1993 0 2 0.0302706 -0.155834 RecrDist_GP_1_area_1_month_5
+7  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 53612 2004 0 2 0.936337 -0.269285 RecrDist_GP_1_area_1_month_2
+8  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 53612 2005 0 2 0.936337 -0.380399 RecrDist_GP_1_area_1_month_2
+9  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 53612 2006 0 2 0.936337 -0.0391947 RecrDist_GP_1_area_1_month_2
+10  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 53615 2007 0 2 0.705266 -0.0890944 RecrDist_GP_1_area_1_month_11
+11  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 53612 2009 0 2 0.936337 -0.37957 RecrDist_GP_1_area_1_month_2
+12  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 53612 2010 0 2 0.936337 -0.0215406 RecrDist_GP_1_area_1_month_2
+13  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 53613 2018 0 2 0.0302706 -0.123728 RecrDist_GP_1_area_1_month_5
+14  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 53612 2021 0 2 0.936337 -0.0196998 RecrDist_GP_1_area_1_month_2
+15 warning: poor convergence in Fmsy, final dy/dy2= -0.157823
+16 Fmsy is >3x of Fspr are you sure?  check for convergence 
+17 Fmsy is close to max allowed; check for convergence 
+18 Forecast F capped by max possible F from control file: 4
+19 Final gradient: 0.000274048 is larger than final_conv: 1e-05
+20  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126613 1990 0 2 0.0302706 -0.138697 RecrDist_GP_1_area_1_month_5
+21  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126613 1991 0 2 0.0302706 -0.0847134 RecrDist_GP_1_area_1_month_5
+22  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126613 1992 0 2 0.0302706 -0.0430034 RecrDist_GP_1_area_1_month_5
+23  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126613 1993 0 2 0.0302706 -0.155834 RecrDist_GP_1_area_1_month_5
+24  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2004 0 2 0.936337 -0.269285 RecrDist_GP_1_area_1_month_2
+25  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2005 0 2 0.936337 -0.380399 RecrDist_GP_1_area_1_month_2
+26  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2006 0 2 0.936337 -0.0391947 RecrDist_GP_1_area_1_month_2
+27  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126615 2007 0 2 0.705266 -0.0890944 RecrDist_GP_1_area_1_month_11
+28  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2009 0 2 0.936337 -0.37957 RecrDist_GP_1_area_1_month_2
+29  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2010 0 2 0.936337 -0.0215406 RecrDist_GP_1_area_1_month_2
+30  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126613 2018 0 2 0.0302706 -0.123728 RecrDist_GP_1_area_1_month_5
+31  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2021 0 2 0.936337 -0.0196998 RecrDist_GP_1_area_1_month_2
+32 Forecast F capped by max possible F from control file: 4
+33  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126613 1990 0 2 0.0302706 -0.138697 RecrDist_GP_1_area_1_month_5
+34  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126613 1991 0 2 0.0302706 -0.0847134 RecrDist_GP_1_area_1_month_5
+35  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126613 1992 0 2 0.0302706 -0.0430034 RecrDist_GP_1_area_1_month_5
+36  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126613 1993 0 2 0.0302706 -0.155834 RecrDist_GP_1_area_1_month_5
+37  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2004 0 2 0.936337 -0.269285 RecrDist_GP_1_area_1_month_2
+38  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2005 0 2 0.936337 -0.380399 RecrDist_GP_1_area_1_month_2
+39  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2006 0 2 0.936337 -0.0391947 RecrDist_GP_1_area_1_month_2
+40  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126615 2007 0 2 0.705266 -0.0890944 RecrDist_GP_1_area_1_month_11
+41  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2009 0 2 0.936337 -0.37957 RecrDist_GP_1_area_1_month_2
+42  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2010 0 2 0.936337 -0.0215406 RecrDist_GP_1_area_1_month_2
+43  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126613 2018 0 2 0.0302706 -0.123728 RecrDist_GP_1_area_1_month_5
+44  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2021 0 2 0.936337 -0.0196998 RecrDist_GP_1_area_1_month_2
+45  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126613 1990 0 2 0.0302706 -0.138697 RecrDist_GP_1_area_1_month_5
+46  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126613 1991 0 2 0.0302706 -0.0847134 RecrDist_GP_1_area_1_month_5
+47  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126613 1992 0 2 0.0302706 -0.0430034 RecrDist_GP_1_area_1_month_5
+48  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126613 1993 0 2 0.0302706 -0.155834 RecrDist_GP_1_area_1_month_5
+49  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2004 0 2 0.936337 -0.269285 RecrDist_GP_1_area_1_month_2
+50  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2005 0 2 0.936337 -0.380399 RecrDist_GP_1_area_1_month_2
+51  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2006 0 2 0.936337 -0.0391947 RecrDist_GP_1_area_1_month_2
+52  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126615 2007 0 2 0.705266 -0.0890944 RecrDist_GP_1_area_1_month_11
+53  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2009 0 2 0.936337 -0.37957 RecrDist_GP_1_area_1_month_2
+54  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2010 0 2 0.936337 -0.0215406 RecrDist_GP_1_area_1_month_2
+55  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126613 2018 0 2 0.0302706 -0.123728 RecrDist_GP_1_area_1_month_5
+56  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2021 0 2 0.936337 -0.0196998 RecrDist_GP_1_area_1_month_2
+57 Forecast F capped by max possible F from control file: 4
+58  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126613 1990 0 2 0.0302706 -0.138697 RecrDist_GP_1_area_1_month_5
+59  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126613 1991 0 2 0.0302706 -0.0847134 RecrDist_GP_1_area_1_month_5
+60  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126613 1992 0 2 0.0302706 -0.0430034 RecrDist_GP_1_area_1_month_5
+61  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126613 1993 0 2 0.0302706 -0.155834 RecrDist_GP_1_area_1_month_5
+62  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2004 0 2 0.936337 -0.269285 RecrDist_GP_1_area_1_month_2
+63  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2005 0 2 0.936337 -0.380399 RecrDist_GP_1_area_1_month_2
+64  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2006 0 2 0.936337 -0.0391947 RecrDist_GP_1_area_1_month_2
+65  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126615 2007 0 2 0.705266 -0.0890944 RecrDist_GP_1_area_1_month_11
+66  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2009 0 2 0.936337 -0.37957 RecrDist_GP_1_area_1_month_2
+67  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2010 0 2 0.936337 -0.0215406 RecrDist_GP_1_area_1_month_2
+68  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126613 2018 0 2 0.0302706 -0.123728 RecrDist_GP_1_area_1_month_5
+69  adjusted MGparm out of bounds (Phase, Iter, parm#, yr, min, max, base, adj_value) 4 126612 2021 0 2 0.936337 -0.0196998 RecrDist_GP_1_area_1_month_2
+N warnings: 69
