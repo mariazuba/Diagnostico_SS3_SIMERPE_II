@@ -1,5 +1,5 @@
 ---
-title: "Visualización de Resultados"
+title: "Comparación de escenarios"
 date: '`r format(Sys.Date(),"Última actualización: %B, %d, %Y")`'
 ---
 

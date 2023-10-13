@@ -1,14 +1,21 @@
 ---
-title: " ¿Cómo crear nuevos modelos SS3?"
+title: "Generar escenarios"
 date: '`r format(Sys.Date(),"Última actualización: %B, %d, %Y")`'
 ---
 
 
 
+
+```{r global-options, include=FALSE}
+knitr::opts_chunk$set(eval=T,echo=T,comment="",collapse=FALSE, warning=FALSE, message=FALSE,class.output="scroll-200",fig.align = "center")
+```
+
+
 ```{css,echo=FALSE}
 
+
 .scroll-200{
-            max-height: 200px; 
+            max-height: 300px; 
             overflow-y: auto; 
             background-color: #f1f1f1;
             }
@@ -23,9 +30,9 @@ date: '`r format(Sys.Date(),"Última actualización: %B, %d, %Y")`'
 #TOC::before {
   content: "";
   display: block;
-  height: 100px;
-  margin: 2em 20px 40px 20px;
-  background-image: url("LOGO_2SN_recortado.png");
+  height: 300px;
+  margin: 2em 10px 40px 10px;
+  background-image: url("inputs/LOGO_MATH_T.svg");
   background-size: contain;
   background-position: center center;
   background-repeat: no-repeat;
@@ -34,73 +41,166 @@ date: '`r format(Sys.Date(),"Última actualización: %B, %d, %Y")`'
 ```
 
 
+```{r include=FALSE}
+ paquetes <- c("stringr", "tidyverse", "kableExtra","ggplot2","ggthemes",
+               "patchwork","dplyr","reshape","here","r4ss","zoo")
+ lapply(paquetes, require, character.only = TRUE)
+```
 
-```{r global-options, include=FALSE}
-knitr::opts_chunk$set(eval=T,echo=T, warning=FALSE, message=FALSE,class.output="scroll-200",fig.align = "center")
+S1: especificaciones iniciales
+S2: tamaños de muestra estimados por el método de McAllister HarMean flota=12,12,Pelago=19,20,Ecocadiz=23,25,Ecocadizrecluta=10,8
+S3: tamaños de muestra estimados por el método de Francis()
+S4: 2 pulsos de reclutamientos en el año, proporción fija (25% y 75%) para todos los años de la serie
+S5: 2 pulsos de reclutamientos en el año, proporción estimada constante para todos los años de la serie
+S6: 3 pulsos de reclutamientos en el año, proporción estimada constante para todos los años de la serie
+
+```{r include=FALSE}
+dir.s1<-here("Escenarios_SS3","S1")
+dir.s2<-here("Escenarios_SS3","S2")
+dir.s3<-here("Escenarios_SS3","S3")
+dir.s4<-here("Escenarios_SS3","S4")
+dir.s5<-here("Escenarios_SS3","S5")
+dir.s6<-here("Escenarios_SS3","S6")
+dir.s7<-here("Escenarios_SS3","S7")
+
+#'*Identificar el directorio donde está el archivo ejecutable y copiarlo*
+exe_path <- here("Ejecutables_SS3","3.30.20_release")
+#file.copy(paste0(exe_path,"/ss_osx"),dir.s1)
+file.copy(paste0(exe_path,"/ss_win"),dir.s1)
+
+# Copiamos los archivos del modelo previo
+copy_SS_inputs(dir.old = dir.s2, 
+               dir.new = dir.s3,
+               copy_exe = TRUE,
+               verbose = FALSE)
+
+
 ```
 
 
-# Creando nuevos modelos 
+```{r eval=F}
+#'*Ejecutar el modelo* ----
+#'*Entramos en el directorio desde la terminal*
+#system(paste0("cd ",dir.s1,"/"))
+
+#'*Permitimos que el ordenador pueda abrir el ejecutable (terminal)*
+#system(paste0("chmod 755 ",dir.s1,"/ss_osx"))
+
+#'* Ejecutar el modelo SS3 usando la función run_SS_models* ----
+#r4ss::run(dir=dir.s1, exe="ss_osx", skipfinished=FALSE)
+esc<-c(dir.s1,dir.s2,dir.s3,dir.s4,dir.s5,dir.s6,dir.s7)
+
+for(i in 1:7){
+r4ss::run(dir=esc[i], exe="ss_win", skipfinished=FALSE)
+}
+
+
+```
+
 
 ```{r}
-#install.packages('r4ss')
-#install.packages('here')
+dir.s3<-here("Escenarios_SS3","S3")
+r4ss::run(dir=dir.s3, exe="ss_win", skipfinished=FALSE)
+replist_s3 <- SS_output(dir=dir.s3,verbose=TRUE,printstats=TRUE)
+SS_plots(replist_s3)
+replist_s3$maximum_gradient_component
+nmS3<-replist_s3$Length_Comp_Fit_Summary$Recommend_var_adj;nmS3
+replist_s3$Length_Comp_Fit_Summary$HarMean
+
+
+```
+
+```{r include=F}
+replist_s1 <- SS_output(dir=dir.s1,verbose=TRUE,printstats=TRUE)
+replist_s2 <- SS_output(dir=dir.s2,verbose=TRUE,printstats=TRUE)
+replist_s3 <- SS_output(dir=dir.s3,verbose=TRUE,printstats=TRUE)
+replist_s4 <- SS_output(dir=dir.s4,verbose=TRUE,printstats=TRUE)
+replist_s5 <- SS_output(dir=dir.s5,verbose=TRUE,printstats=TRUE)
+replist_s6 <- SS_output(dir=dir.s6,verbose=TRUE,printstats=TRUE)
+replist_s7 <- SS_output(dir=dir.s7,verbose=TRUE,printstats=TRUE)
 ```
 
 ```{r}
-library(here)
-library(r4ss)
+replist_s1$maximum_gradient_component
+replist_s2$maximum_gradient_component
+replist_s3$maximum_gradient_component
+replist_s4$maximum_gradient_component
+replist_s5$maximum_gradient_component
+replist_s6$maximum_gradient_component
+replist_s7$maximum_gradient_component
+
 ```
 
- 
- # Directorios de trabajo
 
- Identificamos el directorio donde se encuentra el modelo base
 ```{r}
+#Tamaño de muestra recomendado (M{etodo Francis)
+fleet<-replist_s1$Length_Comp_Fit_Summary$Fleet_name
+nmS1<-replist_s1$Length_Comp_Fit_Summary$Recommend_var_adj
+nmS2<-replist_s2$Length_Comp_Fit_Summary$Recommend_var_adj
+nmS3<-replist_s3$Length_Comp_Fit_Summary$Recommend_var_adj
+nmS4<-replist_s4$Length_Comp_Fit_Summary$Recommend_var_adj
+nmS5<-replist_s5$Length_Comp_Fit_Summary$Recommend_var_adj
+nmS6<-replist_s6$Length_Comp_Fit_Summary$Recommend_var_adj
+nmS7<-replist_s7$Length_Comp_Fit_Summary$Recommend_var_adj
 
-dirname.base <- here("modelos_SS3","simple")
 
+nmFrancis<-cbind(fleet,nmS1,nmS2,nmS3,nmS4,nmS5,nmS6,nmS7)
+nmFrancis
 ```
 
 
 
-Creamos un nuevo directorio  donde se encuentra el modelo base (para este ejercicio)
 ```{r}
-dirname.simple_base <- here("Ejercicios","4.Crear_nuevos_modelos","simple_base")
-dir.create(path=dirname.simple_base, showWarnings = TRUE, recursive = TRUE)
+# 11. Comparación de modelos 
+#Creamos una lista que resuma los resultados del modelo
+mod.sum <- SSsummarize(list(replist_s1, replist_s2,replist_s3,replist_s4,replist_s5,replist_s6,replist_s7))
 
+plotcomp <-here("Escenarios_SS3","plots_comparativo")
+
+dir.create(path=plotcomp, showWarnings = TRUE, recursive = TRUE)
 ```
 
 
- Creamos un nuevo directorio para la nueva versión del modelo modificado 
+
 ```{r}
-dirname.simple_mod <- here("Ejercicios","4.Crear_nuevos_modelos","simple_modificado")
-dir.create(path=dirname.simple_mod, showWarnings = TRUE, recursive = TRUE)
-
+#Generamos los plot con Comparaciones de modelos
+SSplotComparisons(mod.sum, 
+                  legendlabels = c("S1", "S2", "S3", "S4", "S5", "S6","S7"),subplots = c(2,7,10,14),
+                  pheight=4.5,png=TRUE,plotdir=plotcomp,legendloc='topleft')
 ```
 
 
 
-Copiamos los archivos de entrada del modelo con la función `copy_SS_inputs()`
+
+```{r eval=F}
+#?SS_plots
+SS_plots(replist_s1)
+SS_plots(replist_s2)
+SS_plots(replist_s3)
+SS_plots(replist_s4)
+SS_plots(replist_s5)
+SS_plots(replist_s6)
+SS_plots(replist_s7)
+
+
+```
+
+# HASTA AQUÍ, MEJORAR!!!!
+
+
 ```{r eval=FALSE}
+# Copiamos los archivos de entrada del modelo con la función `copy_SS_inputs()`
 #?copy_SS_inputs
 
 ```
 
 
 
-Copiamos los archivos del modelo base
+
+
+
 ```{r}
-copy_SS_inputs(dir.old = dirname.base, 
-               dir.new = dirname.simple_base,
-               copy_exe = TRUE,
-               verbose = FALSE)
-```
-
-
-
-Copiamos los archivos para el modelo que vamos a  modificar
-```{r}
+# Copiamos los archivos para el modelo que vamos a  modificar
 copy_SS_inputs(dir.old = dirname.base, 
                dir.new = dirname.simple_mod,
                copy_exe = TRUE,
@@ -108,10 +208,8 @@ copy_SS_inputs(dir.old = dirname.base,
 ```
 
 
-
-# 5. Leer los archivos de Stock Synthesis  con la función `SS_read()`
-
 ```{r eval=FALSE}
+# 5. Leer los archivos de Stock Synthesis  con la función `SS_read()`
 #?SS_read
 
 ```
@@ -120,10 +218,10 @@ copy_SS_inputs(dir.old = dirname.base,
 inputs <- r4ss::SS_read(dir = dirname.simple_mod)
 ```
 
- También se pueden correr las funciones de `SS_read()` por separado:  `SS_readstarter()`, `SS_readdat()`,`SS_readctl()`, `SS_readforecast()`, and `SS_readwtatage()`.
+
 
 ```{r}
-
+ # También se pueden correr las funciones de `SS_read()` por separado:  `SS_readstarter()`, `SS_readdat()`,`SS_readctl()`, `SS_readforecast()`, and `SS_readwtatage()`.
 start <- r4ss::SS_readstarter(file = file.path(dirname.simple_mod, "starter.ss"), 
                               verbose = FALSE)
 dat <- r4ss::SS_readdat(file = file.path(dirname.simple_mod, start$datfile),
@@ -139,56 +237,62 @@ fore <- r4ss::SS_readforecast(file = file.path(dirname.simple_mod, "forecast.ss"
 
 
 
+
+
+
+
+```{r}
 # 6. Investigar el modelo 
 
- Cada uno de los archivos de entrada se lee en R como una lista. 
- 
- Use `names()` para ver todos los componentes de la lista
-
-
-Revisamos los elementos de la lista
-```{r}
+ # Cada uno de los archivos de entrada se lee en R como una lista. 
+ # Use `names()` para ver todos los componentes de la lista
+# Revisamos los elementos de la lista
 names(inputs) 
 
 ```
 
 
-Revisamos los nombres de los componentes de la lista del archivo inicio
+
 ```{r}
+# Revisamos los nombres de los componentes de la lista del archivo inicio
 names(inputs$start) 
 
 ```
 
 
-También se puede hacer referencia a un elemento específico para ver los componentes.  Ejemplo, mirar la sección de parámetros de mortalidad y crecimiento (MG_parms)
+
 ```{r}
+# También se puede hacer referencia a un elemento específico para ver los componentes.  Ejemplo, mirar la sección de parámetros de mortalidad y crecimiento (MG_parms)
 inputs$ctl$MG_parms
 
 ```
 
 
 
+
+```{r}
 # 7. Modificar el modelo 
 
-Se pueden hacer cambios estructurales básicos o grandes en el modelo SS3 en R.  Por ejemplo, cambiar el valor inicial de M.
-
-
-Primero revisamos el valor inicial
-```{r}
+# Se pueden hacer cambios estructurales básicos o grandes en el modelo SS3 en R.  Por ejemplo, cambiar el valor inicial de M.
+# 
+# 
+# Primero revisamos el valor inicial
 inputs$ctl$MG_parms["NatM_p_1_Fem_GP_1", "INIT"]
 
 ```
 
-Luego cambiamos el valor inicial a 0.2
+
 ```{r}
+#Luego cambiamos el valor inicial a 0.2
 inputs$ctl$MG_parms["NatM_p_1_Fem_GP_1", "INIT"] <- 0.2
 
 ```
 
 
 
-También se pueden modificar las configuraciones en otros archivos.  Por ejemplo, la biomada objetivo se puede modificar en el archivo forecast.
+
 ```{r}
+#También se pueden modificar las configuraciones en otros archivos.  Por ejemplo, la biomada objetivo se puede modificar en el archivo forecast.
 inputs$fore$Btarget
 inputs$fore$Btarget <- 0.45
 inputs$fore$Btarget
@@ -196,11 +300,12 @@ inputs$fore$Btarget
 ```
 
 
-# 8. Escribir los modelos modificados 
 
- La función `SS_write()` se puede utilizar para escribir los objetos modificados en R en archivos de entrada a SS3.
 
 ```{r}
+# 8. Escribir los modelos modificados 
+
+ #La función `SS_write()` se puede utilizar para escribir los objetos modificados en R en archivos de entrada a SS3.
 #?SS_write
 r4ss::SS_write(inputs, dir = dirname.simple_mod, overwrite = TRUE)
 ```
@@ -230,16 +335,18 @@ r4ss::SS_writeforecast(fore,
 
 
 
-# 9. Ejecutar el modelo usando la función `run_SS_models()`
+
 ```{r }
+# 9. Ejecutar el modelo usando la función `run_SS_models()`
 #?run_SS_models
 
 ```
 
 
 
-Ejecutamos el  modelo base
+
 ```{r}
+#Ejecutamos el  modelo base
 r4ss::run_SS_models(dirvec = dirname.simple_base, 
                     model = "ss_win.exe" ,
                     skipfinished = FALSE)
@@ -247,10 +354,10 @@ r4ss::run_SS_models(dirvec = dirname.simple_base,
 
 
 
-Ejecutamos el  modelo modificado
+
 
 ```{r}
-
+#Ejecutamos el  modelo modificado
 r4ss::run_SS_models(dirvec = dirname.simple_mod, 
                     model = "ss_win.exe" ,
                     skipfinished = FALSE)
@@ -260,17 +367,19 @@ r4ss::run_SS_models(dirvec = dirname.simple_mod,
 
 
 
+
+```{r eval=FALSE}
 # 10. Investigar la ejecución del modelo 
 
 # Leer las salidas del modelo usando la función `SS_output()`
-```{r eval=FALSE}
 #?SS_output
 ```
 
 
 
-Leemos las salidas del modelo base
+
 ```{r}
+#Leemos las salidas del modelo base
 replist_base <- r4ss::SS_output(
   dir = dirname.simple_base,
   verbose = TRUE,
@@ -283,6 +392,7 @@ replist_base <- r4ss::SS_output(
 
 Leemos las salidas del modelo modificado
 ```{r }
+#Leemos las salidas del modelo modificado
 replist_mod <- r4ss::SS_output(
   dir = dirname.simple_mod,
   verbose = TRUE,
@@ -292,8 +402,9 @@ replist_mod <- r4ss::SS_output(
 
 
 
-Generamos los plots de resultados usando la función  `SS_plots()`
+
 ```{r}
+#Generamos los plots de resultados usando la función  `SS_plots()`
 plotbase <-here("Ejercicios","4.Crear_nuevos_modelos","plots_simple_base")
 dir.create(path=plotbase, showWarnings = TRUE, recursive = TRUE)
 r4ss::SS_plots(replist_base,dir = plotbase)
@@ -307,10 +418,10 @@ r4ss::SS_plots(replist_mod,dir = plotmod)
 ```
 
 
-# 11. Comparación de modelos 
 
-Creamos una lista que resuma los resultados del modelo
 ```{r}
+# 11. Comparación de modelos 
+#Creamos una lista que resuma los resultados del modelo
 mod.sum <- SSsummarize(list(replist_base, replist_mod))
 
 plotcomp <-here("Ejercicios","4.Crear_nuevos_modelos","plots_comparativo")
@@ -321,8 +432,9 @@ dir.create(path=plotcomp, showWarnings = TRUE, recursive = TRUE)
 
 
 
-Generamos los plot con Comparaciones de modelos
+
 ```{r}
+#Generamos los plot con Comparaciones de modelos
 SSplotComparisons(mod.sum, 
                   legendlabels = c("modelo base", "modelo modificado"),
                   pheight=4.5,png=TRUE,plotdir=plotcomp,legendloc='bottomleft')
