@@ -456,7 +456,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Implementación del modelo</h1>
-<h4 class="date">Última actualización: octubre, 03, 2023</h4>
+<h4 class="date">Última actualización: octubre, 17, 2023</h4>
 
 </div>
 
@@ -495,8 +495,10 @@ div.tocify {
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* Ejecutar el modelo SS3 usando la función run_SS_models* ----</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">run</span>(<span class="at">dir=</span>dir.base, <span class="at">exe=</span><span class="st">&quot;ss_osx&quot;</span>, <span class="at">skipfinished=</span><span class="cn">FALSE</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#?SS_plots</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SS_plots</span>(replist)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dir.base<span class="ot">&lt;-</span><span class="fu">here</span>(<span class="st">&quot;Escenarios_SS3&quot;</span>,<span class="st">&quot;S1&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">run</span>(<span class="at">dir=</span>dir.base, <span class="at">exe=</span><span class="st">&quot;ss_win&quot;</span>, <span class="at">skipfinished=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#?SS_plots</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SS_plots</span>(replist)</span></code></pre></div>
 <p>           </p>
 <div id="descripción-general-del-modelo" class="section level1">
 <h1>Descripción general del modelo</h1>
@@ -505,10 +507,10 @@ una sola población en 1 área que comienza en 1989 y finaliza en 2021.
 Los datos ingresan en escala trimestral. La máxima edad en el modelo es
 de 4 años. Incluye cuatro flotas, una corresponde a la pesquería y tres
 a campañas oceanográficas.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*===============================================================================*</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*Especificaciones iniciales*</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*===============================================================================*</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>dat1[<span class="dv">4</span><span class="sc">:</span><span class="dv">14</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*===============================================================================*</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*Especificaciones iniciales*</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*===============================================================================*</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>dat1[<span class="dv">4</span><span class="sc">:</span><span class="dv">14</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$Comments
 [1] &quot;#C Octubre 2023 Anchoveta Cadiz data file MODELO TRIMESTRAL&quot;
 
@@ -528,7 +530,7 @@ $Nsubseasons
 [1] 2
 
 $spawn_month
-[1] 1
+[1] 7
 
 $Nsexes
 [1] 1
@@ -557,19 +559,19 @@ capturas de la pesquería y campañas se ingresan en biomasa (units=1)
 para el área total (area=1).</p>
 <div id="especificaciones" class="section level4">
 <h4>Especificaciones</h4>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_fleet_type: 1=catch fleet; 2=bycatch only fleet; 3=survey; 4=ignore *</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_sample_timing: -1 for fishing fleet to use season-long catch-at-age for *</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*observations, or 1 to use observation month;  (always 1 for surveys)*</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_fleet_area:  area the fleet/survey operates in *</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_units of catch:  1=bio; 2=num (ignored for surveys; their units read later)*</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_catch_mult: 0=no; 1=yes*</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_rows are fleets*</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_fleet_type fishery_timing area catch_units need_catch_mult fleetname*</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a> dat1[<span class="dv">15</span>]<span class="sc">%&gt;%</span> </span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;250px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_fleet_type: 1=catch fleet; 2=bycatch only fleet; 3=survey; 4=ignore *</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_sample_timing: -1 for fishing fleet to use season-long catch-at-age for *</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*observations, or 1 to use observation month;  (always 1 for surveys)*</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_fleet_area:  area the fleet/survey operates in *</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_units of catch:  1=bio; 2=num (ignored for surveys; their units read later)*</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_catch_mult: 0=no; 1=yes*</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_rows are fleets*</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_fleet_type fishery_timing area catch_units need_catch_mult fleetname*</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a> dat1[<span class="dv">15</span>]<span class="sc">%&gt;%</span> </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;250px&quot;</span>)</span></code></pre></div>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:250px; overflow-x: scroll; width:100%; ">
 <table class="kable_wrapper lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -691,27 +693,27 @@ ECORECLUTAS
 </div>
 <div id="figura" class="section level4">
 <h4>Figura</h4>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotData</span>(replist, <span class="at">subplot =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="1.Implementacion_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotData</span>(replist, <span class="at">subplot =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="1.Implementacion_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>       </p>
 </div>
 </div>
 <div id="capturas" class="section level3 tabset tabset-fade">
 <h3 class="tabset tabset-fade">Capturas</h3>
 <p>Los datos de captura se ingresan en toneladas por trimestres a partir
-del año 1989 hasta 2021, asumiendo un coeficiente de variación de
-0.1.</p>
+del año 1989 hasta 2021, asumiendo un coeficiente de variación de 0.1
+(10%).</p>
 <p>   </p>
 <div id="datos-1" class="section level4">
 <h4>Datos</h4>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_Catch data: yr, seas, fleet, catch, catch_se*</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_catch_se:  standard error of log(catch)*</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_NOTE:  catch data is ignored for survey fleets*</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a> dat1[<span class="dv">20</span>] <span class="sc">%&gt;%</span> </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;300px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_Catch data: yr, seas, fleet, catch, catch_se*</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_catch_se:  standard error of log(catch)*</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_NOTE:  catch data is ignored for survey fleets*</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a> dat1[<span class="dv">20</span>] <span class="sc">%&gt;%</span> </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;300px&quot;</span>)</span></code></pre></div>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; overflow-x: scroll; width:100%; ">
 <table class="kable_wrapper lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -3062,8 +3064,8 @@ catch_se
 </div>
 <div id="figura-1" class="section level4">
 <h4>Figura</h4>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotCatch</span>(replist, <span class="at">subplots =</span><span class="fu">c</span>(<span class="dv">2</span>))</span></code></pre></div>
-<p><img src="1.Implementacion_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotCatch</span>(replist, <span class="at">subplots =</span><span class="fu">c</span>(<span class="dv">2</span>))</span></code></pre></div>
+<p><img src="1.Implementacion_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>       </p>
 </div>
 </div>
@@ -3074,16 +3076,16 @@ class="section level3 tabset tabset-fade">
 <div id="especificaciones-1" class="section level4">
 <h4>Especificaciones</h4>
 <p>   </p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_CPUE_and_surveyabundance_observations*</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_Units:  0=numbers; 1=biomass; 2=F; &gt;=30 for special types*</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_Errtype:  -1=normal; 0=lognormal; &gt;0=T*</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_SD_Report: 0=no sdreport; 1=enable sdreport*</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_Fleet Units Errtype SD_Report*</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>dat1[<span class="dv">21</span>]<span class="sc">%&gt;%</span> </span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;200px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_CPUE_and_surveyabundance_observations*</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_Units:  0=numbers; 1=biomass; 2=F; &gt;=30 for special types*</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_Errtype:  -1=normal; 0=lognormal; &gt;0=T*</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_SD_Report: 0=no sdreport; 1=enable sdreport*</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_Fleet Units Errtype SD_Report*</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>dat1[<span class="dv">21</span>]<span class="sc">%&gt;%</span> </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;200px&quot;</span>)</span></code></pre></div>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; overflow-x: scroll; width:100%; ">
 <table class="kable_wrapper lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -3189,12 +3191,12 @@ ECORECLUTAS
 <div id="datos-2" class="section level4">
 <h4>Datos</h4>
 <p>   </p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_yr month fleet obs stderr*</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>dat1[<span class="dv">22</span>]<span class="sc">%&gt;%</span> </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_yr month fleet obs stderr*</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>dat1[<span class="dv">22</span>]<span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="kable_wrapper lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -3912,8 +3914,8 @@ se_log
 </div>
 <div id="figura-2" class="section level4">
 <h4>Figura</h4>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotIndices</span>(replist,<span class="at">subplots =</span> <span class="fu">c</span>(<span class="dv">9</span>))</span></code></pre></div>
-<p><img src="1.Implementacion_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotIndices</span>(replist,<span class="at">subplots =</span> <span class="fu">c</span>(<span class="dv">9</span>))</span></code></pre></div>
+<p><img src="1.Implementacion_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>   </p>
 <p>   </p>
 </div>
@@ -3925,15 +3927,15 @@ class="section level3 tabset tabset-fade">
 <h4>Especificaciones</h4>
 <p>   </p>
 <p>   </p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*set up population length bin structure (note - irrelevant if not using size *</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*data and using empirical wtatage*</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*length bin method: 1=use databins; 2=generate from binwidth,min,max below;3=read vector*</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*binwidth for population size comp *</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* minimum size in the population (lower edge of first bin and size at age 0.00) *</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* maximum size in the population (lower edge of last bin) *</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* use length composition data (0/1)*</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>dat1[<span class="dv">25</span><span class="sc">:</span><span class="dv">29</span>] </span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*set up population length bin structure (note - irrelevant if not using size *</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*data and using empirical wtatage*</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*length bin method: 1=use databins; 2=generate from binwidth,min,max below;3=read vector*</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*binwidth for population size comp *</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* minimum size in the population (lower edge of first bin and size at age 0.00) *</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* maximum size in the population (lower edge of last bin) *</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* use length composition data (0/1)*</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>dat1[<span class="dv">25</span><span class="sc">:</span><span class="dv">29</span>] </span></code></pre></div>
 <pre class="scroll-200"><code>$lbin_method
 [1] 2
 
@@ -3949,8 +3951,8 @@ $maximum_size
 $use_lencomp
 [1] 1</code></pre>
 <p>       </p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_mintailcomp addtocomp combM+F CompressBins CompError ParmSelect minsamplesize*</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>dat1[<span class="dv">30</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_mintailcomp addtocomp combM+F CompressBins CompError ParmSelect minsamplesize*</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>dat1[<span class="dv">30</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$len_info
             mintailcomp addtocomp combine_M_F CompressBins CompError ParmSelect
 FLOTA                -1     0.001           0            0         0          0
@@ -3963,7 +3965,7 @@ PELAGO                  1
 ECOCADIZ                1
 ECORECLUTAS             1</code></pre>
 <p>       </p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a> dat1[<span class="dv">31</span><span class="sc">:</span><span class="dv">32</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a> dat1[<span class="dv">31</span><span class="sc">:</span><span class="dv">32</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$N_lbins
 [1] 37
 
@@ -3976,10 +3978,10 @@ $lbin_vector
 <div id="datos-3" class="section level4">
 <h4>Datos</h4>
 <p>   </p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>  dat1[<span class="dv">33</span>]<span class="sc">%&gt;%</span> </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>  dat1[<span class="dv">33</span>]<span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="kable_wrapper lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -26673,45 +26675,45 @@ l21.5
 <h1>PARÁMETROS</h1>
 <p>   </p>
 <p>   </p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*===============================================================================*</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*Leer archivo control.ss* ----</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*===============================================================================*</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>ctl <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readctl</span>(</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="fu">here</span>(dir.base,</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;control.ss&quot;</span>),</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">version=</span><span class="st">&quot;3.3&quot;</span>,</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">datlist =</span> dat, <span class="at">use_datlist =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*===============================================================================*</span></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*Modificar archivo control.ss*  ----</span></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*==============================================================================*</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*Lista para modificar*</span></span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>ctl1<span class="ot">&lt;-</span>ctl </span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*Contenido de la lista*</span></span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co"># names(ctl1) </span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*===============================================================================*</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*Leer archivo control.ss* ----</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*===============================================================================*</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>ctl <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readctl</span>(</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="fu">here</span>(dir.base,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;control.ss&quot;</span>),</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">version=</span><span class="st">&quot;3.3&quot;</span>,</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">datlist =</span> dat, <span class="at">use_datlist =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*===============================================================================*</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*Modificar archivo control.ss*  ----</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*==============================================================================*</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*Lista para modificar*</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>ctl1<span class="ot">&lt;-</span>ctl </span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*Contenido de la lista*</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co"># names(ctl1) </span></span></code></pre></div>
 <p>   </p>
 <div id="patrón-de-crecimiento-y-reclutamiento" class="section level3">
 <h3>Patrón de crecimiento y reclutamiento</h3>
 <p>       </p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_N_Growth_Patterns (Growth Patterns, Morphs, Bio Patterns, GP are terms used *</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*interchangeably in SS)*</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_N_platoons_Within_GrowthPattern *</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>ctl1[<span class="dv">16</span><span class="sc">:</span><span class="dv">17</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_N_Growth_Patterns (Growth Patterns, Morphs, Bio Patterns, GP are terms used *</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*interchangeably in SS)*</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_N_platoons_Within_GrowthPattern *</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>ctl1[<span class="dv">16</span><span class="sc">:</span><span class="dv">17</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$N_GP
 [1] 1
 
 $N_platoon
 [1] 1</code></pre>
-<p>       </p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*recr_dist_method for parameters:  2=main effects for GP, Area, Settle timing; 3=each Settle entity; 4=none (only when N_GPxNsettlexpop==1)*</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*not yet implemented; Future usage: Spawner-Recruitment: 1=global; 2=by area*</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*number of recruitment settlement assignments* </span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*unused option*</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a> ctl1[<span class="dv">18</span><span class="sc">:</span><span class="dv">21</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*recr_dist_method for parameters:  2=main effects for GP, Area, Settle timing; 3=each Settle entity; 4=none (only when N_GPxNsettlexpop==1)*</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*not yet implemented; Future usage: Spawner-Recruitment: 1=global; 2=by area*</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*number of recruitment settlement assignments* </span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*unused option*</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a> ctl1[<span class="dv">18</span><span class="sc">:</span><span class="dv">21</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$recr_dist_method
-[1] 3
+[1] 2
 
 $recr_global_area
 [1] 1
@@ -26721,11 +26723,12 @@ $recr_dist_read
 
 $recr_dist_inx
 [1] 0</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*GPattern month  area  age (for each settlement assignment)*</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a> ctl1<span class="sc">$</span>recr_dist_pattern<span class="sc">%&gt;%</span> </span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;100px&quot;</span>)</span></code></pre></div>
+<p>       </p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*GPattern month  area  age (for each settlement assignment)*</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a> ctl1<span class="sc">$</span>recr_dist_pattern<span class="sc">%&gt;%</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;100px&quot;</span>)</span></code></pre></div>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:100px; overflow-x: scroll; width:100%; ">
 <table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -26756,7 +26759,7 @@ recr_dist_pattern1
 1
 </td>
 <td style="text-align:right;">
-8
+2
 </td>
 <td style="text-align:right;">
 1
@@ -26773,19 +26776,19 @@ recr_dist_pattern1
 <div id="parámetros-variables-en-el-tiempo" class="section level3">
 <h3>Parámetros variables en el tiempo</h3>
 <p>       </p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*controls for all timevary parameters *</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_env/block/dev_adjust_method for all time-vary parms (1=warn relative to base parm bounds; 3=no bound check)*</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*AUTOGEN*</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*autogen:* 1st element for biology, 2nd for SR, 3rd for Q, 4th reserved, 5th for selex where: *</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*0 = autogen all time-varying parms; 1 = read each time-varying parm line; 2 = read then autogen if parm min==-12345*</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a> ctl1[<span class="dv">26</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*controls for all timevary parameters *</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_env/block/dev_adjust_method for all time-vary parms (1=warn relative to base parm bounds; 3=no bound check)*</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*AUTOGEN*</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*autogen:* 1st element for biology, 2nd for SR, 3rd for Q, 4th reserved, 5th for selex where: *</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*0 = autogen all time-varying parms; 1 = read each time-varying parm line; 2 = read then autogen if parm min==-12345*</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a> ctl1[<span class="dv">26</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$time_vary_adjust_method
 [1] 1</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>ctl1<span class="sc">$</span>time_vary_auto_generation<span class="sc">%&gt;%</span> </span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;200px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>ctl1<span class="sc">$</span>time_vary_auto_generation<span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;200px&quot;</span>)</span></code></pre></div>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; overflow-x: scroll; width:100%; ">
 <table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -26804,7 +26807,7 @@ x
 time_vary_auto_generation_1
 </td>
 <td style="text-align:right;">
-1
+0
 </td>
 </tr>
 <tr>
@@ -26812,7 +26815,7 @@ time_vary_auto_generation_1
 time_vary_auto_generation_2
 </td>
 <td style="text-align:right;">
-1
+0
 </td>
 </tr>
 <tr>
@@ -26820,7 +26823,7 @@ time_vary_auto_generation_2
 time_vary_auto_generation_3
 </td>
 <td style="text-align:right;">
-1
+0
 </td>
 </tr>
 <tr>
@@ -26828,7 +26831,7 @@ time_vary_auto_generation_3
 time_vary_auto_generation_4
 </td>
 <td style="text-align:right;">
-1
+0
 </td>
 </tr>
 <tr>
@@ -26836,7 +26839,7 @@ time_vary_auto_generation_4
 time_vary_auto_generation_5
 </td>
 <td style="text-align:right;">
-1
+0
 </td>
 </tr>
 </tbody>
@@ -26851,35 +26854,31 @@ class="section level3 tabset tabset-fade">
 <div id="especificaciones-3" class="section level4">
 <h4>Especificaciones</h4>
 <p>       </p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*================================================================================================*</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*Mortalidad natural y crecimiento *</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*---------------------------------*</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_natM_type:*_0=1Parm; 1=N_breakpoints;_2=Lorenzen;_3=agespecific;_4=agespec_withseasinterpolate _no additional input for selected M option;read 1P per morph*</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*GrowthModel:* 1=vonBert with L1&amp;L2; 2=Richards with L1&amp;L2; 3=age_specific_K_incr; 4=age_specific_K_decr; 5=age_specific_K_each; 6=NA; 7=NA; 8=growth cessation*</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_Age(post-settlement)_for_L1;linear growth below this*</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_Growth_Age_for_L2 (999 to use as Linf)*</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_exponential decay for growth above maxage (value should approx initial Z; -999 replicates 3.24; -998 to not allow growth above maxage)*</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_placeholder for future growth feature*</span></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_SD_add_to_LAA (set to 0.1 for SS2 V1.x compatibility)*</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_CV_Growth_Pattern:  0 CV=f(LAA); 1 CV=F(A); 2 SD=F(LAA); 3 SD=F(A); 4 logSD=F(A)*</span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*================================================================================================*</span></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*Madurez y fecundidad*</span></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*--------------------*</span></span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_maturity_option:*  1=length logistic; 2=age logistic; 3=read age-maturity matrix by *</span></span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*growth_pattern;* 4=read age-fecundity; 5=disabled; 6=read length-maturity*</span></span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_First_Mature_Age*</span></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_fecundity option:*(1)eggs=Wtx(a+bxWt);(2)eggs=axL^b;(3)eggs=axWt^b; (4)eggs=a+bxL;(5)eggs=a+bxW*</span></span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_hermaphroditism option:*  0=none; 1=female-to-male age-specific fxn; -1=male-to-female *</span></span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*age-specific fxn*</span></span>
-<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_parameter_offset_approach* (1=none, 2= M, G, CV_G as offset from female-GP1, 3=like SS2 V1.x)*</span></span>
-<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a> ctl1[<span class="dv">28</span><span class="sc">:</span><span class="dv">42</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*================================================================================================*</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*Mortalidad natural y crecimiento *</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*---------------------------------*</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_natM_type:*_0=1Parm; 1=N_breakpoints;_2=Lorenzen;_3=agespecific;_4=agespec_withseasinterpolate _no additional input for selected M option;read 1P per morph*</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*GrowthModel:* 1=vonBert with L1&amp;L2; 2=Richards with L1&amp;L2; 3=age_specific_K_incr; 4=age_specific_K_decr; 5=age_specific_K_each; 6=NA; 7=NA; 8=growth cessation*</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_Age(post-settlement)_for_L1;linear growth below this*</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_Growth_Age_for_L2 (999 to use as Linf)*</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_exponential decay for growth above maxage (value should approx initial Z; -999 replicates 3.24; -998 to not allow growth above maxage)*</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_placeholder for future growth feature*</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_SD_add_to_LAA (set to 0.1 for SS2 V1.x compatibility)*</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_CV_Growth_Pattern:  0 CV=f(LAA); 1 CV=F(A); 2 SD=F(LAA); 3 SD=F(A); 4 logSD=F(A)*</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*================================================================================================*</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*Madurez y fecundidad*</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*--------------------*</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_maturity_option:*  1=length logistic; 2=age logistic; 3=read age-maturity matrix by *</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*growth_pattern;* 4=read age-fecundity; 5=disabled; 6=read length-maturity*</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_First_Mature_Age*</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_fecundity option:*(1)eggs=Wtx(a+bxWt);(2)eggs=axL^b;(3)eggs=axWt^b; (4)eggs=a+bxL;(5)eggs=a+bxW*</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_hermaphroditism option:*  0=none; 1=female-to-male age-specific fxn; -1=male-to-female *</span></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*age-specific fxn*</span></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_parameter_offset_approach* (1=none, 2= M, G, CV_G as offset from female-GP1, 3=like SS2 V1.x)*</span></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a> ctl1[<span class="dv">28</span><span class="sc">:</span><span class="dv">41</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$natM_type
-[1] 3
-
-$natM
-      Age_0 Age_1 Age_2 Age_3 Age_4
-natM1  2.21   1.3   1.3   1.3   1.3
+[1] 0
 
 $GrowthModel
 [1] 1
@@ -26897,7 +26896,7 @@ $Growth_Placeholder
 [1] 0
 
 $N_natMparms
-[1] 0
+[1] 1
 
 $SD_add_to_LAA
 [1] 0
@@ -26919,17 +26918,17 @@ $hermaphroditism_option
 
 $parameter_offset_approach
 [1] 1</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span></code></pre></div>
 <p>   </p>
 </div>
 <div id="parámetros-1" class="section level4">
 <h4>Parámetros</h4>
 <p>   </p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_ LO HI INIT PRIOR PR_SD PR_type PHASE env_var&amp;link dev_link dev_minyr dev_maxyr dev_PH Block Block_Fxn*</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>ctl1<span class="sc">$</span>MG_parms<span class="sc">%&gt;%</span> </span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;Parámetros biológicos&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_ LO HI INIT PRIOR PR_SD PR_type PHASE env_var&amp;link dev_link dev_minyr dev_maxyr dev_PH Block Block_Fxn*</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>ctl1<span class="sc">$</span>MG_parms<span class="sc">%&gt;%</span> </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;Parámetros biológicos&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -26987,19 +26986,66 @@ Block_Fxn
 <tbody>
 <tr>
 <td style="text-align:left;">
+NatM_p_1_Fem_GP_1
+</td>
+<td style="text-align:right;">
+5e-02
+</td>
+<td style="text-align:right;">
+3.000000
+</td>
+<td style="text-align:right;">
+1.13000
+</td>
+<td style="text-align:right;">
+1.13000
+</td>
+<td style="text-align:right;">
+0.1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+-4
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 L_at_Amin_Fem_GP_1
 </td>
 <td style="text-align:right;">
 0e+00
 </td>
 <td style="text-align:right;">
-15.000000
+10.000000
 </td>
 <td style="text-align:right;">
-6.00000
+5.00000
 </td>
 <td style="text-align:right;">
-8.00000
+5.00000
 </td>
 <td style="text-align:right;">
 99.0
@@ -27008,7 +27054,7 @@ L_at_Amin_Fem_GP_1
 0
 </td>
 <td style="text-align:right;">
-5
+-5
 </td>
 <td style="text-align:right;">
 0
@@ -27131,25 +27177,25 @@ VonBert_K_Fem_GP_1
 CV_young_Fem_GP_1
 </td>
 <td style="text-align:right;">
-3e-03
+5e-02
 </td>
 <td style="text-align:right;">
-0.100000
+0.250000
 </td>
 <td style="text-align:right;">
-0.06600
+0.10000
 </td>
 <td style="text-align:right;">
-0.06600
+0.10000
 </td>
 <td style="text-align:right;">
-99.0
+0.8
 </td>
 <td style="text-align:right;">
 0
 </td>
 <td style="text-align:right;">
-5
+-3
 </td>
 <td style="text-align:right;">
 0
@@ -27178,25 +27224,25 @@ CV_young_Fem_GP_1
 CV_old_Fem_GP_1
 </td>
 <td style="text-align:right;">
-3e-03
+5e-02
 </td>
 <td style="text-align:right;">
-0.100000
+0.250000
 </td>
 <td style="text-align:right;">
-0.06600
+0.10000
 </td>
 <td style="text-align:right;">
-0.06600
+0.10000
 </td>
 <td style="text-align:right;">
-99.0
+0.8
 </td>
 <td style="text-align:right;">
 0
 </td>
 <td style="text-align:right;">
-5
+-3
 </td>
 <td style="text-align:right;">
 0
@@ -27504,13 +27550,13 @@ Eggs_beta_Fem_GP_1
 </tr>
 <tr>
 <td style="text-align:left;">
-RecrDist_GP_1_area_1_month_8
+RecrDist_GP_1
 </td>
 <td style="text-align:right;">
--3e+00
+0e+00
 </td>
 <td style="text-align:right;">
-10.000000
+2.000000
 </td>
 <td style="text-align:right;">
 1.00000
@@ -27525,7 +27571,101 @@ RecrDist_GP_1_area_1_month_8
 0
 </td>
 <td style="text-align:right;">
--2
+-50
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RecrDist_Area_1
+</td>
+<td style="text-align:right;">
+0e+00
+</td>
+<td style="text-align:right;">
+2.000000
+</td>
+<td style="text-align:right;">
+1.00000
+</td>
+<td style="text-align:right;">
+1.00000
+</td>
+<td style="text-align:right;">
+99.0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+-50
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RecrDist_month_1
+</td>
+<td style="text-align:right;">
+0e+00
+</td>
+<td style="text-align:right;">
+2.000000
+</td>
+<td style="text-align:right;">
+1.00000
+</td>
+<td style="text-align:right;">
+1.00000
+</td>
+<td style="text-align:right;">
+99.0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+-50
 </td>
 <td style="text-align:right;">
 0
@@ -27648,37 +27788,135 @@ FracFemale_GP_1
 </div>
 <p>       </p>
 </div>
+<div id="figuras" class="section level4">
+<h4>Figuras</h4>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="at">plot.cex =</span> <span class="fl">0.7</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotBiology</span>(replist, <span class="at">subplot =</span> <span class="fu">c</span>(<span class="dv">1</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="1.Implementacion_files/figure-html/unnamed-chunk-30-1.png" alt="Talla por edad al inicio del año (2021). El área sombreada indica una distribución del 95% de la talla por edad alrededor de la curva de crecimiento estimada." width="384" />
+<p class="caption">
+Talla por edad al inicio del año (2021). El área sombreada indica una
+distribución del 95% de la talla por edad alrededor de la curva de
+crecimiento estimada.
+</p>
 </div>
-<div id="relación-stock-recluta"
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.7</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotBiology</span>(replist, <span class="at">subplot =</span> <span class="fu">c</span>(<span class="dv">4</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="1.Implementacion_files/figure-html/unnamed-chunk-31-1.png" alt="Distribución de talla por edad por trimestre" width="768" />
+<p class="caption">
+Distribución de talla por edad por trimestre
+</p>
+</div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="at">plot.cex =</span> <span class="fl">0.7</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotBiology</span>(replist, <span class="at">subplot =</span> <span class="fu">c</span>(<span class="dv">5</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="1.Implementacion_files/figure-html/unnamed-chunk-32-1.png" alt="Relación longitud-peso" width="384" />
+<p class="caption">
+Relación longitud-peso
+</p>
+</div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="at">plot.cex =</span> <span class="fl">0.7</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotBiology</span>(replist, <span class="at">subplot =</span> <span class="fu">c</span>(<span class="dv">6</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="1.Implementacion_files/figure-html/unnamed-chunk-33-1.png" alt="Curva de madurez por talla" width="384" />
+<p class="caption">
+Curva de madurez por talla
+</p>
+</div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="at">plot.cex =</span> <span class="fl">0.7</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotBiology</span>(replist, <span class="at">subplot =</span> <span class="fu">c</span>(<span class="dv">10</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="1.Implementacion_files/figure-html/unnamed-chunk-34-1.png" alt="Desove por talla. Este es el producto de la madurez y la fecundidad a menos que la madurez se base en la edad, en cuyo caso sólo se representa la fecundidad." width="384" />
+<p class="caption">
+Desove por talla. Este es el producto de la madurez y la fecundidad a
+menos que la madurez se base en la edad, en cuyo caso sólo se representa
+la fecundidad.
+</p>
+</div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="at">plot.cex =</span> <span class="fl">0.7</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotBiology</span>(replist, <span class="at">subplot =</span> <span class="fu">c</span>(<span class="dv">11</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="1.Implementacion_files/figure-html/unnamed-chunk-35-1.png" alt="Desove por edad. Este es el producto de la madurez y la fecundidad. Cuando estos procesos se basan en la talla, se convierten a la dimensión de edad utilizando la matriz de talla por edad." width="384" />
+<p class="caption">
+Desove por edad. Este es el producto de la madurez y la fecundidad.
+Cuando estos procesos se basan en la talla, se convierten a la dimensión
+de edad utilizando la matriz de talla por edad.
+</p>
+</div>
+<p>       </p>
+</div>
+</div>
+<div id="relación-stock-recluta-sr"
 class="section level3 tabset tabset-fade">
-<h3 class="tabset tabset-fade">Relación stock-recluta</h3>
+<h3 class="tabset tabset-fade">Relación stock-recluta <span
+class="math inline">\((SR)\)</span></h3>
 <p>   </p>
 <div id="especificaciones-4" class="section level4">
 <h4>Especificaciones</h4>
 <p>   </p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_Spawner-Recruitment; Options: 2=Ricker; 3=std_B-H; 4=SCAA; 5=Hockey; 6=B-H_flattop; 7=survival_3Parm; 8=Shepherd_3Parm; 9=RickerPower_3parm*</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* 0/1 to use steepness in initial equ recruitment calculation*</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* future feature:  0/1 to make realized sigmaR a function of SR curvature*</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>ctl1[<span class="dv">45</span><span class="sc">:</span><span class="dv">47</span>]</span></code></pre></div>
+<div id="curva-sr" class="section level5">
+<h5>Curva <span class="math inline">\(SR\)</span></h5>
+<p>Se ignora steepness y ajuste de sesgo para obtener estimaciones de
+reclutamiento sin restricciones(<em>SR_function</em>=4). Por lo tanto,
+no se usa steepness (<em>Use_steep_init_equi</em>=0) para el cálculo de
+Reclutamiento inicial en equilibrio (<span
+class="math inline">\(R_0\)</span>).</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_Spawner-Recruitment; Options: 2=Ricker; 3=std_B-H; 4=SCAA; 5=Hockey; 6=B-H_flattop; 7=survival_3Parm; 8=Shepherd_3Parm; 9=RickerPower_3parm*</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* 0/1 to use steepness in initial equ recruitment calculation*</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* future feature:  0/1 to make realized sigmaR a function of SR curvature*</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>ctl1[<span class="dv">44</span><span class="sc">:</span><span class="dv">45</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$SR_function
 [1] 4
 
 $Use_steep_init_equi
-[1] 0
-
-$Sigma_R_FofCurvature
 [1] 0</code></pre>
 <p>   </p>
 </div>
+<div id="desvíos-del-reclutamiento-recdev" class="section level5">
+<h5>Desvíos del reclutamiento <span
+class="math inline">\((RecDev)\)</span></h5>
+<p>Los desvíos del reclutamiento se codifican como un vector de
+desviación, por lo que ADMB impone una restricción de suma igual a cero
+(do_recdev=1). Se especifica el Año de inicio y final de los desvíos del
+reclutamiento, fase de estimación (recdev_phase=1).</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*do_recdev:  0=none; 1=devvector (R=F(SSB)+dev); 2=deviations (R=F(SSB)+dev); 3=deviations (R=R0xdev; dev2=R-f(SSB)); 4=like 3 with sum(dev2) adding penalty*</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* first year of main recr_devs; early devs can preceed this era*</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* last year of main recr_devs; forecast devs start in following year*</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_recdev phase *</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>ctl1[<span class="dv">48</span><span class="sc">:</span><span class="dv">51</span>]</span></code></pre></div>
+<pre class="scroll-200"><code>$do_recdev
+[1] 1
+
+$MainRdevYrFirst
+[1] 1989
+
+$MainRdevYrLast
+[1] 2021
+
+$recdev_phase
+[1] 1</code></pre>
+<p>       </p>
+</div>
+</div>
 <div id="parámetros-2" class="section level4">
 <h4>Parámetros</h4>
+<p>Se ingresan parámetros iniciales y su rango bajo y alto para el
+logaritmo del reclutamiento virginal (<span
+class="math inline">\(ln(R_0)\)</span>) para ser estimado en la primera
+fase (PHASE=1), steepness <span class="math inline">\(h\)</span>, que
+para nuestro caso se anula, desviación estándar del logaritmo natural
+del reclutamiento (<span class="math inline">\(\sigma_R\)</span> =0.6),
+es un parámetro fijo (PHASE=-6), no se consideran cambios de régimen
+(<em>SR_regime</em>=0), ni autocorrelación en el reclutamiento
+(<em>SR_autocorr</em>=0).</p>
 <p>   </p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>ctl1<span class="sc">$</span>SR_parms<span class="sc">%&gt;%</span> </span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;Parámetros de la relación stock recluta&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>ctl1<span class="sc">$</span>SR_parms<span class="sc">%&gt;%</span> </span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;Parámetros de la relación stock recluta&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;250px&quot;</span>)</span></code></pre></div>
 <div
-style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:250px; overflow-x: scroll; width:100%; ">
 <table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 Parámetros de la relación stock recluta
@@ -27740,10 +27978,10 @@ SR_LN(R0)
 5.0
 </td>
 <td style="text-align:right;">
-20.0
+15.0
 </td>
 <td style="text-align:right;">
-13.00
+9.00
 </td>
 <td style="text-align:right;">
 0.000
@@ -27970,66 +28208,63 @@ SR_autocorr
 </tbody>
 </table>
 </div>
+<p>       </p>
 </div>
 <div id="figura-4" class="section level4">
 <h4>Figura</h4>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.8</span>)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotSpawnrecruit</span>(replist,<span class="at">subplot =</span><span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="at">legend =</span> T)</span></code></pre></div>
-<p><img src="1.Implementacion_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>   </p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.7</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotSpawnrecruit</span>(replist,<span class="at">subplot =</span><span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="at">legend =</span> T)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="1.Implementacion_files/figure-html/unnamed-chunk-39-1.png" alt="Curva SR con etiquetas de años. Los colores de los puntos indican el año, los colores más cálidos indican años anteriores y los colores más fríos muestran años posteriores." width="768" />
+<p class="caption">
+Curva SR con etiquetas de años. Los colores de los puntos indican el
+año, los colores más cálidos indican años anteriores y los colores más
+fríos muestran años posteriores.
+</p>
+</div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRecdevs</span>(replist, <span class="at">subplots =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="1.Implementacion_files/figure-html/unnamed-chunk-40-1.png" alt="Desviaciones del reclutamiento con intervalos del 95%." width="576" />
+<p class="caption">
+Desviaciones del reclutamiento con intervalos del 95%.
+</p>
+</div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRecdevs</span>(replist, <span class="at">subplots =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="1.Implementacion_files/figure-html/unnamed-chunk-41-1.png" alt="Variaciones de las desviaciones del reclutamiento. sigmaR=0.6" width="576" />
+<p class="caption">
+Variaciones de las desviaciones del reclutamiento. sigmaR=0.6
+</p>
+</div>
+<p>       </p>
 </div>
 </div>
-<div id="desvíos-de-reclutamiento"
+<div id="mortalidad-por-pesca-f"
 class="section level3 tabset tabset-fade">
-<h3 class="tabset tabset-fade">Desvíos de reclutamiento</h3>
+<h3 class="tabset tabset-fade">Mortalidad por pesca <span
+class="math inline">\((F)\)</span></h3>
+<p>       </p>
 <div id="especificaciones-5" class="section level4">
 <h4>Especificaciones</h4>
-<p>       </p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*do_recdev:  0=none; 1=devvector (R=F(SSB)+dev); 2=deviations (R=F(SSB)+dev); 3=deviations (R=R0xdev; dev2=R-f(SSB)); 4=like 3 with sum(dev2) adding penalty*</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* first year of main recr_devs; early devs can preceed this era*</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;* last year of main recr_devs; forecast devs start in following year*</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_recdev phase *</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>ctl1[<span class="dv">49</span><span class="sc">:</span><span class="dv">53</span>]</span></code></pre></div>
-<pre class="scroll-200"><code>$do_recdev
-[1] 1
-
-$MainRdevYrFirst
-[1] 1989
-
-$MainRdevYrLast
-[1] 2021
-
-$recdev_phase
-[1] 1
-
-$recdev_adv
-[1] 0</code></pre>
-<p>       </p>
-</div>
-<div id="figura-5" class="section level4">
-<h4>Figura</h4>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRecdevs</span>(replist)</span></code></pre></div>
-<p><img src="1.Implementacion_files/figure-html/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /><img src="1.Implementacion_files/figure-html/unnamed-chunk-34-2.png" width="672" style="display: block; margin: auto;" /><img src="1.Implementacion_files/figure-html/unnamed-chunk-34-3.png" width="672" style="display: block; margin: auto;" /></p>
-<p>   </p>
-<p>   </p>
-</div>
-</div>
-<div id="mortalidad-por-pesca"
-class="section level3 tabset tabset-fade">
-<h3 class="tabset tabset-fade">Mortalidad por pesca</h3>
-<p>   </p>
-<p>   </p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*Fishing Mortality info *</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*F ballpark*</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*F ballpark year (neg value to disable)*</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*F_Method:  1=Pope; 2=instan. F; 3=hybrid (hybrid is recommended)*</span></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*max F or harvest rate, depends on F_Method*</span></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*no additional F input needed for Fmethod 1*</span></span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*if Fmethod=2; read overall start F value; overall phase; N detailed inputs to read*</span></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*if Fmethod=3; read N iterations for tuning for Fmethod 3*</span></span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*N iterations for tuning F in hybrid method (recommend 3 to 7)*</span></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>ctl1[<span class="dv">54</span><span class="sc">:</span><span class="dv">58</span>]</span></code></pre></div>
+<p>No hay especificaciones particulares para <span
+class="math inline">\(F\)</span>, las capturas de equilibrio son iguales
+a cero (especificado en el archivos de datos), por lo tanto, no se
+estiman parámetros de <span class="math inline">\(F\)</span> para las
+capturas de equilibrio. Se utiliza el método <span
+class="math inline">\(F\)</span> híbrido recomendado (F_Method=3) para
+estimar <span class="math inline">\(F\)</span> para los años 1989 hasta
+el 2021.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*Fishing Mortality info *</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*F ballpark*</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*F ballpark year (neg value to disable)*</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*F_Method:  1=Pope; 2=instan. F; 3=hybrid (hybrid is recommended)*</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*max F or harvest rate, depends on F_Method*</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*no additional F input needed for Fmethod 1*</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*if Fmethod=2; read overall start F value; overall phase; N detailed inputs to read*</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*if Fmethod=3; read N iterations for tuning for Fmethod 3*</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*N iterations for tuning F in hybrid method (recommend 3 to 7)*</span></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>ctl1[<span class="dv">53</span><span class="sc">:</span><span class="dv">57</span>]</span></code></pre></div>
 <pre class="scroll-200"><code>$F_ballpark
 [1] 0.1
 
@@ -28044,31 +28279,58 @@ $maxF
 
 $F_iter
 [1] 3</code></pre>
-<p>   </p>
-<p>No hay configuraciones especiales particulares para la información de
-mortalidad por pesca para este modelo, pero tenga en cuenta que se
-utiliza el método F híbrido recomendado.</p>
-<p>   </p>
+<p>       </p>
 </div>
-<div id="capturabilidad" class="section level3 tabset tabset-fade">
-<h3 class="tabset tabset-fade">Capturabilidad</h3>
+<div id="figura-5" class="section level4">
+<h4>Figura</h4>
+<p>La <span class="math inline">\(F\)</span> se calcula como <span
+class="math inline">\(Z-M\)</span> donde <span
+class="math inline">\(Z\)</span> y <span
+class="math inline">\(M\)</span> se calculan cada uno como <span
+class="math inline">\(ln(N_{t+1}/N_t)\)</span>. Los números se suman
+para todas las formas biológicas y todas las áreas para el comienzo del
+año, por lo que incluyen cualquier patrón estacional.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotSummaryF</span>(replist)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="1.Implementacion_files/figure-html/unnamed-chunk-43-1.png" alt="Resumen de F anual calculada como números de F ponderados para un rango específico de edades." width="672" />
+<p class="caption">
+Resumen de F anual calculada como números de F ponderados para un rango
+específico de edades.
+</p>
+</div>
+<p>       </p>
+</div>
+</div>
+<div id="capturabilidad-q" class="section level3 tabset tabset-fade">
+<h3 class="tabset tabset-fade">Capturabilidad <span
+class="math inline">\((q)\)</span></h3>
 <p>   </p>
 <div id="especificaciones-6" class="section level4">
 <h4>Especificaciones</h4>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_Q_setup for fleets with cpue or survey data*</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_1:  fleet number*</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_2:  link type: (1=simple q, 1 parm; 2=mirror simple q, 1 mirrored parm; 3=q and power, 2 parm; 4=mirror with offset, 2 parm)*</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_3:  extra input for link, i.e. mirror fleet# or dev index number*</span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_4:  0/1 to select extra sd parameter*</span></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_5:  0/1 for biasadj or not*</span></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_6:  0/1 to float*</span></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_   fleet      link link_info  extra_se   biasadj     float  #  fleetname*</span></span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>ctl1<span class="sc">$</span>Q_options<span class="sc">%&gt;%</span> </span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;Especificaciones de capturabilidad&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<p>La capturabilidad <span class="math inline">\(q\)</span> es el factor
+de escala que relaciona en este caso la biomasa estimada por el modelo
+con el valor esperado de las biomasas de campañas acústicas Pelago,
+Ecocadiz y Ecocadiz Recluta (fleet=2, 3 y 4).</p>
+<p>Se asume una forma funcional simple (link=1) entre <span
+class="math inline">\(q\)</span>, el valor esperado y la observación,
+<span class="math inline">\(y=q*x\)</span>. No se incluye información
+adicional para link (link_info=0), error standar extra (extra_se=0), sin
+sesgo (biasadj=0),y el parámetro <span class="math inline">\(q\)</span>
+es estimado (float=0).</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_Q_setup for fleets with cpue or survey data*</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_1:  fleet number*</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_2:  link type: (1=simple q, 1 parm; 2=mirror simple q, 1 mirrored parm; 3=q and power, 2 parm; 4=mirror with offset, 2 parm)*</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_3:  extra input for link, i.e. mirror fleet# or dev index number*</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_4:  0/1 to select extra sd parameter*</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_5:  0/1 for biasadj or not*</span></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_6:  0/1 to float*</span></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_   fleet      link link_info  extra_se   biasadj     float  #  fleetname*</span></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>ctl1<span class="sc">$</span>Q_options<span class="sc">%&gt;%</span> </span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;Especificaciones de capturabilidad&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;200px&quot;</span>)</span></code></pre></div>
 <div
-style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; overflow-x: scroll; width:100%; ">
 <table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 Especificaciones de capturabilidad
@@ -28170,17 +28432,22 @@ ECORECLUTAS
 </tbody>
 </table>
 </div>
+<p>       </p>
 </div>
 <div id="parámetros-3" class="section level4">
 <h4>Parámetros</h4>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_Q_parms(if_any);Qunits_are_ln(q)*</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_ LO HI INIT PRIOR PR_SD PR_type PHASE env-var use_dev dev_mnyr dev_mxyr dev_PH Block Blk_Fxn # parm_name*</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>ctl1<span class="sc">$</span>Q_parms<span class="sc">%&gt;%</span> </span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;Parámetros de capturabilidad&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<p>Se ingresan parámetros iniciales y su rango bajo y alto
+(INIT=0.08918, LO=-30, HI=15), para ser estimados en la primera fase
+(PHASE=1) para todas las flotas que corresponden a las campañas
+acústicas.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_Q_parms(if_any);Qunits_are_ln(q)*</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_ LO HI INIT PRIOR PR_SD PR_type PHASE env-var use_dev dev_mnyr dev_mxyr dev_PH Block Blk_Fxn # parm_name*</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>ctl1<span class="sc">$</span>Q_parms<span class="sc">%&gt;%</span> </span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;Parámetros de capturabilidad&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;200px&quot;</span>)</span></code></pre></div>
 <div
-style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; overflow-x: scroll; width:100%; ">
 <table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 Parámetros de capturabilidad
@@ -28381,19 +28648,25 @@ LnQ_base_ECORECLUTAS(4)
 <p>       </p>
 </div>
 </div>
-<div id="selectividad" class="section level3 tabset tabset-fade">
-<h3 class="tabset tabset-fade">Selectividad</h3>
+<div id="selectividad-por-talla-s_l"
+class="section level3 tabset tabset-fade">
+<h3 class="tabset tabset-fade">Selectividad por talla <span
+class="math inline">\((S_l)\)</span></h3>
 <p>   </p>
 <div id="especificaciones-7" class="section level4">
 <h4>Especificaciones</h4>
+<p>Para cada flota comercial y campaña acústica se especifica la
+selectividad por talla <span class="math inline">\((S_l)\)</span>. Se
+asume selectividad logistica para todas las flotas (pattern =1). En este
+modelo no se considera descarte (Discard=0).</p>
 <p>   </p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_size_selex_patterns*</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>ctl1<span class="sc">$</span>size_selex_types<span class="sc">%&gt;%</span> </span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;Especificaciones de selectividad tallas&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_size_selex_patterns*</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>ctl1<span class="sc">$</span>size_selex_types<span class="sc">%&gt;%</span> </span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;Especificaciones de selectividad tallas&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;250px&quot;</span>)</span></code></pre></div>
 <div
-style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:250px; overflow-x: scroll; width:100%; ">
 <table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 Especificaciones de selectividad tallas
@@ -28488,118 +28761,30 @@ ECORECLUTAS
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;*_age_selex_patterns*</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>ctl1<span class="sc">$</span>age_selex_types<span class="sc">%&gt;%</span> </span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;Especificaciones de selectividad edad&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
-<div
-style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
-<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>
-Especificaciones de selectividad edad
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-Pattern
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-Discard
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-Male
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-Special
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-FLOTA
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-PELAGO
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ECOCADIZ
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ECORECLUTAS
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>   </p>
+<p>       </p>
+<p><img src="inputs/Imagen2.jpg" width="80%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="parámetros-4" class="section level4">
 <h4>Parámetros</h4>
+<p>Se ingresan 2 parámetros iniciales y su rango bajo y alto , para ser
+estimados en la segunda fase (PHASE=2) en el caso de la flota comercial
+y en la tercera fase para las campañas acústicas (PHASE=3).</p>
+<p>Los parámetros de la selectividad logística son <span
+class="math inline">\(p1\)</span> y <span
+class="math inline">\(p2\)</span>, esto es, <span
+class="math inline">\(S_l=1.0/1+exp(-ln(19)(L_l - p1)/p2)\)</span>.
+Donde <span class="math inline">\(L_l\)</span> es el bin de talla, <span
+class="math inline">\(p1\)</span> es la talla en la inflexión de la
+curva y <span class="math inline">\(p2\)</span> es la selección al 95%.
+si <span class="math inline">\(p2\)</span> es negativo provoca una curva
+descendente.</p>
 <p>   </p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>ctl1<span class="sc">$</span>size_selex_parms<span class="sc">%&gt;%</span> </span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;Parámetros selectividad talla&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>ctl1<span class="sc">$</span>size_selex_parms<span class="sc">%&gt;%</span> </span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;Parámetros selectividad talla&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;350px&quot;</span>)</span></code></pre></div>
 <div
-style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:350px; overflow-x: scroll; width:100%; ">
 <table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 Parámetros selectividad talla
@@ -28661,10 +28846,10 @@ SizeSel_P_1_FLOTA(1)
 -1
 </td>
 <td style="text-align:right;">
-20.0
+10
 </td>
 <td style="text-align:right;">
-12
+8
 </td>
 <td style="text-align:right;">
 0
@@ -28708,10 +28893,10 @@ SizeSel_P_2_FLOTA(1)
 -1
 </td>
 <td style="text-align:right;">
-20.0
+20
 </td>
 <td style="text-align:right;">
-18
+10
 </td>
 <td style="text-align:right;">
 0
@@ -28755,10 +28940,10 @@ SizeSel_P_1_PELAGO(2)
 -3
 </td>
 <td style="text-align:right;">
-10.0
+15
 </td>
 <td style="text-align:right;">
-8
+10
 </td>
 <td style="text-align:right;">
 0
@@ -28802,10 +28987,10 @@ SizeSel_P_2_PELAGO(2)
 -3
 </td>
 <td style="text-align:right;">
-16.0
+20
 </td>
 <td style="text-align:right;">
-10
+12
 </td>
 <td style="text-align:right;">
 0
@@ -28849,10 +29034,10 @@ SizeSel_P_1_ECOCADIZ(3)
 -1
 </td>
 <td style="text-align:right;">
-10.0
+15
 </td>
 <td style="text-align:right;">
-8
+10
 </td>
 <td style="text-align:right;">
 0
@@ -28896,10 +29081,10 @@ SizeSel_P_2_ECOCADIZ(3)
 -1
 </td>
 <td style="text-align:right;">
-20.5
+20
 </td>
 <td style="text-align:right;">
-15
+12
 </td>
 <td style="text-align:right;">
 0
@@ -28943,7 +29128,7 @@ SizeSel_P_1_ECORECLUTAS(4)
 -1
 </td>
 <td style="text-align:right;">
-10.0
+10
 </td>
 <td style="text-align:right;">
 8
@@ -28990,10 +29175,10 @@ SizeSel_P_2_ECORECLUTAS(4)
 -1
 </td>
 <td style="text-align:right;">
-20.5
+20
 </td>
 <td style="text-align:right;">
-15
+10
 </td>
 <td style="text-align:right;">
 0
@@ -29032,452 +29217,21 @@ SizeSel_P_2_ECORECLUTAS(4)
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>ctl1<span class="sc">$</span>age_selex_parms<span class="sc">%&gt;%</span> </span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;Parámetros selectividad edad&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">&quot;hover&quot;</span>, <span class="at">full_width =</span> F)<span class="sc">%&gt;%</span> </span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
-<div
-style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
-<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>
-Parámetros selectividad edad
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-LO
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-HI
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-INIT
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-PRIOR
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-PR_SD
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-PR_type
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-PHASE
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-env_var&amp;link
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-dev_link
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-dev_minyr
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-dev_maxyr
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-dev_PH
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-Block
-</th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-Block_Fxn
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-AgeSel_P_1_FLOTA(1)
-</td>
-<td style="text-align:right;">
--2
-</td>
-<td style="text-align:right;">
-5.5
-</td>
-<td style="text-align:right;">
-0.1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.01
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
--1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-AgeSel_P_2_FLOTA(1)
-</td>
-<td style="text-align:right;">
--1
-</td>
-<td style="text-align:right;">
-5.5
-</td>
-<td style="text-align:right;">
-5.0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.01
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
--1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-AgeSel_P_1_PELAGO(2)
-</td>
-<td style="text-align:right;">
--2
-</td>
-<td style="text-align:right;">
-5.5
-</td>
-<td style="text-align:right;">
-0.1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.01
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
--1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-AgeSel_P_2_PELAGO(2)
-</td>
-<td style="text-align:right;">
--1
-</td>
-<td style="text-align:right;">
-5.5
-</td>
-<td style="text-align:right;">
-5.0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.01
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
--1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-AgeSel_P_1_ECOCADIZ(3)
-</td>
-<td style="text-align:right;">
--2
-</td>
-<td style="text-align:right;">
-5.5
-</td>
-<td style="text-align:right;">
-0.1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.01
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
--1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-AgeSel_P_2_ECOCADIZ(3)
-</td>
-<td style="text-align:right;">
--1
-</td>
-<td style="text-align:right;">
-5.5
-</td>
-<td style="text-align:right;">
-5.0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.01
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
--1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-AgeSel_P_1_ECORECLUTAS(4)
-</td>
-<td style="text-align:right;">
--2
-</td>
-<td style="text-align:right;">
-5.5
-</td>
-<td style="text-align:right;">
-0.1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.01
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
--1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-AgeSel_P_2_ECORECLUTAS(4)
-</td>
-<td style="text-align:right;">
--1
-</td>
-<td style="text-align:right;">
-5.5
-</td>
-<td style="text-align:right;">
-5.0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.01
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
--1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-</tbody>
-</table>
-</div>
+<p>       </p>
+<p><img src="inputs/Imagen2.jpg" width="80%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="figura-6" class="section level4">
 <h4>Figura</h4>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotSelex</span>(replist,<span class="at">subplot =</span><span class="dv">1</span>)</span></code></pre></div>
-<p><img src="1.Implementacion_files/figure-html/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotSelex</span>(replist,<span class="at">subplot =</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="1.Implementacion_files/figure-html/unnamed-chunk-42-2.png" width="672" style="display: block; margin: auto;" /><img src="1.Implementacion_files/figure-html/unnamed-chunk-42-3.png" width="672" style="display: block; margin: auto;" /></p>
-<p>   </p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotSelex</span>(replist,<span class="at">subplot =</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="1.Implementacion_files/figure-html/unnamed-chunk-52-1.png" alt="Selectividad por talla de la flota comercial y campañas acústicas PELAGO, ECOCADIZ Y ECOCADIZ RECLUTA." width="576" />
+<p class="caption">
+Selectividad por talla de la flota comercial y campañas acústicas
+PELAGO, ECOCADIZ Y ECOCADIZ RECLUTA.
+</p>
+</div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SSplotSelex(replist,subplot =2)</span></span></code></pre></div>
+<p>       </p>
 <p><img src="inputs/Imagen2.jpg" width="80%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
