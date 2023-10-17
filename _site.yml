@@ -8,8 +8,6 @@ navbar:
       href: 2.Escenarios.html
     - text: "Diagnóstico"
       href: 3.Diagnostico.html     
-    - text: "Series"
-      href: 2.Series.html   
       
 output_dir: "."
 output: 
