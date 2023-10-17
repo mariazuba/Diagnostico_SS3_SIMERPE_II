@@ -27,7 +27,8 @@ control.ss #_ctlfile
 1 #_depl_basis
 1 #_depl_denom_frac
 4 #_SPR_basis
-0 #_F_report_units
+4 #_F_report_units
+3 4 #_min and max age over which average F will be calculated, with F=Z-M
 0 #_F_report_basis
 0 #_MCMC_output_detail
 0 #_ALK_tolerance

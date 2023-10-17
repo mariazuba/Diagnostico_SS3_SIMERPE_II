@@ -1,6 +1,6 @@
 ###
 console output
-2023-10-10 10:47:21
+2023-10-17 13:04:45
 ###
  
  reading from STARTER.SS
@@ -1388,8 +1388,8 @@ finished benchmark, forecast, and sdreporting
 4 664 -log(L): 39693.4  Spbio: 3926.11 2654.35 cat 113.419
 
 In final section 
-Finish time: Tue Oct 10 10:47:20 2023
-Elapsed time: 0 hours, 0 minutes, 21 seconds.
+Finish time: Tue Oct 17 13:04:44 2023
+Elapsed time: 0 hours, 0 minutes, 24 seconds.
  Iterations: 664 -log(L): 39693.4
 Final gradient: 0.00137954
 
@@ -1410,4 +1410,4 @@ dynamic Bzero:  finished
 SPR_profile:  finished 
 Global_MSY:  finished 
 
-!!  Run has completed  !!            See warning.sso for N warnings: 12
+!!  Run has completed  !!            See warning.sso for N warnings: 14
