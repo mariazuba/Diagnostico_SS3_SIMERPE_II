@@ -222,14 +222,12 @@ SSplotIndices(replist,subplots = c(9))
 ```
 
 &nbsp; &nbsp;
-
 &nbsp; &nbsp;
 
 ### Composición de tallas {.tabset .tabset-fade }
 
 #### Especificaciones
 &nbsp; &nbsp;
-
 &nbsp; &nbsp;
 
 
@@ -245,8 +243,6 @@ SSplotIndices(replist,subplots = c(9))
 dat1[25:29] 
 
 ```
-
-
 &nbsp; &nbsp;
 &nbsp; &nbsp;
 
@@ -255,15 +251,13 @@ dat1[25:29]
 dat1[30]
 
 ```
-
 &nbsp; &nbsp;
 &nbsp; &nbsp;
 
 ```{r }
  dat1[31:32]
 ```
-
-
+&nbsp; &nbsp;
 &nbsp; &nbsp;
 
 #### Datos 
@@ -278,17 +272,16 @@ kbl() %>%
 ```
 
 &nbsp; &nbsp;
-
+&nbsp; &nbsp;
 
 #### Figura
-
 
 ```{r echo=FALSE,   out.width = "80%" }
 
 knitr::include_graphics(here("Escenarios_SS3","S1","plots","comp_lendat__aggregated_across_time.png"))
 
 ```
-
+&nbsp; &nbsp;
 &nbsp; &nbsp;
 
 
@@ -324,6 +317,9 @@ ctl1<-ctl
 
 ### Patrón de crecimiento y reclutamiento
 
+Se debe especificar el número de patrones de crecimiento (GP), también conocidos como morfos. El número de platoons dentro de un patrón de crecimimiento para explorar la supervivencia dependiendo del tamaño. Un valor de 1 no creará plattons adicionales. Por lo tanto, para el escenario inicial se asume un patrón de crecimiento y un plattons.
+
+
 &nbsp; &nbsp;
 &nbsp; &nbsp;
 
@@ -334,17 +330,26 @@ ctl1<-ctl
 
 ctl1[16:17]
 
+
+```
+
+El desove se produce sólo una vez al año, lo que define una única biomasa desovante para la curva SR, pero puede ocurrir en cualquier momento del año.  El reclutamiento de un desove anual puede ingresar a la población en uno o más pulsos de reclutamiento (*recr_dist_read* = 1) en algún momento después del desove. Cada pulso de reclutamiento se puede distribuir por patrón de crecimiento, área y mes (*recr_dist_method* = 2). 
+
+
+```{r}
 #'*recr_dist_method for parameters:  2=main effects for GP, Area, Settle timing; 3=each Settle entity; 4=none (only when N_GPxNsettlexpop==1)*
 #'*not yet implemented; Future usage: Spawner-Recruitment: 1=global; 2=by area*
 #'*number of recruitment settlement assignments* 
 #'*unused option*
 #'
- ctl1[18:21]
+ ctl1[c(18,20)]
  
 ```
 
 &nbsp; &nbsp;
 &nbsp; &nbsp;
+
+La edad calendario del reclutamiento es 0 si el reclutamiento ocurre entre el momento del desove y al final de ese año. Si el reclutamiento ocurre en el año posterior al desove la edad calendaria de reclutamiento es 1. Todos los peces pasan a edad 1 el primero de enero.
 
 ```{r}
 #'*GPattern month  area  age (for each settlement assignment)*
@@ -363,21 +368,29 @@ kbl() %>%
 &nbsp; &nbsp;
 &nbsp; &nbsp;
 
+Método de ajuste de todos los parámetros que varían en el tiempo (ambientales, bloques, desviaciones). La opción 1 = entrega los warning relativo a los límites del parámetro base y la opción 3 = no chekea los límites.
+
 ```{r }
 #'*controls for all timevary parameters *
 #'*_env/block/dev_adjust_method for all time-vary parms (1=warn relative to base parm bounds; 3=no bound check)*
+ ctl1[26]
+```
+
+La opción de la generación automática de líneas de parámetros variables en el tiempo permite controlar cinco valores para la generación automática de secciones de bloques de parámetros. 1 - biología, 2 - SR, 3 - capturabilidad, 4 - tag y 5 - selectividad.
+
+Los valores aceptados son: 
+
+0 = genera automáticamente todos los parámetros variables en el tiempo (no se esperan parámetros variables en el tiempo);
+
+1 = lee cada línea de parámetros variables en el tiempo tal como existe en el archivo de control; y
+
+2 = lee cada línea y genera automáticamente el valor del parámetro variable en el tiempo, útil para generar valores iniciales razonables.
+
+```{r}
 #'*AUTOGEN*
 #'*autogen:* 1st element for biology, 2nd for SR, 3rd for Q, 4th reserved, 5th for selex where: *
 #'*0 = autogen all time-varying parms; 1 = read each time-varying parm line; 2 = read then autogen if parm min==-12345*
 
- ctl1[26]
-
-
- 
- 
-```
-
-```{r}
 ctl1$time_vary_auto_generation%>% 
 kbl() %>%
   kable_paper("hover", full_width = F)%>% 
@@ -391,6 +404,7 @@ kbl() %>%
 &nbsp; &nbsp;
 
 #### Especificaciones 
+En esta sección se especifican los modelos y parámetros  de mortalidad natural, crecimiento, madurez, entre otros.
 
 &nbsp; &nbsp;
 &nbsp; &nbsp;
