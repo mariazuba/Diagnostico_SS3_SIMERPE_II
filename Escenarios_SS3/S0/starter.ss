@@ -27,8 +27,8 @@ control.ss #_ctlfile
 1 #_depl_basis
 1 #_depl_denom_frac
 4 #_SPR_basis
-0 #_F_report_units
-0 #_F_report_basis
+3 #_F_report_units
+1 #_F_report_basis
 0 #_MCMC_output_detail
 0 #_ALK_tolerance
 #
