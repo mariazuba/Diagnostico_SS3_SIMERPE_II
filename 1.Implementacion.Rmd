@@ -59,14 +59,21 @@ system(paste0("chmod 755 ",dir.base,"/ss_osx"))
 r4ss::run(dir=dir.base, exe="ss_osx", skipfinished=FALSE)
 ```
 
+
+```{r eval=F}
+dir.base<-here("Escenarios_SS3","S1")
+r4ss::run(dir=dir.base, exe="ss_win", skipfinished=FALSE)
+
+```
+
 ```{r include=F}
+dir.base<-here("Escenarios_SS3","S1")
 replist <- SS_output(dir=dir.base,verbose=TRUE,printstats=TRUE)
 ```
 
 ```{r eval=F}
 #?SS_plots
 SS_plots(replist)
-
 ```
 &nbsp; &nbsp;
 &nbsp; &nbsp;
@@ -95,7 +102,6 @@ dat1<-dat
 #'*===============================================================================*
 dat1[4:14]
 ```
-
 
 &nbsp; &nbsp;
 &nbsp; &nbsp;
@@ -144,7 +150,7 @@ SSplotData(replist, subplot = 1)
 
 ### Capturas {.tabset .tabset-fade }
 
-Los datos de captura se ingresan en toneladas por trimestres a partir del año 1989 hasta 2021, asumiendo un coeficiente de variación de 0.1.
+Los datos de captura se ingresan en toneladas por trimestres a partir del año 1989 hasta 2021, asumiendo un coeficiente de variación de 0.1 (10%).
 
 &nbsp; &nbsp;
 
@@ -327,19 +333,18 @@ ctl1<-ctl
 #'*_N_platoons_Within_GrowthPattern *
 
 ctl1[16:17]
-```
 
-&nbsp; &nbsp;
-&nbsp; &nbsp;
-
-```{r }
 #'*recr_dist_method for parameters:  2=main effects for GP, Area, Settle timing; 3=each Settle entity; 4=none (only when N_GPxNsettlexpop==1)*
 #'*not yet implemented; Future usage: Spawner-Recruitment: 1=global; 2=by area*
 #'*number of recruitment settlement assignments* 
 #'*unused option*
+#'
  ctl1[18:21]
-
+ 
 ```
+
+&nbsp; &nbsp;
+&nbsp; &nbsp;
 
 ```{r}
 #'*GPattern month  area  age (for each settlement assignment)*
@@ -413,7 +418,7 @@ kbl() %>%
 #'*age-specific fxn*
 #'*_parameter_offset_approach* (1=none, 2= M, G, CV_G as offset from female-GP1, 3=like SS2 V1.x)*
 
- ctl1[28:42]
+ ctl1[28:41]
 #
 ```
 
@@ -433,10 +438,47 @@ kbl(caption = "Parámetros biológicos") %>%
 ```
 
 
+
 &nbsp; &nbsp;
 &nbsp; &nbsp;
 
-### Relación stock-recluta {.tabset .tabset-fade }
+#### Figuras
+
+```{r fig.height=4,fig.width=4, fig.cap="Talla por edad al inicio del año (2021). El área sombreada indica una distribución del 95% de la talla por edad alrededor de la curva de crecimiento estimada."}
+sspar(mfrow = c(1, 1), plot.cex = 0.7)
+SSplotBiology(replist, subplot = c(1))
+```
+
+```{r fig.height=8,fig.width=8, fig.cap="Distribución de talla por edad por trimestre"}
+sspar(mfrow = c(4, 2), plot.cex = 0.7)
+SSplotBiology(replist, subplot = c(4))
+```
+
+```{r fig.height=4,fig.width=4, fig.cap="Relación longitud-peso"}
+sspar(mfrow = c(1, 1), plot.cex = 0.7)
+SSplotBiology(replist, subplot = c(5))
+```
+
+```{r fig.height=4,fig.width=4, fig.cap="Curva de madurez por talla"}
+sspar(mfrow = c(1, 1), plot.cex = 0.7)
+SSplotBiology(replist, subplot = c(6))
+```
+
+```{r fig.height=4,fig.width=4, fig.cap="Desove por talla. Este es el producto de la madurez y la fecundidad a menos que la madurez se base en la edad, en cuyo caso sólo se representa la fecundidad."}
+sspar(mfrow = c(1, 1), plot.cex = 0.7)
+SSplotBiology(replist, subplot = c(10))
+```
+
+```{r fig.height=4,fig.width=4, fig.cap="Desove por edad. Este es el producto de la madurez y la fecundidad. Cuando estos procesos se basan en la talla, se convierten a la dimensión de edad utilizando la matriz de talla por edad."}
+sspar(mfrow = c(1, 1), plot.cex = 0.7)
+SSplotBiology(replist, subplot = c(11))
+```
+
+
+&nbsp; &nbsp;
+&nbsp; &nbsp;
+
+### Relación stock-recluta $(SR)$ {.tabset .tabset-fade }
 
 &nbsp; &nbsp;
 
@@ -444,17 +486,38 @@ kbl(caption = "Parámetros biológicos") %>%
 
 &nbsp; &nbsp;
 
+##### Curva $SR$
+
+Se ignora steepness y  ajuste de sesgo para obtener estimaciones de reclutamiento sin restricciones(*SR_function*=4). Por lo tanto, no se usa steepness (*Use_steep_init_equi*=0) para el cálculo de Reclutamiento inicial en equilibrio ($R_0$).
+ 
 ```{r }
 #'*_Spawner-Recruitment; Options: 2=Ricker; 3=std_B-H; 4=SCAA; 5=Hockey; 6=B-H_flattop; 7=survival_3Parm; 8=Shepherd_3Parm; 9=RickerPower_3parm*
 #'* 0/1 to use steepness in initial equ recruitment calculation*
 #'* future feature:  0/1 to make realized sigmaR a function of SR curvature*
-ctl1[45:47]
+ctl1[44:45]
 ```
-
 
 &nbsp; &nbsp;
 
+##### Desvíos del reclutamiento $(RecDev)$
+
+Los desvíos del reclutamiento se codifican como un vector de desviación, por lo que ADMB impone una restricción de suma igual a cero (do_recdev=1). Se especifica el Año de inicio y final de los desvíos del reclutamiento, fase de estimación (recdev_phase=1).
+
+
+```{r }
+#'*do_recdev:  0=none; 1=devvector (R=F(SSB)+dev); 2=deviations (R=F(SSB)+dev); 3=deviations (R=R0xdev; dev2=R-f(SSB)); 4=like 3 with sum(dev2) adding penalty*
+#'* first year of main recr_devs; early devs can preceed this era*
+#'* last year of main recr_devs; forecast devs start in following year*
+#'*_recdev phase *
+ctl1[48:51]
+```
+
+&nbsp; &nbsp;
+&nbsp; &nbsp;
+
 #### Parámetros
+
+Se ingresan parámetros iniciales y su rango bajo y alto para el logaritmo del reclutamiento virginal ($ln(R_0)$) para ser estimado en la primera fase (PHASE=1), steepness $h$, que para nuestro caso se anula, desviación estándar del logaritmo natural del reclutamiento ($\sigma_R$ =0.6), es un parámetro fijo (PHASE=-6), no se consideran cambios de régimen (*SR_regime*=0), ni autocorrelación en el reclutamiento (*SR_autocorr*=0).
 
 
 &nbsp; &nbsp;
@@ -463,52 +526,42 @@ ctl1[45:47]
 ctl1$SR_parms%>% 
 kbl(caption = "Parámetros de la relación stock recluta") %>%
   kable_paper("hover", full_width = F)%>% 
-  scroll_box(width = "100%",height="500px")
+  scroll_box(width = "100%",height="250px")
 ```
+
+&nbsp; &nbsp;
+&nbsp; &nbsp;
 
 #### Figura
 
-```{r}
-sspar(mfrow = c(1, 2), plot.cex = 0.8)
+```{r fig.height=4,fig.width=8, fig.cap="Curva SR con etiquetas de años. Los colores de los puntos indican el año, los colores más cálidos indican años anteriores y los colores más fríos muestran años posteriores."}
+
+sspar(mfrow = c(1, 2), plot.cex = 0.7)
 SSplotSpawnrecruit(replist,subplot =2:3,legend = T)
 ```
 
 
+```{r fig.height=4,fig.width=6, fig.cap="Desviaciones del reclutamiento con intervalos del 95%."}
+SSplotRecdevs(replist, subplots = 2)
+```
+
+
+```{r fig.height=4,fig.width=6, fig.cap="Variaciones de las desviaciones del reclutamiento. sigmaR=0.6"}
+SSplotRecdevs(replist, subplots = 3)
+```
+
+
+&nbsp; &nbsp;
 &nbsp; &nbsp;
 
-### Desvíos de reclutamiento {.tabset .tabset-fade }
+### Mortalidad por pesca $(F)$ {.tabset .tabset-fade }
+
+&nbsp; &nbsp;
+&nbsp; &nbsp;
 
 #### Especificaciones
-&nbsp; &nbsp;
-&nbsp; &nbsp;
 
-```{r }
-#'*do_recdev:  0=none; 1=devvector (R=F(SSB)+dev); 2=deviations (R=F(SSB)+dev); 3=deviations (R=R0xdev; dev2=R-f(SSB)); 4=like 3 with sum(dev2) adding penalty*
-#'* first year of main recr_devs; early devs can preceed this era*
-#'* last year of main recr_devs; forecast devs start in following year*
-#'*_recdev phase *
-ctl1[49:53]
-```
-
-&nbsp; &nbsp;
-&nbsp; &nbsp;
-
-#### Figura
-
-```{r}
-SSplotRecdevs(replist)
-```
-
-
-&nbsp; &nbsp;
-
-&nbsp; &nbsp;
-
-### Mortalidad por pesca {.tabset .tabset-fade }
-
-&nbsp; &nbsp;
- 
-&nbsp; &nbsp;
+No hay especificaciones particulares para  $F$, las capturas de equilibrio son iguales a cero (especificado en el archivos de datos), por lo tanto, no se estiman parámetros de $F$ para las capturas de equilibrio. Se utiliza el método $F$ híbrido recomendado (F_Method=3) para estimar $F$ para los años 1989 hasta el 2021.
 
 ```{r}
 #'*Fishing Mortality info *
@@ -521,23 +574,35 @@ SSplotRecdevs(replist)
 #'*if Fmethod=3; read N iterations for tuning for Fmethod 3*
 #'*N iterations for tuning F in hybrid method (recommend 3 to 7)*
 
-ctl1[54:58]
+ctl1[53:57]
 ```
 
-
+&nbsp; &nbsp;
 &nbsp; &nbsp;
 
-No hay configuraciones especiales particulares para la información de mortalidad por pesca para este modelo, pero tenga en cuenta que se utiliza el método F híbrido recomendado.
+#### Figura
 
+La $F$ se calcula como $Z-M$ donde $Z$ y $M$ se calculan cada uno como $ln(N_{t+1}/N_t)$. Los números se suman para todas las formas biológicas y todas las áreas para el comienzo del año, por lo que incluyen cualquier patrón estacional.
 
+```{r fig.cap="Resumen de F anual calculada como números de F ponderados para un rango específico de edades."}
+SSplotSummaryF(replist)
+```
+
+&nbsp; &nbsp;
 &nbsp; &nbsp;
 
 
-### Capturabilidad {.tabset .tabset-fade }
+### Capturabilidad $(q)$ {.tabset .tabset-fade }
+
+
 
 &nbsp; &nbsp;
 
 #### Especificaciones
+
+La capturabilidad $q$ es el factor de escala que relaciona en este caso la biomasa estimada por el modelo con el valor esperado  de las biomasas de campañas acústicas Pelago, Ecocadiz y Ecocadiz Recluta (fleet=2, 3 y 4). 
+
+Se asume una forma funcional simple (link=1) entre $q$, el valor esperado y la observación, $y=q*x$. No se incluye información adicional para link (link_info=0), error standar extra (extra_se=0), sin sesgo (biasadj=0),y el parámetro $q$ es estimado (float=0).
 
 ```{r}
 #'*_Q_setup for fleets with cpue or survey data*
@@ -551,11 +616,16 @@ No hay configuraciones especiales particulares para la información de mortalida
 ctl1$Q_options%>% 
 kbl(caption = "Especificaciones de capturabilidad") %>%
   kable_paper("hover", full_width = F)%>% 
-  scroll_box(width = "100%",height="500px")
+  scroll_box(width = "100%",height="200px")
 
 ```
 
+&nbsp; &nbsp;
+&nbsp; &nbsp;
+
 #### Parámetros
+
+Se ingresan parámetros iniciales y su rango bajo y alto (INIT=0.08918, LO=-30, HI=15), para ser estimados en la primera fase (PHASE=1) para todas las flotas que corresponden a las campañas acústicas.
 
 ```{r}
 #'*_Q_parms(if_any);Qunits_are_ln(q)*
@@ -563,18 +633,22 @@ kbl(caption = "Especificaciones de capturabilidad") %>%
 ctl1$Q_parms%>% 
 kbl(caption = "Parámetros de capturabilidad") %>%
   kable_paper("hover", full_width = F)%>% 
-  scroll_box(width = "100%",height="500px")
+  scroll_box(width = "100%",height="200px")
 ```
 
 &nbsp; &nbsp;
 &nbsp; &nbsp;
 
-### Selectividad {.tabset .tabset-fade }
+### Selectividad por talla $(S_l)$ {.tabset .tabset-fade }
 
 
 &nbsp; &nbsp;
 
 #### Especificaciones
+
+Para cada flota comercial y campaña acústica se especifica la selectividad por talla $(S_l)$. Se asume selectividad logistica para todas las flotas (pattern =1). En este modelo no se considera descarte (Discard=0).
+
+
 
 &nbsp; &nbsp;
 
@@ -583,46 +657,65 @@ kbl(caption = "Parámetros de capturabilidad") %>%
 ctl1$size_selex_types%>% 
 kbl(caption = "Especificaciones de selectividad tallas") %>%
   kable_paper("hover", full_width = F)%>% 
-  scroll_box(width = "100%",height="500px")
+  scroll_box(width = "100%",height="250px")
 ```
 
-```{r}
+```{r eval=F, echo=F}
 #'*_age_selex_patterns*
 ctl1$age_selex_types%>% 
 kbl(caption = "Especificaciones de selectividad edad") %>%
   kable_paper("hover", full_width = F)%>% 
-  scroll_box(width = "100%",height="500px")
+  scroll_box(width = "100%",height="250px")
 ```
 
 &nbsp; &nbsp;
+&nbsp; &nbsp;
+
+```{r echo=FALSE,   out.width = "80%" }
+
+knitr::include_graphics(here("inputs/Imagen2.jpg"))
+
+```
 
 #### Parámetros
+Se ingresan 2 parámetros iniciales y su rango bajo y alto , para ser estimados en la segunda fase (PHASE=2) en el caso de la flota comercial y en la tercera fase  para las campañas acústicas (PHASE=3). 
+
+Los parámetros de la selectividad logística son $p1$ y $p2$, esto es,  $S_l=1.0/1+exp(-ln(19)(L_l - p1)/p2)$. Donde $L_l$ es el bin de talla, $p1$ es la talla en la inflexión de la curva y $p2$ es la selección al 95%. si $p2$ es negativo provoca una curva descendente.
+
 &nbsp; &nbsp;
 ```{r}
 ctl1$size_selex_parms%>% 
 kbl(caption = "Parámetros selectividad talla") %>%
   kable_paper("hover", full_width = F)%>% 
-  scroll_box(width = "100%",height="500px")
+  scroll_box(width = "100%",height="350px")
 ```
 
-```{r}
+```{r eval=F, echo=F}
 ctl1$age_selex_parms%>% 
 kbl(caption = "Parámetros selectividad edad") %>%
   kable_paper("hover", full_width = F)%>% 
-  scroll_box(width = "100%",height="500px")
+  scroll_box(width = "100%",height="350px")
+```
+
+&nbsp; &nbsp;
+&nbsp; &nbsp;
+
+```{r echo=FALSE,   out.width = "80%" }
+
+knitr::include_graphics(here("inputs/Imagen2.jpg"))
+
 ```
 
 #### Figura
 
-```{r}
+```{r fig.height=4,fig.width=6, fig.cap="Selectividad por talla de la flota comercial y campañas acústicas PELAGO, ECOCADIZ Y ECOCADIZ RECLUTA."}
 SSplotSelex(replist,subplot =1)
-SSplotSelex(replist,subplot =2)
+#SSplotSelex(replist,subplot =2)
 ```
 
 
 &nbsp; &nbsp;
-
-
+&nbsp; &nbsp;
 
 ```{r echo=FALSE,   out.width = "80%" }
 

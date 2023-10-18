@@ -12,15 +12,12 @@ knitr::opts_chunk$set(eval=T,echo=T,comment="",collapse=FALSE, warning=FALSE, me
 
 
 ```{css,echo=FALSE}
-
-
 .scroll-200{
             max-height: 300px; 
             overflow-y: auto; 
             background-color: #f1f1f1;
             }
 ```
-
 
 
 ```{css,echo=FALSE}
